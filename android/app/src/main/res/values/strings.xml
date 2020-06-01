@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">D&D Alchemist</string>
+    <string name="title_activity_main">D&D Alchemist</string>
+    <string name="package_name">com.nkastanos.dndalchemist</string>
+    <string name="custom_url_scheme">com.nkastanos.dndalchemist</string>
+</resources>
