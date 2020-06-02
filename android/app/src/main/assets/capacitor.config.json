@@ -1,0 +1,13 @@
+{
+  "appId": "com.nkastanos.dndalchemist",
+  "appName": "Dnd Alchemist",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

@@ -1,0 +1,14 @@
+{
+  "appId": "com.nkastanos.dndalchemist",
+  "appName": "Dnd Alchemist",
+  "bundledWebRuntime": false,
+  "windowsAndroidStudioPath": "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
