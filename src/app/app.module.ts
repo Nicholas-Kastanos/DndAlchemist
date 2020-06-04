@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AlchemyModule } from './alchemy/alchemy.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,7 @@ import { AlchemyModule } from './alchemy/alchemy.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AlchemyModule
+    SharedModule
   ],
   providers: [
     StatusBar,

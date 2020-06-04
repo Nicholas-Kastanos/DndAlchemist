@@ -13,6 +13,11 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public alchemyPages = [
     {
+      title: 'Inventory',
+      url: '/alchemy',
+      icon: 'mail'
+    },
+    {
       title: 'Inbox',
       url: '/folder/Inbox',
       icon: 'mail'
