@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
 
 import { AlchemyRoutingModule } from './alchemy-routing.module';
 
+
 @NgModule({
+  declarations: [],
   imports: [
     CommonModule,
-    FormsModule,
-    IonicModule
-  ],
-  declarations: []
+    AlchemyRoutingModule
+  ]
 })
-export class AlchemyModule {}
+export class AlchemyModule { }
