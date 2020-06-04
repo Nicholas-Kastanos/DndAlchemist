@@ -1,0 +1,592 @@
+[
+    {
+        "name": "Poison",
+        "essences": [
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "Deals 1d6 poison damage, Constitution save vs Concoction DC for half damage. Three weapon applications."
+    },{
+        "name": "Potent Poison",
+        "essences": [
+            "Air",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "Can be added to a poison to increase the damage die by 1."
+    },{
+        "name": "Volatile Poison",
+        "essences": [
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "Can be added to a poison to increase the size of the damage die."
+    },{
+        "name": "Formidable Poison",
+        "essences": [
+            "Air",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "Can be added to a poison to increase the save DC by 1."
+    },{
+        "name": "Forboding Poison",
+        "essences": [
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "Can be added to a poison to double the duration of the poison."
+    },{
+        "name": "Assassin's Blood",
+        "essences":[
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients": [],
+        "effect": "A creature subjected to this poison must make a DC 10 Constitution saving throw. On a failed save, it takes 6 (1d12) poison damage and is Poisoned for 24 hours. On a successful save, the creature takes half damage and isn’t Poisoned."
+    },{
+        "name": "Burnt Other Fumes",
+        "essences":[
+            "Ether",
+            "Ether",
+            "Earth"
+        ],
+        "requiredIngredients": [],
+        "effect": "A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or take 10 (3d6) poison damage, and must repeat the saving throw at the start of each of its turns. On each successive failed save, the character takes 3 (1d6) poison damage. After three successful saves, the poison ends."
+    },{
+        "name": "Crawler Mucus",
+        "essences": [
+            "Earth",
+            "Earth"
+        ],
+        "requiredIngredients": [
+            "Crawler Mucus"
+        ],
+        "effect": "This poison must be harvested from a dead or Incapacitated crawler. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 minute. The Poisoned creature is Paralyzed. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+    },{
+        "name": "Drow Poison",
+        "essences":[
+            "Water",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients": [
+            "Must be brewed in the dark."
+        ],
+        "effect": "This poison is typically made only by the drow, and only in a place far removed from sunlight. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 hour. If the saving throw fails by 5 or more, the creature is also Unconscious while Poisoned in this way. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
+    },{
+        "name": "Essence of Ether",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "A creature subjected to this poison must succeed on a DC 15 Constitution saving throw or become Poisoned for 8 hours. The Poisoned creature is Unconscious. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
+    },{
+        "name": "Malice",
+        "essences":[
+            "Earth",
+            "Ether",
+            "Fire",
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "A creature subjected to this poison must succeed on a DC 15 Constitution saving throw or become Poisoned for 1 hour. The Poisoned creature is Blinded."
+    },{
+        "name": "Midnight Tears",
+        "essences":[
+            "Ether",
+            "Fire",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients":["Nightshade Berries"],
+        "effect": "A creature that ingests this poison suffers no effect until the stroke of midnight. If the poison has not been neutralized before then, the creature must succeed on a DC 17 Constitution saving throw, taking 31 (9d6) poison damage on a failed save, or half as much damage on a successful one."
+    },{
+        "name": "Oil of Taggit",
+        "essences":[
+            "Air",
+            "Air",
+            "Air",
+            "Ether"
+        ],
+        "requiredIngredients":[],
+        "effect": "A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or become Poisoned for 24 hours. The Poisoned creature is Unconscious. The creature wakes up if it takes damage."
+    },{
+        "name": "Pale Tincture",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Ether"
+        ],
+        "requiredIngredients":[],
+        "effect": "A creature subjected to this poison must succeed on a DC 16 Constitution saving throw or take 3 (1d6) poison damage and become Poisoned. The Poisoned creature must repeat the saving throw every 24 hours, taking 3 (1d6) poison damage on a failed save. Until this poison ends, the damage the poison deals can’t be healed by any means. After seven successful Saving Throws, the effect ends and the creature can heal normally."
+    },{
+        "name": "Purple Worm Poison",
+        "essences":[
+            "Earth",
+            "Ether",
+            "Fire",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients":["Poison from a Purple Worm"],
+        "effect": "This poison must be harvested from a dead or Incapacitated Purple Worm. A creature subjected to this poison must make a DC 19 Constitution saving throw, taking 42 (12d6) poison damage on a failed save, or half as much damage on a successful one."
+    },{
+        "name": "Serpent Venom",
+        "essences":[
+            "Ether",
+            "Water"
+        ],
+        "requiredIngredients":["Giant Snake Poison"],
+        "effect": "This poison must be harvested from a dead or Incapacitated Giant Poisonous Snake. A creature subjected to this poison must succeed on a DC 11 Constitution saving throw, taking 10 (3d6) poison damage on a failed save, or half as much damage on a successful one."
+    },{
+        "name": "Torpor",
+        "essences":[
+            "Earth",
+            "Ether",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "A creature subjected to this poison must succeed on a DC 15 Constitution saving throw or become Poisoned for 4d6 hours. The Poisoned creature is Incapacitated."
+    },{
+        "name": "Truth Serum",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "A creature subjected to this poison must succeed on a DC 11 Constitution saving throw or become Poisoned for 1 hour. The Poisoned creature can’t knowingly speak a lie, as if under the effect of a Zone of Truth spell."
+    },{
+        "name": "Wyvern Poison",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":["Wyvern Poison"],
+        "effect": "This poison must be harvested from a dead or Incapacitated Wyvern. A creature subjected to this poison must make a DC 15 Constitution saving throw, taking 24 (7d6) poison damage on a failed save, or half as much damage on a successful one."
+    },{
+        "name": "Arcane Recovery",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "Gain 1d4+1 points which can be used to recover spell slots. A spell slot level costs one point."
+    },{
+        "name": "Animal Friendship",
+        "essences":[
+            "Air",
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "You can cast the animal friendship spell (save DC 13) for 1 hour at will."
+    },{
+        "name": "Clairvoyance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Cosmos Glond OR Rock Vine OR Verdant"
+        ],
+        "effect": "When you drink this potion, you gain the effect of the clairvoyance spell."
+    },{
+        "name": "Climbing",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":[],
+        "effect": "When you drink this potion, you gain a climbing speed equal to your walking speed for 1 hour. During this time, you have advantage on Strength (Athletics) checks you make to climb."
+    },{
+        "name": "Dragon Breath",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "One damage type ingredient"
+        ],
+        "effect": "After drinking this potion, you can use a bonus action to exhale fire at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the fire three times or when 1 hour has passed."
+    },{
+        "name": "Damage Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["One damage type ingredient"],
+        "effect": "When you drink this potion, you gain resistance to one type of damage for 1 hour."
+    },{
+        "name": "Darkvision",
+        "essences":[
+            "Air",
+            "Fire",
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "When you drink this potion, you gain the effect of the darkvision spell."
+    },{
+        "name": "Diminution",
+        "essences":[
+            "Air",
+            "Air",
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Ecire Laurel OR Olina Petals"
+        ],
+        "effect": "When you drink this potion, you gain the “reduce” effect of the enlarge/reduce spell for 1d4 hours (no concentration required)."
+    },{
+        "name": "Disapearance",
+        "essences":[
+            "Air",
+            "Ether",
+            "Water"
+        ],
+        "requiredIngredients":["Blood Grass"],
+        "effect": "When you use an action to throw the concoction into the air, you and each creature and object within 10 feet of you become Invisible for 2d4 minutes. The Duration is the same for all subjects, and the concoction is consumed when its magic takes effect. If a creature affected by the dust attacks or casts a spell, the Invisibility ends for that creature."
+    },{
+        "name": "Dryness",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Scilia Beans"],
+        "effect": " You can use an action to sprinkle a pinch of it over water. The dust turns a cube of water 15 feet on a side into one marble-sized pellet, which floats or rests near where the dust was sprinkled."
+    },{
+        "name": "Etherealness",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Twilight Wormwood",
+            "Voidroot",
+            "Wispstalk",
+            "Primordial Balm OR Chromus Slime"
+        ],
+        "effect": "The affected creature then gains the effect of the Etherealness spell for 1 hour."
+    },{
+        "name": "Flying",
+        "essences":[
+            "Air",
+            "Air",
+            "Air",
+            "Earth",
+            "Ether",
+            "Ether"
+        ],
+        "requiredIngredients":[
+            "Feather of a Large Beast",
+            "Harrada Leaf"
+        ],
+        "effect": "You gain a flying speed equal to your walking speed for 1 hour and can hover. If you’re in the air when the potion wears off, you fall unless you have some other means of staying aloft."
+    },{
+        "name": "Gaseous Form",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Ether",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Kasuni Juice OR Wrackwort Bulbs"
+        ],
+        "effect": "You gain the effect of the gaseous form spell for 1 hour (no concentration required) or until you end the effect as a bonus action."
+    },{
+        "name": "Hill Giant Strength",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Erbium Fungus",
+            "Dragontongue",
+            "Blackleaf Rose",
+            "Ashchives"
+        ],
+        "effect": "When you drink this potion, your Strength score changes to 21 for 1 hour."
+    },{
+        "name": "Fire Giant Strength",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Erbium Fungus",
+            "Dragontongue",
+            "Blackleaf Rose",
+            "Olina Petals"
+        ],
+        "effect": "When you drink this potion, your Strength score changes to 25 for 1 hour."
+    },{
+        "name": "Frost Giant Strength",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Erbium Fungus",
+            "Dragontongue",
+            "Blackleaf Rose",
+            "Frozen Seedlings"
+        ],
+        "effect": "When you drink this potion, your Strength score changes to 23 for 1 hour."
+    },{
+        "name": "Cloud Giant Strength",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Erbium Fungus",
+            "Dragontongue",
+            "Blackleaf Rose",
+            "Wisp Stalks"
+        ],
+        "effect": "When you drink this potion, your Strength score changes to 27 for 1 hour."
+    },{
+        "name": "Storm Giant Strength",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Erbium Fungus",
+            "Dragontongue",
+            "Blackleaf Rose",
+            "Behir Skin"
+        ],
+        "effect": "When you drink this potion, your Strength score changes to 29 for 1 hour."
+    },{
+        "name": "Growth",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Wild Sageroot"
+        ],
+        "effect": "When you drink this potion, you gain the “enlarge” effect of the enlarge/reduce spell for 1d4 hours (no concentration required)."
+    },{
+        "name": "Health",
+        "essences":[
+            "Earth",
+            "Ether",
+            "Fire",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Lunar Nectar",
+            "Angel Flower OR Luminous Cap Dust"
+        ],
+        "effect": "When you drink this potion, it cures any disease afflicting you, and it removes the blinded, deafened, paralyzed, and poisoned conditions."
+    },{
+        "name": "Healing",
+        "essences":[
+            "Ether",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "You regain 2d4+2 hit points when you drink this potion."
+    },{
+        "name": "Heroism",
+        "essences":[
+            "Earth",
+            "Earth",
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Arrow Root",
+            "Abyss Flower"
+        ],
+        "effect": "For 1 hour after drinking it, you gain 10 temporary hit points that last for 1 hour. For the same duration, you are under the effect of the bless spell (no concentration required)."
+    },{
+        "name": "Invisibility",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Quasit Horn OR Imp Tail OR Faerie Dragon Wing"
+        ],
+        "effect": "When you drink it, you become invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell."
+    },{
+        "name": "Invulnerability",
+        "essences":[
+            "Air",
+            "Earth",
+            "Earth",
+            "Ether",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Fiend's Ivy OR (Hydrathistle AND Genko Bush)"
+        ],
+        "effect": "For 1 minute after you drink this potion, you have Resistance to all damage."
+    },{
+        "name": "Longevity",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Ether",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "When you drink this potion, your physical age is reduced by 1d6 + 6 years, to a minimum of 13 years. Each time you subsequently drink a potion of longevity, there is 10 percent cumulative chance that you instead age by 1d6 + 6 years."
+    },{
+        "name": "Love",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Fire",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Ironwood Heart",
+            "Blood"
+        ],
+        "effect": "The next time you see a creature within 10 minutes after drinking this philter, you become charmed by that creature for 1 hour. If the creature is of a species and gender you are normally attracted to, you regard it as your true love while you are charmed."
+    },{
+        "name": "Mind Reading",
+        "essences":[
+            "Air",
+            "Ether",
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Blue Toadshade"
+        ],
+        "effect": "When you drink this potion, you gain the effect of the detect thoughts spell (save DC 13)."
+    },{
+        "name": "Sharpness",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Fire",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Devil's Bloodleaf"
+        ],
+        "effect": "Applying the oil takes 1 minute. For 1 hour, the coated item is magical and has a +3 bonus to attack and damage rolls."
+    },{
+        "name": "Slipperiness",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Water"
+        ],
+        "requiredIngredients":[],
+        "effect": "The affected creature then gains the effect of a freedom of movement spell for 8 hours."
+    },{
+        "name": "Sneezing and Choking",
+        "essences":[
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[],
+        "effect": "When you use an action to throw a handful of the dust into the air, you and each creature that needs to breathe within 30 feet of you must succeed on a DC 15 Constitution saving throw or become unable to breathe while sneezing uncontrollably. A creature affected in this way is Incapacitated and Suffocating. As long as it is conscious, a creature can repeat the saving throw at the end of each of its turns, ending the effect on it on a success. The Lesser Restoration spell can also end the effect on a creature."
+    },{
+        "name": "Speed",
+        "essences":[
+            "Air",
+            "Air",
+            "Earth",
+            "Ether",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Verdant Nettle",
+            "Lunar Nectar"
+        ],
+        "effect": "When you drink this potion, you gain the effect of the haste spell for 1 minute (no concentration required)."
+    },{
+        "name": "Vitality",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether",
+            "Ether",
+            "Water",
+            "Water"
+        ],
+        "requiredIngredients":[
+            "Angel Flower"
+        ],
+        "effect": "When you drink this potion, it removes any exhaustion you are suffering and cures any disease or poison affecting you. For the next 24 hours, you regain the maximum number of hit points for any Hit Die you spend."
+    },{
+        "name": "Water Breathing",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether"
+        ],
+        "requiredIngredients":[
+            "Amantia Cap"
+        ],
+        "effect": "You can breathe underwater for 1 hour after drinking this potion."
+    }
+]

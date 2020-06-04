@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Smoke Bomb",
+        "essences": [
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients": [],
+        "effect": "Fills area with smoke, making the area heavily obscured."
+    },{
+        "name": "Explosive Force",
+        "essences": [
+            "Air",
+            "Earth"
+        ],
+        "requiredIngredients": [],
+        "effect": "+1d4 force damage."
+    },{
+        "name": "Blinding Flash",
+        "essences": [
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients": [],
+        "effect": "On failed save, the target is blinded for 1 minute, and can make saves to resist this effect at the end of its turns."
+    },{
+        "name": "Blast Radius",
+        "essences": [
+            "Air",
+            "Ether"
+        ],
+        "requiredIngredients": [],
+        "effect": "Increases radius of effect by 5ft."
+    },{
+        "name": "Enhanced Blast",
+        "essences": [
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients": [],
+        "effect": "Increases damage by one die."
+    },{
+        "name": "Volatile Blast",
+        "essences": [
+            "Earth",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients": [],
+        "effect": "Increases damage die size by one."
+    }
+]
