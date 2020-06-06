@@ -18,7 +18,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    SharedModule
+    SharedModule.forRoot()
   ],
   providers: [
     StatusBar,

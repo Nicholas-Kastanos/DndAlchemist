@@ -21,4 +21,12 @@ export class InventoryPage implements OnInit {
     }
   }
 
+  check(){
+    let checkB = this.database.created();
+    console.log("checkB="+checkB);
+    if(checkB){
+      this.generated = "Generated";
+    }
+  }
+
 }
