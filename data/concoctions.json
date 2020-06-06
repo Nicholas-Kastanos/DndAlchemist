@@ -1,7 +1,7 @@
 [
     {
         "name": "Poison",
-        "damageDie": 6,
+        "dieType": 6,
         "dieNumber": 1,
         "DC": 12,
         "save": "con",
@@ -12,8 +12,10 @@
         "effect": "Deals 1d6 poison damage, Constitution save vs DC 12 for half damage."
     },{
         "name": "Assassin's Blood",
-        "damageDie": 12,
+        "dieType": 12,
         "DC": 10,
+        "durationLength": 24,
+        "durationType": "hour",
         "dieNumber": 1,
         "save": "con",
         "essences":[
@@ -28,7 +30,7 @@
         "DC": 13,
         "save": "con",
         "dieNumber": 3,
-        "damageDie": 6,
+        "dieType": 6,
         "essences":[
             "Ether",
             "Ether",
@@ -40,6 +42,8 @@
         "name": "Crawler Mucus",
         "DC": 13,
         "save": "con",
+        "durationLength": 1,
+        "durationType": "minute",
         "essences": [
             "Earth",
             "Earth"
@@ -52,6 +56,8 @@
         "name": "Drow Poison",
         "DC": 13,
         "save": "con",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Water",
             "Water",
@@ -65,6 +71,8 @@
         "name": "Essence of Ether",
         "save": "con",
         "DC": 15,
+        "durationType": "hour",
+        "durationLength": 8,
         "essences":[
             "Air",
             "Air",
@@ -75,6 +83,10 @@
         "effect": "A creature subjected to this poison must succeed on a DC 15 Constitution saving throw or become Poisoned for 8 hours. The Poisoned creature is Unconscious. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
     },{
         "name": "Malice",
+        "DC": 15,
+        "save": "con",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Ether",
@@ -85,6 +97,10 @@
         "effect": "A creature subjected to this poison must succeed on a DC 15 Constitution saving throw or become Poisoned for 1 hour. The Poisoned creature is Blinded."
     },{
         "name": "Midnight Tears",
+        "dieNumber": 9,
+        "dieType": 6,
+        "DC": 17,
+        "save": "con",
         "essences":[
             "Ether",
             "Fire",
@@ -95,6 +111,10 @@
         "effect": "A creature that ingests this poison suffers no effect until the stroke of midnight. If the poison has not been neutralized before then, the creature must succeed on a DC 17 Constitution saving throw, taking 31 (9d6) poison damage on a failed save, or half as much damage on a successful one."
     },{
         "name": "Oil of Taggit",
+        "DC": 13,
+        "save": "con",
+        "durationLength": 24,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -105,6 +125,10 @@
         "effect": "A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or become Poisoned for 24 hours. The Poisoned creature is Unconscious. The creature wakes up if it takes damage."
     },{
         "name": "Pale Tincture",
+        "DC": 16,
+        "save": "con",
+        "dieType": 6,
+        "dieNumber": 1,
         "essences":[
             "Air",
             "Earth",
@@ -115,6 +139,10 @@
         "effect": "A creature subjected to this poison must succeed on a DC 16 Constitution saving throw or take 3 (1d6) poison damage and become Poisoned. The Poisoned creature must repeat the saving throw every 24 hours, taking 3 (1d6) poison damage on a failed save. Until this poison ends, the damage the poison deals can’t be healed by any means. After seven successful Saving Throws, the effect ends and the creature can heal normally."
     },{
         "name": "Purple Worm Poison",
+        "DC": 19,
+        "save": "con",
+        "dieType": 6,
+        "dieNumber": 12,
         "essences":[
             "Earth",
             "Ether",
@@ -126,6 +154,10 @@
         "effect": "This poison must be harvested from a dead or Incapacitated Purple Worm. A creature subjected to this poison must make a DC 19 Constitution saving throw, taking 42 (12d6) poison damage on a failed save, or half as much damage on a successful one."
     },{
         "name": "Serpent Venom",
+        "DC": 11,
+        "save": "con",
+        "dieNumber": 3,
+        "dieType": 6,
         "essences":[
             "Ether",
             "Water"
@@ -134,6 +166,10 @@
         "effect": "This poison must be harvested from a dead or Incapacitated Giant Poisonous Snake. A creature subjected to this poison must succeed on a DC 11 Constitution saving throw, taking 10 (3d6) poison damage on a failed save, or half as much damage on a successful one."
     },{
         "name": "Torpor",
+        "DC": 15,
+        "save": "con",
+        "durationLength": 4,
+        "durationType": "d6 hours",
         "essences":[
             "Earth",
             "Ether",
@@ -144,6 +180,10 @@
         "effect": "A creature subjected to this poison must succeed on a DC 15 Constitution saving throw or become Poisoned for 4d6 hours. The Poisoned creature is Incapacitated."
     },{
         "name": "Truth Serum",
+        "DC": 11,
+        "save": "con",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -154,6 +194,10 @@
         "effect": "A creature subjected to this poison must succeed on a DC 11 Constitution saving throw or become Poisoned for 1 hour. The Poisoned creature can’t knowingly speak a lie, as if under the effect of a Zone of Truth spell."
     },{
         "name": "Wyvern Poison",
+        "DC": 15,
+        "save": "con",
+        "dieType": 6,
+        "dieNumber": 7,
         "essences":[
             "Air",
             "Air",
@@ -164,6 +208,8 @@
         "effect": "This poison must be harvested from a dead or Incapacitated Wyvern. A creature subjected to this poison must make a DC 15 Constitution saving throw, taking 24 (7d6) poison damage on a failed save, or half as much damage on a successful one."
     },{
         "name": "Arcane Recovery",
+        "dieType": 4,
+        "dieNumber": 1,
         "essences":[
             "Air",
             "Earth",
@@ -175,6 +221,10 @@
         "effect": "Gain 1d4+1 points which can be used to recover spell slots. A spell slot level costs one point."
     },{
         "name": "Animal Friendship",
+        "save": "wis",
+        "DC": 13,
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Ether",
@@ -185,6 +235,8 @@
         "effect": "You can cast the animal friendship spell (save DC 13) for 1 hour at will."
     },{
         "name": "Clairvoyance",
+        "durationType": "minute",
+        "durationLength": 10,
         "essences":[
             "Air",
             "Earth",
@@ -198,6 +250,8 @@
         "effect": "When you drink this potion, you gain the effect of the clairvoyance spell."
     },{
         "name": "Climbing",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -207,6 +261,10 @@
         "effect": "When you drink this potion, you gain a climbing speed equal to your walking speed for 1 hour. During this time, you have advantage on Strength (Athletics) checks you make to climb."
     },{
         "name": "Frost Dragon Breath",
+        "DC": 13,
+        "save": "dex",
+        "dieNumber": 4,
+        "dieType":6,
         "essences":[
             "Air",
             "Air",
@@ -219,6 +277,10 @@
         "effect": "After drinking this potion, you can use a bonus action to exhale frost at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 cold damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the frost three times or when 1 hour has passed."
     },{
         "name": "Fire Dragon Breath",
+        "DC": 13,
+        "save": "dex",
+        "dieNumber": 4,
+        "dieType":6,
         "essences":[
             "Air",
             "Air",
@@ -231,6 +293,10 @@
         "effect": "After drinking this potion, you can use a bonus action to exhale fire at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the fire three times or when 1 hour has passed."
     },{
         "name": "Poison Dragon Breath",
+        "DC": 13,
+        "save": "dex",
+        "dieNumber": 4,
+        "dieType":6,
         "essences":[
             "Air",
             "Air",
@@ -243,6 +309,10 @@
         "effect": "After drinking this potion, you can use a bonus action to exhale poison at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 poison damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the poison three times or when 1 hour has passed."
     },{
         "name": "Acid Dragon Breath",
+        "DC": 13,
+        "save": "dex",
+        "dieNumber": 4,
+        "dieType":6,
         "essences":[
             "Air",
             "Air",
@@ -255,6 +325,10 @@
         "effect": "After drinking this potion, you can use a bonus action to exhale acid at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 acid damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the poison three times or when 1 hour has passed."
     },{
         "name": "Lightning Dragon Breath",
+        "DC": 13,
+        "save": "dex",
+        "dieNumber": 4,
+        "dieType":6,
         "essences":[
             "Air",
             "Air",
@@ -267,6 +341,8 @@
         "effect": "After drinking this potion, you can use a bonus action to exhale lightning at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 lightning damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the lightning three times or when 1 hour has passed."
     },{
         "name": "Cold Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -276,6 +352,8 @@
         "effect": "When you drink this potion, you gain resistance to cold damage for 1 hour."
     },{
         "name": "Fire Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -285,6 +363,8 @@
         "effect": "When you drink this potion, you gain resistance to fire damage for 1 hour."
     },{
         "name": "Poison Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -294,6 +374,8 @@
         "effect": "When you drink this potion, you gain resistance to poison damage for 1 hour."
     },{
         "name": "Acid Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -303,6 +385,8 @@
         "effect": "When you drink this potion, you gain resistance to acid damage for 1 hour."
     },{
         "name": "Lightning Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -312,6 +396,8 @@
         "effect": "When you drink this potion, you gain resistance to lightning damage for 1 hour."
     },{
         "name": "Radiant Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -321,6 +407,8 @@
         "effect": "When you drink this potion, you gain resistance to radiant damage for 1 hour."
     },{
         "name": "Necrotic Resistance",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -330,6 +418,8 @@
         "effect": "When you drink this potion, you gain resistance to necrotic damage for 1 hour."
     },{
         "name": "Darkvision",
+        "durationLength": 8,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Fire",
@@ -339,6 +429,8 @@
         "effect": "When you drink this potion, you gain the effect of the darkvision spell."
     },{
         "name": "Diminution",
+        "durationType": "d4 hours",
+        "durationLength": 1,
         "essences":[
             "Air",
             "Air",
@@ -352,6 +444,8 @@
         "effect": "When you drink this potion, you gain the “reduce” effect of the enlarge/reduce spell for 1d4 hours (no concentration required)."
     },{
         "name": "Disapearance",
+        "durationLength": 2,
+        "durationType": "d4 minutes",
         "essences":[
             "Air",
             "Ether",
@@ -370,6 +464,8 @@
         "effect": " You can use an action to sprinkle a pinch of it over water. The dust turns a cube of water 15 feet on a side into one marble-sized pellet, which floats or rests near where the dust was sprinkled."
     },{
         "name": "Etherealness",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -386,6 +482,8 @@
         "effect": "The affected creature then gains the effect of the Etherealness spell for 1 hour."
     },{
         "name": "Flying",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -401,6 +499,8 @@
         "effect": "You gain a flying speed equal to your walking speed for 1 hour and can hover. If you’re in the air when the potion wears off, you fall unless you have some other means of staying aloft."
     },{
         "name": "Gaseous Form",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -414,6 +514,8 @@
         "effect": "You gain the effect of the gaseous form spell for 1 hour (no concentration required) or until you end the effect as a bonus action."
     },{
         "name": "Hill Giant Strength",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Earth",
@@ -429,6 +531,8 @@
         "effect": "When you drink this potion, your Strength score changes to 21 for 1 hour."
     },{
         "name": "Fire Giant Strength",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Earth",
@@ -444,6 +548,8 @@
         "effect": "When you drink this potion, your Strength score changes to 25 for 1 hour."
     },{
         "name": "Frost Giant Strength",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Earth",
@@ -459,6 +565,8 @@
         "effect": "When you drink this potion, your Strength score changes to 23 for 1 hour."
     },{
         "name": "Cloud Giant Strength",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Earth",
@@ -474,6 +582,8 @@
         "effect": "When you drink this potion, your Strength score changes to 27 for 1 hour."
     },{
         "name": "Storm Giant Strength",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Earth",
@@ -489,6 +599,8 @@
         "effect": "When you drink this potion, your Strength score changes to 29 for 1 hour."
     },{
         "name": "Growth",
+        "durationLength": 1,
+        "durationType": "d4 hours",
         "essences":[
             "Earth",
             "Earth",
@@ -515,6 +627,8 @@
         "effect": "When you drink this potion, it cures any disease afflicting you, and it removes the blinded, deafened, paralyzed, and poisoned conditions."
     },{
         "name": "Healing",
+        "dieNumber": 2,
+        "dieType": 4,
         "essences":[
             "Ether",
             "Water",
@@ -524,6 +638,8 @@
         "effect": "You regain 2d4+2 hit points when you drink this potion."
     },{
         "name": "Heroism",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Earth",
             "Earth",
@@ -538,6 +654,8 @@
         "effect": "For 1 hour after drinking it, you gain 10 temporary hit points that last for 1 hour. For the same duration, you are under the effect of the bless spell (no concentration required)."
     },{
         "name": "Invisibility",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -552,6 +670,8 @@
         "effect": "When you drink it, you become invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell."
     },{
         "name": "Invulnerability",
+        "durationLength": 1,
+        "durationType": "minute",
         "essences":[
             "Air",
             "Earth",
@@ -577,6 +697,8 @@
         "effect": "When you drink this potion, your physical age is reduced by 1d6 + 6 years, to a minimum of 13 years. Each time you subsequently drink a potion of longevity, there is 10 percent cumulative chance that you instead age by 1d6 + 6 years."
     },{
         "name": "Love",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -592,6 +714,10 @@
         "effect": "The next time you see a creature within 10 minutes after drinking this philter, you become charmed by that creature for 1 hour. If the creature is of a species and gender you are normally attracted to, you regard it as your true love while you are charmed."
     },{
         "name": "Mind Reading",
+        "durationLength": 1,
+        "durationType": "minute",
+        "DC": 13,
+        "save":"wis",
         "essences":[
             "Air",
             "Ether",
@@ -605,6 +731,8 @@
         "effect": "When you drink this potion, you gain the effect of the detect thoughts spell (save DC 13)."
     },{
         "name": "Sharpness",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -619,6 +747,8 @@
         "effect": "Applying the oil takes 1 minute. For 1 hour, the coated item is magical and has a +3 bonus to attack and damage rolls."
     },{
         "name": "Slipperiness",
+        "durationLength": 8,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -629,6 +759,8 @@
         "effect": "The affected creature then gains the effect of a freedom of movement spell for 8 hours."
     },{
         "name": "Sneezing and Choking",
+        "DC": 15,
+        "save": "con",
         "essences":[
             "Air",
             "Ether",
@@ -638,6 +770,8 @@
         "effect": "When you use an action to throw a handful of the dust into the air, you and each creature that needs to breathe within 30 feet of you must succeed on a DC 15 Constitution saving throw or become unable to breathe while sneezing uncontrollably. A creature affected in this way is Incapacitated and Suffocating. As long as it is conscious, a creature can repeat the saving throw at the end of each of its turns, ending the effect on it on a success. The Lesser Restoration spell can also end the effect on a creature."
     },{
         "name": "Speed",
+        "durationLength": 1,
+        "durationType": "minute",
         "essences":[
             "Air",
             "Air",
@@ -653,6 +787,8 @@
         "effect": "When you drink this potion, you gain the effect of the haste spell for 1 minute (no concentration required)."
     },{
         "name": "Vitality",
+        "durationLength": 24,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Earth",
@@ -667,6 +803,8 @@
         "effect": "When you drink this potion, it removes any exhaustion you are suffering and cures any disease or poison affecting you. For the next 24 hours, you regain the maximum number of hit points for any Hit Die you spend."
     },{
         "name": "Water Breathing",
+        "durationLength": 1,
+        "durationType": "hour",
         "essences":[
             "Air",
             "Air",
@@ -678,6 +816,8 @@
         "effect": "You can breathe underwater for 1 hour after drinking this potion."
     },{
         "name": "Nightmare",
+        "durationLength": 8,
+        "durationType": "hour",
         "essences": [
             "Fire",
             "Fire",
