@@ -1,13 +1,21 @@
 [
     {
         "name": "Poison",
+        "damageDie": 6,
+        "dieNumber": 1,
+        "DC": 12,
+        "save": "con",
         "essences": [
             "Fire"
         ],
         "requiredIngredients":[],
-        "effect": "Deals 1d6 poison damage, Constitution save vs Concoction DC for half damage. Three weapon applications."
+        "effect": "Deals 1d6 poison damage, Constitution save vs DC 12 for half damage."
     },{
         "name": "Assassin's Blood",
+        "damageDie": 12,
+        "DC": 10,
+        "dieNumber": 1,
+        "save": "con",
         "essences":[
             "Ether",
             "Fire",
@@ -17,6 +25,10 @@
         "effect": "A creature subjected to this poison must make a DC 10 Constitution saving throw. On a failed save, it takes 6 (1d12) poison damage and is Poisoned for 24 hours. On a successful save, the creature takes half damage and isn’t Poisoned."
     },{
         "name": "Burnt Other Fumes",
+        "DC": 13,
+        "save": "con",
+        "dieNumber": 3,
+        "damageDie": 6,
         "essences":[
             "Ether",
             "Ether",
@@ -26,6 +38,8 @@
         "effect": "A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or take 10 (3d6) poison damage, and must repeat the saving throw at the start of each of its turns. On each successive failed save, the character takes 3 (1d6) poison damage. After three successful saves, the poison ends."
     },{
         "name": "Crawler Mucus",
+        "DC": 13,
+        "save": "con",
         "essences": [
             "Earth",
             "Earth"
@@ -36,6 +50,8 @@
         "effect": "This poison must be harvested from a dead or Incapacitated crawler. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 minute. The Poisoned creature is Paralyzed. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
     },{
         "name": "Drow Poison",
+        "DC": 13,
+        "save": "con",
         "essences":[
             "Water",
             "Water",
@@ -47,6 +63,8 @@
         "effect": "This poison is typically made only by the drow, and only in a place far removed from sunlight. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 hour. If the saving throw fails by 5 or more, the creature is also Unconscious while Poisoned in this way. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
     },{
         "name": "Essence of Ether",
+        "save": "con",
+        "DC": 15,
         "essences":[
             "Air",
             "Air",
@@ -658,5 +676,16 @@
             "Amantia Cap"
         ],
         "effect": "You can breathe underwater for 1 hour after drinking this potion."
+    },{
+        "name": "Nightmare",
+        "essences": [
+            "Fire",
+            "Fire",
+            "Water"
+        ],
+        "requiredIngredients": [
+            "Blackhead Mushroom"
+        ],
+        "effect": "Make a DC 12 Wis saving throw. On a failed save the creature is frightened for the next 8 hours."
     }
 ]

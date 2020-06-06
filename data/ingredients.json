@@ -779,6 +779,17 @@
             "Underdark"
         ]
     },{
+        "name": "Blackhead Mushroom",
+        "rarity": "very rare",
+        "essences": [
+
+        ],
+        "details": "Wisdom saving throws are made with disadvantage",
+        "locations": [
+            "Swamp",
+            "Underdark"
+        ]
+    },{
         "name": "Crawler Mucus",
         "rarity": "",
         "essences": [
