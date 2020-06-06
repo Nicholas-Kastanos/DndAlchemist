@@ -5,7 +5,7 @@
         "Air",
         "Fire"
     ],
-    "baseEffect": "Thrown (range 15/30), 10ft. radius. 1d6 bludgeoning damage. Dexterity Save vs Concoction DC for half damage."
+    "baseEffect": "Thrown (range 15/30), 10ft. radius. 1d6 bludgeoning damage. Dexterity Save vs DC 12 for half damage."
 },{
     "name": "Dust",
     "baseEssences": [

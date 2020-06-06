@@ -7,38 +7,6 @@
         "requiredIngredients":[],
         "effect": "Deals 1d6 poison damage, Constitution save vs Concoction DC for half damage. Three weapon applications."
     },{
-        "name": "Potent Poison",
-        "essences": [
-            "Air",
-            "Water"
-        ],
-        "requiredIngredients":[],
-        "effect": "Can be added to a poison to increase the damage die by 1."
-    },{
-        "name": "Volatile Poison",
-        "essences": [
-            "Fire",
-            "Water"
-        ],
-        "requiredIngredients":[],
-        "effect": "Can be added to a poison to increase the size of the damage die."
-    },{
-        "name": "Formidable Poison",
-        "essences": [
-            "Air",
-            "Water"
-        ],
-        "requiredIngredients":[],
-        "effect": "Can be added to a poison to increase the save DC by 1."
-    },{
-        "name": "Forboding Poison",
-        "essences": [
-            "Fire",
-            "Water"
-        ],
-        "requiredIngredients":[],
-        "effect": "Can be added to a poison to double the duration of the poison."
-    },{
         "name": "Assassin's Blood",
         "essences":[
             "Ether",
@@ -136,7 +104,7 @@
             "Water",
             "Water"
         ],
-        "requiredIngredients":["Poison from a Purple Worm"],
+        "requiredIngredients":["Purple Worm Venom"],
         "effect": "This poison must be harvested from a dead or Incapacitated Purple Worm. A creature subjected to this poison must make a DC 19 Constitution saving throw, taking 42 (12d6) poison damage on a failed save, or half as much damage on a successful one."
     },{
         "name": "Serpent Venom",
@@ -144,7 +112,7 @@
             "Ether",
             "Water"
         ],
-        "requiredIngredients":["Giant Snake Poison"],
+        "requiredIngredients":["Giant Snake Venom"],
         "effect": "This poison must be harvested from a dead or Incapacitated Giant Poisonous Snake. A creature subjected to this poison must succeed on a DC 11 Constitution saving throw, taking 10 (3d6) poison damage on a failed save, or half as much damage on a successful one."
     },{
         "name": "Torpor",
@@ -220,7 +188,7 @@
         "requiredIngredients":[],
         "effect": "When you drink this potion, you gain a climbing speed equal to your walking speed for 1 hour. During this time, you have advantage on Strength (Athletics) checks you make to climb."
     },{
-        "name": "Dragon Breath",
+        "name": "Frost Dragon Breath",
         "essences":[
             "Air",
             "Air",
@@ -228,18 +196,120 @@
             "Fire"
         ],
         "requiredIngredients":[
-            "One damage type ingredient"
+            "Arctic Creeper"
+        ],
+        "effect": "After drinking this potion, you can use a bonus action to exhale frost at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 cold damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the frost three times or when 1 hour has passed."
+    },{
+        "name": "Fire Dragon Breath",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Drakus Flower"
         ],
         "effect": "After drinking this potion, you can use a bonus action to exhale fire at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 fire damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the fire three times or when 1 hour has passed."
     },{
-        "name": "Damage Resistance",
+        "name": "Poison Dragon Breath",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Drojos Ivy"
+        ],
+        "effect": "After drinking this potion, you can use a bonus action to exhale poison at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 poison damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the poison three times or when 1 hour has passed."
+    },{
+        "name": "Acid Dragon Breath",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Milkweed Seeds"
+        ],
+        "effect": "After drinking this potion, you can use a bonus action to exhale acid at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 acid damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the poison three times or when 1 hour has passed."
+    },{
+        "name": "Lightning Dragon Breath",
+        "essences":[
+            "Air",
+            "Air",
+            "Ether",
+            "Fire"
+        ],
+        "requiredIngredients":[
+            "Wyrmtongue Petals"
+        ],
+        "effect": "After drinking this potion, you can use a bonus action to exhale lightning at a target within 30 feet of you. The target must make a DC 13 Dexterity saving throw, taking 4d6 lightning damage on a failed save, or half as much damage on a successful one. The effect ends after you exhale the lightning three times or when 1 hour has passed."
+    },{
+        "name": "Cold Resistance",
         "essences":[
             "Air",
             "Earth",
             "Ether"
         ],
-        "requiredIngredients":["One damage type ingredient"],
-        "effect": "When you drink this potion, you gain resistance to one type of damage for 1 hour."
+        "requiredIngredients":["Arctic Creeper"],
+        "effect": "When you drink this potion, you gain resistance to cold damage for 1 hour."
+    },{
+        "name": "Fire Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Drakus Flower"],
+        "effect": "When you drink this potion, you gain resistance to fire damage for 1 hour."
+    },{
+        "name": "Poison Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Drojos Ivy"],
+        "effect": "When you drink this potion, you gain resistance to poison damage for 1 hour."
+    },{
+        "name": "Acid Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Milkweed seeds"],
+        "effect": "When you drink this potion, you gain resistance to acid damage for 1 hour."
+    },{
+        "name": "Lightning Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Wyrmtongue Petals"],
+        "effect": "When you drink this potion, you gain resistance to lightning damage for 1 hour."
+    },{
+        "name": "Radiant Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Angel Flower"],
+        "effect": "When you drink this potion, you gain resistance to radiant damage for 1 hour."
+    },{
+        "name": "Necrotic Resistance",
+        "essences":[
+            "Air",
+            "Earth",
+            "Ether"
+        ],
+        "requiredIngredients":["Devil's Bloodleaf"],
+        "effect": "When you drink this potion, you gain resistance to necrotic damage for 1 hour."
     },{
         "name": "Darkvision",
         "essences":[
