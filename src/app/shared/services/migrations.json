@@ -1,0 +1,6 @@
+[
+    {
+        "name": "Create Characters Table",
+        "rawSql": "CREATE TABLE IF NOT EXISTS Characters(Id INTEGER AUTOINCREMENT PRIMARY KEY, Name TEXT NOT NULL UNIQUE);"
+    }
+]

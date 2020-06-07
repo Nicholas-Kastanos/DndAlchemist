@@ -16,13 +16,13 @@ export class AlchemyInventoryPage implements OnInit {
 
   ngOnInit() {
     this.params = this.route.snapshot.params;
-    if(this.database.created()){
+    if(this.database.migrationTableCreated()){
       this.generated = "Generated";
     }
   }
 
   check(){
-    let checkB = this.database.created();
+    let checkB = this.database.migrationTableCreated();
     console.log("checkB="+checkB);
     if(checkB){
       this.generated = "Generated";
