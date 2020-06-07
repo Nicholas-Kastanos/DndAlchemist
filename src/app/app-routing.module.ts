@@ -12,10 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./alchemy/alchemy.module').then( m => m.AlchemyModule)
   },
   {
-    path: 'base-slider',
-    loadChildren: () => import('./shared/base-slider/base-slider.module').then( m => m.BaseSliderPageModule)
-  },
-  {
     path: 'inventory',
     loadChildren: () => import('./gemtech/inventory/inventory.module').then( m => m.InventoryPageModule)
   }
