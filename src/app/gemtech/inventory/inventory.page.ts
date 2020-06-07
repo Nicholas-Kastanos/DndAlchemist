@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './inventory.page.html',
   styleUrls: ['./inventory.page.scss'],
 })
-export class InventoryPage implements OnInit {
+export class GemtechInventoryPage implements OnInit {
 
   constructor() { }
 

@@ -12,6 +12,14 @@ const routes: Routes = [
     path: 'inventory',
     loadChildren: () => import('./inventory/inventory.module').then( m => m.AlchemyInventoryPageModule)
   },
+  {
+    path: 'brew',
+    loadChildren: () => import('./brew/brew.module').then(m => m.BrewPageModule)
+  },
+  {
+    path: 'forage',
+    loadChildren: () => import('./forage/forage.module').then(m => m.ForagePageModule)
+  }
 ];
 
 @NgModule({

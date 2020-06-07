@@ -15,10 +15,15 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public alchemyPages = [
     {
-      title: 'Inventory',
+      title: 'Alchemy',
       url: '/alchemy',
-      icon: 'mail'
+      icon: 'flask'
     },
+    {
+      title: 'Gemtech',
+      url: '/gemtech',
+      icon: 'cog'
+    }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 

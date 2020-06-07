@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { InventoryPageRoutingModule } from './inventory-routing.module';
 
-import { InventoryPage } from './inventory.page';
+import { GemtechInventoryPage } from './inventory.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,7 @@ import { InventoryPage } from './inventory.page';
     IonicModule,
     InventoryPageRoutingModule
   ],
-  declarations: [InventoryPage]
+  declarations: [GemtechInventoryPage],
+  exports: [GemtechInventoryPage]
 })
-export class InventoryPageModule {}
+export class GemtechInventoryPageModule {}
