@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'inventory',
-    loadChildren: () => import('./inventory/inventory.module').then( m => m.InventoryPageModule)
+    loadChildren: () => import('./inventory/inventory.module').then( m => m.AlchemyInventoryPageModule)
   },
 ];
 

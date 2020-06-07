@@ -3,11 +3,11 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 
 @Component({
-  selector: 'app-inventory',
+  selector: 'app-alchemy-inventory',
   templateUrl: './inventory.page.html',
   styleUrls: ['./inventory.page.scss'],
 })
-export class InventoryPage implements OnInit {
+export class AlchemyInventoryPage implements OnInit {
 
   params: Params;
   generated: string = "Not Generated";

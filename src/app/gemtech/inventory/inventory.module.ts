@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { InventoryPageRoutingModule } from './inventory-routing.module';
 
-import { AlchemyInventoryPage } from './inventory.page';
+import { InventoryPage } from './inventory.page';
 
 @NgModule({
   imports: [
@@ -15,7 +15,6 @@ import { AlchemyInventoryPage } from './inventory.page';
     IonicModule,
     InventoryPageRoutingModule
   ],
-  declarations: [AlchemyInventoryPage],
-  exports: [AlchemyInventoryPage]
+  declarations: [InventoryPage]
 })
-export class AlchemyInventoryPageModule {}
+export class InventoryPageModule {}

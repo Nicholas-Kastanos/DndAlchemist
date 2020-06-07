@@ -782,7 +782,9 @@
         "name": "Blackhead Mushroom",
         "rarity": "very rare",
         "essences": [
-
+            "Earth",
+            "Earth",
+            "Fire"
         ],
         "details": "Wisdom saving throws are made with disadvantage",
         "locations": [
