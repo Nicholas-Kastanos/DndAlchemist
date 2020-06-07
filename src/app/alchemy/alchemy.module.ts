@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { AlchemyRoutingModule } from './alchemy-routing.module';
 import { AlchemyInventoryPageModule } from './inventory/inventory.module'
+import { AlchemyPage } from './alchemy.page';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [AlchemyPage],
   imports: [
     CommonModule,
     AlchemyRoutingModule,

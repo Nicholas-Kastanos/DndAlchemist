@@ -1,0 +1,23 @@
+<ion-header translucent="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>title</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-slides pager="false" [options]="slideOpts">
+      <ion-slide>
+        <h1>Character Inventory</h1>
+      </ion-slide>
+      <ion-slide>
+        <app-alchemy-inventory></app-alchemy-inventory>
+      </ion-slide>
+      <ion-slide>
+        <h1>Gemtech</h1>
+        <app-gemtech-inventory></app-gemtech-inventory>
+      </ion-slide>
+    </ion-slides>
+  </ion-content>

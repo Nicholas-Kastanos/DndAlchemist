@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AlchemyPage } from './alchemy.page';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inventory',
-    pathMatch: 'full'
+    component: AlchemyPage
   },
   {
     path: 'inventory',
