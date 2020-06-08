@@ -8,6 +8,7 @@ import { GemtechPageRoutingModule } from './gemtech-routing.module';
 
 import { GemtechPage } from './gemtech.page';
 import {GemtechInventoryPageModule} from './inventory/inventory.module'
+import {FullListPageModule} from './full-list/full-list.module';
 
 @NgModule({
   declarations: [GemtechPage],
@@ -16,8 +17,9 @@ import {GemtechInventoryPageModule} from './inventory/inventory.module'
     FormsModule,
     IonicModule,
     GemtechPageRoutingModule,
-    GemtechInventoryPageModule
+    GemtechInventoryPageModule,
+    FullListPageModule
   ],
-  exports: [GemtechInventoryPageModule]
+  exports: []
 })
 export class GemtechModule {}

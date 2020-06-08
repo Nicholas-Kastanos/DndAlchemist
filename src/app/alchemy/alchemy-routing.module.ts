@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'forage',
     loadChildren: () => import('./forage/forage.module').then(m => m.ForagePageModule)
+  },
+  {
+    path: 'full-list',
+    loadChildren: () => import('./full-list/full-list.module').then(m => m.FullListPageModule)
   }
 ];
 

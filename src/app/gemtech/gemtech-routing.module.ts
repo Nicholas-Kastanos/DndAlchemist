@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'inventory',
     loadChildren: () => import('./inventory/inventory.module').then( m => m.GemtechInventoryPageModule)
+  },
+  {
+    path: 'full-list',
+    loadChildren: () => import('./full-list/full-list.module')
   }
 ];
 
