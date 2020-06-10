@@ -11,11 +11,7 @@ export class ForagePage implements OnInit {
     private forageInput: FormGroup;
     indeterminateState: boolean;
     checkParent: boolean;
-    biomes: any;
-
-    biomes = [
-        
-    ]
+    biomes: any[];
 
     constructor(private formBuilder: FormBuilder) {
         this.forageInput = new FormGroup({
