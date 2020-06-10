@@ -1,10 +1,27 @@
 <ion-content>
     <h1>Forage Alchemical Supplies</h1>
 
-    <form (ngSubmit)="submit()">
+    <form (ngSubmit)="submit()" [formGroup]="forageInput">
 
         <ion-label>Forage Check:</ion-label>
-        <ion-input type="number" formComtrolName="forageCheck"></ion-input>
+        <ion-input type="number" formControlName="forageCheck"></ion-input>
+
+        <ion-list>
+
+            <ion-item *ngFor="let item of biomes; let i=index">
+
+                <ion-label>{{item.value}}</ion-label>
+                <ion-checkbox slot="end" [value]="item.value" [checked]="item.checked"
+                (ionChange)="onSelectionChange($event,i)">
+            </ion-checkbox>
+
+            </ion-item>
+
+        </ion-list>
+
+        <ion-button 
+            type="submit"
+            color="primary">Forage</ion-button>
 
     </form>
 </ion-content>
