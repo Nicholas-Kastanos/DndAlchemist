@@ -5,6 +5,7 @@
         "dieNumber": 1,
         "DC": 12,
         "save": "con",
+        "damageType": "poison",
         "essences": [
             "Fire"
         ],
@@ -15,6 +16,7 @@
         "dieType": 12,
         "DC": 10,
         "durationLength": 24,
+        "damageType": "poison",
         "durationType": "hour",
         "dieNumber": 1,
         "save": "con",
@@ -30,6 +32,7 @@
         "DC": 13,
         "save": "con",
         "dieNumber": 3,
+        "damageType": "poison",
         "dieType": 6,
         "essences":[
             "Ether",
@@ -99,6 +102,7 @@
         "name": "Midnight Tears",
         "dieNumber": 9,
         "dieType": 6,
+        "damageType": "poison",
         "DC": 17,
         "save": "con",
         "essences":[
@@ -128,6 +132,7 @@
         "DC": 16,
         "save": "con",
         "dieType": 6,
+        "damageType": "poison",
         "dieNumber": 1,
         "essences":[
             "Air",
@@ -143,6 +148,7 @@
         "save": "con",
         "dieType": 6,
         "dieNumber": 12,
+        "damageType": "poison",
         "essences":[
             "Earth",
             "Ether",
@@ -158,6 +164,7 @@
         "save": "con",
         "dieNumber": 3,
         "dieType": 6,
+        "damageType":"poison",
         "essences":[
             "Ether",
             "Water"
@@ -198,6 +205,7 @@
         "save": "con",
         "dieType": 6,
         "dieNumber": 7,
+        "damageType":"poison",
         "essences":[
             "Air",
             "Air",
@@ -265,6 +273,7 @@
         "save": "dex",
         "dieNumber": 4,
         "dieType":6,
+        "damageType": "cold",
         "essences":[
             "Air",
             "Air",
@@ -281,6 +290,7 @@
         "save": "dex",
         "dieNumber": 4,
         "dieType":6,
+        "damageType": "fire",
         "essences":[
             "Air",
             "Air",
@@ -296,6 +306,7 @@
         "DC": 13,
         "save": "dex",
         "dieNumber": 4,
+        "damageType": "poison",
         "dieType":6,
         "essences":[
             "Air",
@@ -313,6 +324,7 @@
         "save": "dex",
         "dieNumber": 4,
         "dieType":6,
+        "damageType": "acid",
         "essences":[
             "Air",
             "Air",
@@ -329,6 +341,7 @@
         "save": "dex",
         "dieNumber": 4,
         "dieType":6,
+        "damageType": "lightning",
         "essences":[
             "Air",
             "Air",

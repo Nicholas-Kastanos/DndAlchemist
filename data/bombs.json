@@ -9,6 +9,9 @@
         "effect": "Fills area with smoke, making the area heavily obscured."
     },{
         "name": "Explosive Force",
+        "dieType": 4,
+        "dieNumber": 1,
+        "damageType": "force",
         "essences": [
             "Air",
             "Earth"
@@ -17,6 +20,8 @@
         "effect": "+1d4 force damage."
     },{
         "name": "Blinding Flash",
+        "durationLength": 1,
+        "durationType": "minute",
         "essences": [
             "Ether",
             "Fire"
@@ -25,6 +30,7 @@
         "effect": "On failed save, the target is blinded for 1 minute, and can make saves to resist this effect at the end of its turns."
     },{
         "name": "Blast Radius",
+        "radius": 5,
         "essences": [
             "Air",
             "Ether"
