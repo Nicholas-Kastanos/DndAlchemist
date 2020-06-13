@@ -31,6 +31,14 @@ export class DatabaseService {
   public migrationsCompleted(): boolean {
     return this.migrationComplete;
   }
+
+  queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
+    let arr = [];
+    for(let i = 0; i < resultSet.rows.length; i++){
+      arr.push(resultSet.rows.item(i));
+    }
+    return (arr as T[]);
+  }
   
   private _createMigrationsTable(): Promise<void>{
     return new Promise<void> ((resolve, reject) => {    
@@ -48,7 +56,6 @@ export class DatabaseService {
   private _runMigrations() : Promise<void> {
     return new Promise<void>((resolve, reject) => {
       let migrations: IMigration[] = migrationsArray;
-      console.debug(JSON.stringify(migrations));
       if (migrations == null){
         console.error("Cannot find migrations.");
         reject();
@@ -57,16 +64,40 @@ export class DatabaseService {
         console.error("No migrations found.");
         reject();
       }
-      this.db.executeSql("SELECT name FROM sqlite_master WHERE type='table'", []
-        // ["SELECT * FROM " + this.SqlMigrationsTableName]
-      ).then((resultSet: IQueryResults<IMigration>) => {
-        console.debug(JSON.stringify(resultSet));
-        for(let i = 0; i < resultSet.rows.length; i++){
-          console.debug(JSON.stringify(resultSet.rows.item(i)))
-          console.debug(Object.keys(resultSet))
-          console.debug(Object.keys(resultSet.rows))
-          console.debug(Object.keys(resultSet.rows.item(i)))
+      this.db.executeSql("SELECT * FROM " + this.SqlMigrationsTableName, []
+      ).then(async (resultSet: IQueryResults<IMigration>) => {
+
+        let existingMigrations = this.queryResultToArray<IMigration>(resultSet);
+
+        console.debug("Existing Migrations:");
+        for(let i = 0; i < existingMigrations.length; i++){
+          console.debug(existingMigrations[i].Name);
         }
+        console.debug("Done");
+
+        let missingMigrations = migrations.filter((item: IMigration) => {
+          let found = true;
+          for(let i = 0; i < existingMigrations.length; i++){
+            if(item.Name === existingMigrations[i].Name){
+              found = false;
+              break;
+            }
+          }
+          return found;
+        });
+        console.debug("Missing Migrations:");
+        for(let i = 0; i < missingMigrations.length; i++){
+          console.debug(missingMigrations[i].Name);
+        }
+        console.debug("Done");
+        console.debug("Applying Migrations:");
+        for(let i = 0; i < missingMigrations.length; i++){
+          console.debug("Applying Migration: " + missingMigrations[i].Name);
+          let result = await this.db.sqlBatch([missingMigrations[i].RawSql]);
+          result = await this.db.executeSql("INSERT INTO " + this.SqlMigrationsTableName + " VALUES (?)", [missingMigrations[i].Name]);
+        }
+        console.debug("Done");
+
         resolve();
       }).catch( (err: any) => {
         console.error(JSON.stringify(err));
@@ -94,8 +125,8 @@ export class DatabaseService {
 }
 
 interface IMigration {
-  name: string;
-  rawSql?: string | undefined;
+  Name: string;
+  RawSql?: string | undefined;
 }
 
 
@@ -106,5 +137,10 @@ export interface IQueryResultRows<T> {
 export interface IQueryResults<T> {
   rows: IQueryResultRows<T>;
   rowsAffected: number;
-  // insertId: any; // the id of an inserted and maybe updated record.
+}
+
+export interface IInsertResults<T> {
+  rows: IQueryResultRows<T>;
+  rowsAffected: number;
+  insertId: any; // the id of an inserted and maybe updated record.
 }

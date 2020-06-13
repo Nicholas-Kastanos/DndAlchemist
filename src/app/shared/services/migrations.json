@@ -1,6 +1,10 @@
 [
     {
-        "name": "Create Characters Table",
-        "rawSql": "CREATE TABLE IF NOT EXISTS Characters(Id INTEGER AUTOINCREMENT PRIMARY KEY, Name TEXT NOT NULL UNIQUE);"
+        "Name": "Create Characters Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Characters(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Create Essences Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Essances(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
     }
 ]
