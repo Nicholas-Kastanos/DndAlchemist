@@ -32,6 +32,16 @@ export class DatabaseService {
     return this.migrationComplete;
   }
 
+  public async getEssances(): Promise<Essance[]> {
+    let resultSet = (await this.db.executeSql("SELECT * FROM Essances")) as IQueryResults<IEssance>;
+    let iEssances = this.queryResultToArray<IEssance>(resultSet);
+    let essances: Essance[] = [];
+    iEssances.forEach(iEssance => {
+      essances.push(new Essance(iEssance.Id, iEssance.Name));
+    });
+    return essances;
+  }
+
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
     let arr = [];
     for(let i = 0; i < resultSet.rows.length; i++){
@@ -129,7 +139,6 @@ interface IMigration {
   RawSql?: string | undefined;
 }
 
-
 export interface IQueryResultRows<T> {
   length: number;
   item(i: number): T;
@@ -143,4 +152,80 @@ export interface IInsertResults<T> {
   rows: IQueryResultRows<T>;
   rowsAffected: number;
   insertId: any; // the id of an inserted and maybe updated record.
+}
+
+export interface IEntity {
+  Id: number;
+}
+
+export abstract class Entity {
+  id: number;
+
+  constructor(id: number) {
+    this.id = id;
+  }
+  abstract toInterface(): IEntity;
+}
+
+export interface IEssance extends IEntity {
+  Name: string;
+}
+
+export class Essance extends Entity {
+  name: string;
+
+  constructor(id: number, name: string){
+    super(id);
+    this.name = name;
+  }
+
+  toInterface(): IEssance{
+    let ess: IEssance;
+    ess.Id = this.id;
+    ess.Name = this.name;
+    return ess;
+  }
+}
+
+export interface IBaseConcoction extends IEntity {
+  Name: string;
+  BaseEffect: string;
+}
+
+export interface IBaseConcoctionEssance extends IEntity {
+  BaseConcoctionId: number;
+  EssanceId: number;
+}
+
+export class BaseConcoction extends Entity {
+  name: string;
+  baseEffect: string;
+  baseEssances: Essance[] = [];
+
+  constructor(id: number, name: string, baseEffect: string, baseEssances: Essance[]) {
+    super(id);
+    this.name = name;
+    this.baseEffect = baseEffect;
+    this.baseEssances = baseEssances;
+  }
+
+  toInterface(): IBaseConcoction {
+    let ess: IBaseConcoction;
+    ess.Id = this.id;
+    ess.Name = this.name;
+    ess.BaseEffect = this.baseEffect;
+    return ess;
+  }
+  toBaseConcoctionEssanceInterfances(): IBaseConcoctionEssance[]{
+    let arr: IBaseConcoctionEssance[]
+    arr = [];
+    this.baseEssances.forEach(baseEssance => {
+      let ess: IBaseConcoctionEssance;
+      ess.Id = undefined;
+      ess.BaseConcoctionId = this.id;   
+      ess.EssanceId = baseEssance.id;
+      arr.push(ess);
+    });
+    return arr;
+  }
 }

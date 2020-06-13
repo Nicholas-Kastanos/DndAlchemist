@@ -6,5 +6,9 @@
     {
         "Name": "Create Essences Table",
         "RawSql": "CREATE TABLE IF NOT EXISTS Essances(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Create BaseConcoctions",
+        "RawSql": "CREATE TABLE IF NOT EXISTS BaseConcoctions(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE, BaseEffect TEXT NOT NULL); CREATE TABLE IF NOT EXISTS BaseConcoctionEssances(Id Integer PRIMARY KEY AUTOINCREMENT, BaseConcoctionId INTEGER NOT NULL, EssanceId INTEGER NOT NULL, FOREIGN KEY (BaseConcoctionId) REFERENCES BaseConcoctions (Id), FOREIGN KEY (EssanceId) REFERENCES Essances (Id));"
     }
 ]
