@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import {BrewPageRoutingModule} from './brew-routing.module';
+import {BrewSelectPageRoutingModule} from './brewSelect-routing.module';
 
-import {BrewPage} from './brew.page';
+import {BrewSelectPage} from './brewSelect.page';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        BrewPageRoutingModule
+        BrewSelectPageRoutingModule
     ],
-    declarations: [BrewPage],
-    exports: [BrewPage]
+    declarations: [BrewSelectPage],
+    exports: [BrewSelectPage]
 })
-export class BrewPageModule {}
+export class BrewSelectPageModule {}

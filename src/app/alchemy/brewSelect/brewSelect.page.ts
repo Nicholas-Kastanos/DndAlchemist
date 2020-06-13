@@ -6,7 +6,7 @@ import {ActivatedRoute, Params} from '@angular/router';
     templateUrl: './brew.page.html',
     styleUrls: ['./brew.page.scss'],
 })
-export class BrewPage implements OnInit {
+export class BrewSelectPage implements OnInit {
 
     constructor() {}
     
