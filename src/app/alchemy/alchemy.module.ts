@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AlchemyRoutingModule } from './alchemy-routing.module';
 import { AlchemyInventoryPageModule } from './inventory/inventory.module'
 import { AlchemyPage } from './alchemy.page';
-import {BrewPageModule} from './brew/brew.module';
+import {BrewSelectPageModule} from './brewSelect/brewSelect.module';
 import {ForagePageModule} from './forage/forage.module';
 import {FullListPageModule} from './full-list/full-list.module';
 
@@ -14,7 +14,7 @@ import {FullListPageModule} from './full-list/full-list.module';
     CommonModule,
     AlchemyRoutingModule,
     AlchemyInventoryPageModule,
-    BrewPageModule,
+    BrewSelectPageModule,
     ForagePageModule,
     FullListPageModule
   ],

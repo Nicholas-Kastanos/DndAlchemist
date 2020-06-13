@@ -7,7 +7,11 @@ const routes: Routes = [
     {
         path: '',
         component: BrewSelectPage,
-    }
+    },
+    {
+        path: 'brew-potion',
+        loadChildren: () => import('../brew/brew.module').then( m => m.BrewPageModule)
+    },
 ];
 
 @NgModule({

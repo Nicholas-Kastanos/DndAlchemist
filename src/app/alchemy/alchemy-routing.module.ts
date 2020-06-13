@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'brew',
-    loadChildren: () => import('./brew/brew.module').then(m => m.BrewPageModule)
+    loadChildren: () => import('./brewSelect/brewSelect.module').then(m => m.BrewSelectPageModule)
   },
   {
     path: 'forage',
