@@ -16,7 +16,8 @@
         "essences": [
             "Water"
         ],
-        "details": "Changes damage type to Cold",
+        "damageType": "cold",
+        "details": "Changes damage type to Cold.",
         "locations": [
             "Arctic",
             "Mountain"
@@ -45,6 +46,7 @@
         "essences": [
             "Water"
         ],
+        "increaseHealing": true,
         "details": "Increases number of dice rolled for healing by 1. Can be added multiple times.",
         "locations": [
             "Arctic",
@@ -69,6 +71,7 @@
         "essences": [
             "Fire"
         ],
+        "damageType": "fire",
         "details": "Changes damage type to fire.",
         "locations": [
             "Desert",
@@ -89,6 +92,7 @@
     },{
         "name": "Drojos Ivy",
         "rarity": "common",
+        "damageType": "poison",
         "essences": [
             "Earth"
         ],
@@ -167,6 +171,7 @@
         "essences": [
             "Earth"
         ],
+        "damageType": "acid",
         "details": "Changes damage type to acid",
         "locations": [
             "Arctic",
@@ -254,6 +259,7 @@
         "essences": [
             "Air"
         ],
+        "damageType": "lightning",
         "details": "Changes damage type to lightning",
         "locations": [
             "Arctic",
@@ -343,7 +349,7 @@
             "Air",
             "Ether"
         ],
-        "details": "Combine two potion effects",
+        "details": "",
         "locations": [
             "Swamp"
         ]
@@ -391,7 +397,6 @@
             "Air",
             "Ether"
         ],
-        "details": "Doubles damage of poisons",
         "locations": [
             "Forest",
             "Hill"
@@ -444,6 +449,7 @@
             "Water",
             "Water"
         ],
+        "increaseDamageNumber": true,
         "details": "Increases number of damage die by 1.",
         "locations": [
             "Coast",
@@ -457,6 +463,7 @@
             "Water",
             "Water"
         ],
+        "increaseDamageSize": true,
         "details": "Increases size of damage die.",
         "locations": [
             "Coast",
@@ -469,6 +476,7 @@
             "Fire",
             "Fire"
         ],
+        "increaseSave": true,
         "details": "Increases save DC by 1.",
         "locations": [
             "Coast",
@@ -481,6 +489,7 @@
             "Ether",
             "Ether"
         ],
+        "doubleDuration": true,
         "details": "Doubles concoction duration.",
         "locations": [
             "Arctic",
@@ -493,6 +502,7 @@
             "Fire",
             "Fire"
         ],
+        "increaseDamageNumber": true,
         "details": "Increases number of damage die by 1.",
         "locations": [
             "Arctic",
@@ -505,6 +515,7 @@
             "Air",
             "Air"
         ],
+        "increaseDamageSize":true,
         "details": "Increases size of damage die.",
         "locations": [
             "Arctic",
@@ -517,6 +528,7 @@
             "Earth",
             "Earth"
         ],
+        "increaseSave": true,
         "details": "Increases save DC by 1.",
         "locations": [
             "Mountain",
@@ -529,6 +541,7 @@
             "Earth",
             "Earth"
         ],
+        "doubleDuration": true,
         "details": "Doubles concoction duration.",
         "locations": [
             "Arctic",
@@ -541,6 +554,7 @@
             "Ether",
             "Ether"
         ],
+        "increaseDamageNumber":true,
         "details": "Increases number of damage die by 1.",
         "locations": [
             "Mountain",
@@ -553,6 +567,7 @@
             "Ether",
             "Ether"
         ],
+        "increaseArcaneRecovery": true,
         "details": "Increases number of dice rolled for arcane recovery by 1. Can be added multiple times.",
         "locations": [
           "Grassland"  
@@ -564,6 +579,7 @@
             "Fire",
             "Fire"
         ],
+        "increaseDamageSize":true,
         "details": "Increases size of damage die.",
         "locations": [
             "Desert"
@@ -575,6 +591,7 @@
             "Air",
             "Air"
         ],
+        "increaseSave": true,
         "details": "Increases save DC by 1.",
         "locations": [
             "Mountain",
@@ -588,6 +605,7 @@
             "Ether",
             "Ether"
         ],
+        "increaseArcaneRecovery": true,
         "details": "Increases number of dice rolled for arcane recovery by 1. Can be added multiple times.",
         "locations": [
             "Underdark"
@@ -599,6 +617,7 @@
             "Earth",
             "Earth"
         ],
+        "doubleDuration": true,
         "details": "Doubles concoction duration.",
         "locations": [
             "Hill",
@@ -611,6 +630,7 @@
             "Water",
             "Water"
         ],
+        "increaseDamageNumber":true,
         "details": "Increases number of damage die by 1.",
         "locations": [
             "Arctic",
@@ -623,6 +643,7 @@
             "Air",
             "Air"
         ],
+        "increaseDamageSize":true,
         "details": "Increases size of damage die.",
         "locations": [
             "Forest"
@@ -634,6 +655,7 @@
             "Water",
             "Water"
         ],
+        "increaseSave":true,
         "details": "Increases save DC by 1.",
         "locations": [
             "Coast",
@@ -647,6 +669,7 @@
             "Ether",
             "Ether"
         ],
+        "damageType":"radiant",
         "details": "Changes damage type to radiant",
         "locations": [
             "Arctic"
@@ -659,6 +682,7 @@
             "Ether",
             "Fire"
         ],
+        "disadvantageCon": true,
         "details": "Constitution saving throws are made with disadvantage.",
         "locations": [
             "Mountain"
@@ -671,7 +695,8 @@
             "Ether",
             "Fire"
         ],
-        "details": "Allows another damage type to be added to poisons (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a poison would originally do 1d6 poison damage, the poison would now do 1d6 poison damage and 1d6 fire damage.",
+        "addDamageTypePotion": true,
+        "details": "Allows another damage type to be added to potion (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a poison would originally do 1d6 poison damage, the poison would now do 1d6 poison damage and 1d6 fire damage.",
         "locations": [
             "Underdark"
         ]
@@ -683,6 +708,8 @@
             "Water",
             "Water"
         ],
+        "doubleBombRadius":true,
+        "doubleDustRadius": true,
         "details": "Double bomb and dust radius.",
         "locations": [
             "Coast"
@@ -695,6 +722,7 @@
             "Ether",
             "Fire"
         ],
+        "damageType": "necrotic",
         "details": "Changes damage type to necrotic.",
         "locations": [
             "Hill",
@@ -709,6 +737,7 @@
             "Fire",
             "Fire"
         ],
+        "extraOilUse": true,
         "details": "Oils gain an additional use.",
         "locations": [
             "Grassland",
@@ -722,6 +751,7 @@
             "Earth",
             "Ether"
         ],
+        "disadvantageDex": true,
         "details": "Dexterity saving throws are made with disadvantage.",
         "locations": [
             "Desert"
@@ -734,6 +764,7 @@
             "Earth",
             "Fire"
         ],
+        "addDamageTypeBomb": true,
         "details": "Allows another damage type to be added to bombs (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a bomb would originally do 1d6 budgeoning damage, the bomb would now do 1d6 bludgeoning damage and 1d6 fire damage.",
         "locations": [
             "Arctic",
@@ -747,7 +778,8 @@
             "Earth",
             "Ether"
         ],
-        "details": "Changes saving throw to Dexterity.",
+        "disadvantageSaves": true,
+        "details": "All saving throws to resist the concoction are made with disadvantage.",
         "locations": [
             "Grassland",
             "Hill"
@@ -760,7 +792,8 @@
             "Fire",
             "Fire"
         ],
-        "details": "Changes saving throw to Wisdom.",
+        "disadvantageSaves": true,
+        "details": "All saving throws to resist the concoction are made with disadvantage.",
         "locations": [
             "Arctic",
             "Desert"
@@ -773,18 +806,20 @@
             "Ether",
             "Water"
         ],
-        "details": "Changes saving throw to Constitution.",
+        "disadvantageSaves": true,
+        "details": "All saving throws to resist the concoction are made with disadvantage.",
         "locations": [
             "Forest",
             "Underdark"
         ]
     },{
         "name": "Blackhead Mushroom",
-        "rarity": "uncommon",
+        "rarity": "rare",
         "essences": [
             "Earth",
-            "Ether"
+            "Earth"
         ],
+        "disadvantageWis": true,
         "details": "Wisdom saving throws are made with disadvantage",
         "locations": [
             "Swamp",

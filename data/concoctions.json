@@ -839,6 +839,6 @@
         "requiredIngredients": [
             "Blackhead Mushroom"
         ],
-        "effect": "Make a DC 12 Wis saving throw. On a failed save the creature is frightened for the next 8 hours."
+        "effect": "Make a DC 15 Wis saving throw. On a failed save the creature is frightened for the next 8 hours."
     }
 ]
