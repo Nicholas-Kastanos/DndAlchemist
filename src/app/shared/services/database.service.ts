@@ -33,7 +33,7 @@ export class DatabaseService {
   }
 
   public async getEssances(): Promise<Essance[]> {
-    let resultSet = (await this.db.executeSql("SELECT * FROM Essances")) as IQueryResults<IEssance>;
+    let resultSet = (await this.db.executeSql("SELECT * FROM Essances", [])) as IQueryResults<IEssance>;
     let iEssances = this.queryResultToArray<IEssance>(resultSet);
     let essances: Essance[] = [];
     iEssances.forEach(iEssance => {

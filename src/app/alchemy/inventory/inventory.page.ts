@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DatabaseService } from 'src/app/shared/services/database.service';
+import { DatabaseService, Essance } from 'src/app/shared/services/database.service';
 
 @Component({
   selector: 'app-alchemy-inventory',
@@ -11,6 +11,7 @@ export class AlchemyInventoryPage implements OnInit {
 
   params: Params;
   generated: string = "Not Generated";
+  essances: Essance[];
 
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
 
@@ -27,6 +28,13 @@ export class AlchemyInventoryPage implements OnInit {
     if(checkB){
       this.generated = "Generated";
     }
+  }
+
+  getEssances(){
+    this.database.getEssances()
+    .then((result) => {
+      this.essances = result;
+    })
   }
 
 }

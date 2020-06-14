@@ -1,4 +1,10 @@
 <ion-content>
-Database: {{generated}}
-<ion-button (click)="check()">Check</ion-button>
+    <div>
+        Database: {{generated}}
+        <ion-button (click)="check()">Check</ion-button>
+    </div>
+    <div>
+        Database: {{essances | json}}
+        <ion-button (click)="getEssances()">Essances</ion-button>
+    </div>
 </ion-content>
