@@ -13,10 +13,18 @@
     },
     {
         "Name": "Insert Essances",
-        "RawSql": "INSERT INTO ESSANCES(Name) VALUES ('Air'),('Earth'),('Ether'),('Fire'),('Water');"
+        "RawSql": "INSERT INTO Essances(Name) VALUES ('Air'),('Earth'),('Ether'),('Fire'),('Water');"
     },
     {
         "Name": "Create BaseConcoctionEssances",
         "RawSql": " CREATE TABLE IF NOT EXISTS BaseConcoctionEssances(Id Integer PRIMARY KEY AUTOINCREMENT, BaseConcoctionId INTEGER NOT NULL, EssanceId INTEGER NOT NULL, FOREIGN KEY (BaseConcoctionId) REFERENCES BaseConcoctions (Id), FOREIGN KEY (EssanceId) REFERENCES Essances (Id));"
+    },
+    {
+        "Name": "Create Biomes Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Biomes(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Insert Biomes",
+        "RawSql": "INSERT INTO Biomes(Name) VALUES ('Arctic'),('Coast'),('Desert'),('Forest'),('Grassland'),('Hill'),('Mountain'),('Swamp'),('Underdark');"
     }
 ]
