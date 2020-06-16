@@ -23,6 +23,11 @@ export class AppComponent implements OnInit {
       title: 'Gemtech',
       url: '/gemtech',
       icon: 'cog'
+    },
+    {
+      title: 'Calendar',
+      url: '/calendar',
+      icon: 'calendar'
     }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

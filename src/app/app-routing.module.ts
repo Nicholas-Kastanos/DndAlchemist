@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'gemtech',
     loadChildren: () => import('./gemtech/gemtech.module').then( m => m.GemtechModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarModule)
   }
 
 
