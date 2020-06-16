@@ -1,9 +1,14 @@
-import {Injectable} from '@angular/core';
-
 interface CustomDateObject {
     dayNum: number;
     year: number;
     weekDay: number;
+}
+
+interface MoonObject {
+    name: string,
+    cycleDay: number,
+    phase: number,
+    fullCycle: number
 }
 
 const Months = [
@@ -34,7 +39,7 @@ export enum Month{
 
 const daysInYear = 388;
 
-const Days = [
+export const Days = [
     "Undos",
     "Dedos",
     "Tredos",
@@ -44,22 +49,80 @@ const Days = [
     "Sentos"
 ]
 
+export const MoonPhases = [
+    "Full Moon",
+    "Waning Gibbous",
+    "Third Quarter",
+    "Waning Crescent",
+    "New Moon",
+    "Waxing Crescent",
+    "FirstQuarter",
+    "Waxing Gibbous"
+]
+
 const baseDate: CustomDateObject = {dayNum: 1, year: 2547, weekDay: 1};
+
+const AmaltheaBaseDate: CustomDateObject = {dayNum: 9, year: 2547, weekDay: 2};
+const CarmeBaseDate: CustomDateObject = {dayNum: 9, year: 2547, weekDay: 2};
+const ElaraBaseDate: CustomDateObject = {dayNum: 9, year: 2547, weekDay: 2};
+const EnceladusBaseDate: CustomDateObject = {dayNum: 59, year: 2547, weekDay: 3};
 
 export class CustomDate{
     date: CustomDateObject;
 
+    Amalthea: MoonObject = {name: "Amalthea", fullCycle: 10, cycleDay: 0, phase: 0};
+    Carme: MoonObject = {name: "Carme", fullCycle: 30, cycleDay: 0, phase: 0};
+    Elara: MoonObject = {name: "Elara",fullCycle: 90, cycleDay: 0, phase: 0};
+    Enceladus: MoonObject = {name: "Enceladus",fullCycle: 170, cycleDay: 0, phase: 0}
+
     constructor(year: number, month: number, day: number) {
         this.date = {dayNum: (Months[month].firstDay + day - 1), year: year, weekDay: this.getWeekDay((Months[month].firstDay + day - 1), year)};
+        this.getMoonCycles();
     }
 
     private getWeekDay(dayNum: number, year: number){
-        // mod total number of days off base day
-        // ((year*388+day) - (newyear*388+newday))mod(7)+1
-        // if negative add 2
         var dayDiff = ((year*daysInYear) + dayNum) - ((baseDate.year*daysInYear) + baseDate.dayNum);
 
         return (((dayDiff + 1)%7)+7)%7;
+    }
+
+    private getMoonCycles(){
+        var dayDiff = ((this.date.year*daysInYear) + this.date.dayNum) - ((AmaltheaBaseDate.year*daysInYear) + AmaltheaBaseDate.dayNum);
+        this.Amalthea.cycleDay = (((dayDiff + 1)%this.Amalthea.fullCycle)+this.Amalthea.fullCycle)%this.Amalthea.fullCycle;
+        this.Amalthea.phase = this.getPhase(this.Amalthea);
+
+        var dayDiff = ((this.date.year*daysInYear) + this.date.dayNum) - ((CarmeBaseDate.year*daysInYear) + CarmeBaseDate.dayNum);
+        this.Carme.cycleDay = (((dayDiff + 1)%this.Carme.fullCycle)+this.Carme.fullCycle)%this.Carme.fullCycle;
+        this.Carme.phase = this.getPhase(this.Carme);
+
+        var dayDiff = ((this.date.year*daysInYear) + this.date.dayNum) - ((ElaraBaseDate.year*daysInYear) + ElaraBaseDate.dayNum);
+        this.Elara.cycleDay = (((dayDiff + 1)%this.Elara.fullCycle)+this.Elara.fullCycle)%this.Elara.fullCycle;
+        this.Elara.phase = this.getPhase(this.Elara);
+
+        var dayDiff = ((this.date.year*daysInYear) + this.date.dayNum) - ((EnceladusBaseDate.year*daysInYear) + EnceladusBaseDate.dayNum);
+        this.Enceladus.cycleDay = (((dayDiff + 1)%this.Enceladus.fullCycle)+this.Enceladus.fullCycle)%this.Enceladus.fullCycle;
+        this.Enceladus.phase = this.getPhase(this.Enceladus);
+    }
+
+    private getPhase(moon: MoonObject){
+        var percentDone = (moon.cycleDay/moon.fullCycle)*100;
+        if(percentDone < 12.5){
+            return 0;
+        }else if(percentDone < 25){
+            return 1;
+        }else if(percentDone < 37.5){
+            return 2;
+        }else if(percentDone < 50){
+            return 3;
+        }else if(percentDone < 62.5){
+            return 4;
+        }else if(percentDone < 75){
+            return 5;
+        }else if(percentDone < 87.5){
+            return 6;
+        }else{
+            return 7;
+        }
     }
 
     getDay(){
@@ -109,10 +172,14 @@ export class CustomDate{
 
     setDay(month: number, day: number){
         this.date.dayNum = (Months[month].firstDay + day - 1);
+        this.getMoonCycles();
+        this.date.weekDay = this.getWeekDay(this.date.dayNum, this.date.year);
     }
 
     setYear(year: number){
         this.date.year = year;
+        this.getMoonCycles();
+        this.date.weekDay = this.getWeekDay(this.date.dayNum, this.date.year);
     }
 
     getDaysInMonth(month: number){
@@ -121,5 +188,9 @@ export class CustomDate{
 
     getDateFull(){
         return this.date;
+    }
+
+    getMoons(){
+        return [this.Amalthea, this.Carme, this.Elara, this.Enceladus];
     }
 }

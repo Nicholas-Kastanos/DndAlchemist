@@ -76,6 +76,8 @@ export class CalendarPage implements OnInit {
         new CustomDate(this.date.getYear() - 1, 9, this.date.getDaysInMonth(9)) :
          new CustomDate(this.date.getYear(), this.date.getMonth() - 1, this.date.getDaysInMonth(this.date.getMonth() - 1));
          this.getDaysOfMonth();
+
+        console.log(this.date.getMoons());
     }
 
     goToNextMonth() {
@@ -83,6 +85,8 @@ export class CalendarPage implements OnInit {
         new CustomDate(this.date.getYear() + 1, 0, 1) :
         new CustomDate(this.date.getYear(), this.date.getMonth() + 1, 1);
         this.getDaysOfMonth();
+
+        console.log(this.date.getMoons());
     }
 
 }
