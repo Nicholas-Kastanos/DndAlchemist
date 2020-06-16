@@ -4,7 +4,14 @@
         <ion-button (click)="check()">Check</ion-button>
     </div>
     <div>
-        Database: {{essances | json}}
+        Essances: {{essances | json}}
         <ion-button (click)="getEssances()">Essances</ion-button>
+    </div>
+    <div>
+        BaseConcoctions: {{baseConcoctions | json}}
+        <ion-button (click)="getBaseConcoctions()">Base Concoctions</ion-button>
+    </div>
+    <div>
+        <ion-button (click)="updateBaseConcoctions()">Update Base Concoctions</ion-button>
     </div>
 </ion-content>

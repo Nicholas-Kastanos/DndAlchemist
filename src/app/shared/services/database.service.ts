@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject, SQLiteDatabaseConfig } from '@ionic-native/sqlite/ngx';
+import { Essance, IEssance } from '../classes/essance/essance';
+import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssance } from '../classes/base-concoction/base-concoction';
 import migrationsArray from './migrations.json';
+import baseConcoctionJson from '../../../../data/base_concoctions.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
 
-  private androidDatabaseProvider: "system";
   private migrationTableExists: boolean = false;
   private migrationComplete: boolean = false;
   private readonly SqlMigrationsTableName: string = 'SQLMigrations';
@@ -40,6 +42,47 @@ export class DatabaseService {
       essances.push(new Essance(iEssance.Id, iEssance.Name));
     });
     return essances;
+  }
+
+  public async getBaseConcoctions(): Promise<BaseConcoction[]> {
+    let resultSet = (await this.db.executeSql("SELECT * FROM BaseConcoctions", [])) as IQueryResults<IBaseConcoction>;
+    let iBaseConcoctions = this.queryResultToArray<IBaseConcoction>(resultSet);
+    let baseConcoctions: BaseConcoction[] = [];
+    let essances = await this.getEssances();
+    for(let i = 0; i < iBaseConcoctions.length; i++){
+      let iBaseConcoction = iBaseConcoctions[i];
+      let essanceSet = (await this.db.executeSql("SELECT * FROM BaseConcoctionEssances WHERE BaseConcoctionId=?", [iBaseConcoction.Id])) as IQueryResults<IBaseConcoctionEssance>;
+      let iEssance = this.queryResultToArray<IBaseConcoctionEssance>(essanceSet);
+      let baseEssances = iEssance.map(ie => essances.find(e => e.id === ie.EssanceId));
+      baseConcoctions.push(new BaseConcoction(iBaseConcoction.Id, iBaseConcoction.Name, iBaseConcoction.BaseEffect, baseEssances));     
+    }
+    return baseConcoctions;
+  }
+
+  // public async updateBaseConcoctionsFromJSON(json: any){
+  public async updateBaseConcoctionsFromJSON(){
+    let essances = await this.getEssances();
+    let existingBaseConcoctions = await this.getBaseConcoctions();
+    for(let i = 0; i < baseConcoctionJson.length; i++) {
+      let jsonBaseConcoction = baseConcoctionJson[i];
+      let existingBaseConcoction = existingBaseConcoctions.find(existing => existing.name === jsonBaseConcoction.name);
+      if(existingBaseConcoction == null){ // There is no match
+        let insertResult = await this.db.executeSql("INSERT INTO BaseConcoctions (Name, BaseEffect) VALUES (?, ?);", [jsonBaseConcoction.name, jsonBaseConcoction.baseEffect]) as IInsertResults<IBaseConcoction>; 
+        for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
+          let newEssance = jsonBaseConcoction.baseEssences[j];
+          let newEssanceId = essances.find(e => e.name === newEssance).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssances (BaseConcoctionId, EssanceId) VALUES (?, ?);", [insertResult.insertId, newEssanceId]);
+        }
+      } else { // There is a match
+        await this.db.executeSql("UPDATE BaseConcoctions SET BaseEffect=? WHERE Id=?;", [jsonBaseConcoction.baseEffect, existingBaseConcoction.id]);
+        await this.db.executeSql("DELETE FROM BaseConcoctionEssances WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
+        for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
+          let newEssance = jsonBaseConcoction.baseEssences[j];
+          let newEssanceId = essances.find(e => e.name === newEssance).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssances (BaseConcoctionId, EssanceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssanceId]);
+        }
+      }
+    }
   }
 
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
@@ -152,80 +195,4 @@ export interface IInsertResults<T> {
   rows: IQueryResultRows<T>;
   rowsAffected: number;
   insertId: any; // the id of an inserted and maybe updated record.
-}
-
-export interface IEntity {
-  Id: number;
-}
-
-export abstract class Entity {
-  id: number;
-
-  constructor(id: number) {
-    this.id = id;
-  }
-  abstract toInterface(): IEntity;
-}
-
-export interface IEssance extends IEntity {
-  Name: string;
-}
-
-export class Essance extends Entity {
-  name: string;
-
-  constructor(id: number, name: string){
-    super(id);
-    this.name = name;
-  }
-
-  toInterface(): IEssance{
-    let ess: IEssance;
-    ess.Id = this.id;
-    ess.Name = this.name;
-    return ess;
-  }
-}
-
-export interface IBaseConcoction extends IEntity {
-  Name: string;
-  BaseEffect: string;
-}
-
-export interface IBaseConcoctionEssance extends IEntity {
-  BaseConcoctionId: number;
-  EssanceId: number;
-}
-
-export class BaseConcoction extends Entity {
-  name: string;
-  baseEffect: string;
-  baseEssances: Essance[] = [];
-
-  constructor(id: number, name: string, baseEffect: string, baseEssances: Essance[]) {
-    super(id);
-    this.name = name;
-    this.baseEffect = baseEffect;
-    this.baseEssances = baseEssances;
-  }
-
-  toInterface(): IBaseConcoction {
-    let ess: IBaseConcoction;
-    ess.Id = this.id;
-    ess.Name = this.name;
-    ess.BaseEffect = this.baseEffect;
-    return ess;
-  }
-  toBaseConcoctionEssanceInterfances(): IBaseConcoctionEssance[]{
-    let arr: IBaseConcoctionEssance[]
-    arr = [];
-    this.baseEssances.forEach(baseEssance => {
-      let ess: IBaseConcoctionEssance;
-      ess.Id = undefined;
-      ess.BaseConcoctionId = this.id;   
-      ess.EssanceId = baseEssance.id;
-      arr.push(ess);
-    });
-    return arr;
-  }
 }

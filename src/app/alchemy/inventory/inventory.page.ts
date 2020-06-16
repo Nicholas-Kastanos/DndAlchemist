@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { DatabaseService, Essance } from 'src/app/shared/services/database.service';
+import { DatabaseService } from 'src/app/shared/services/database.service';
+import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-concoction';
+import { Essance } from 'src/app/shared/classes/essance/essance';
 
 @Component({
   selector: 'app-alchemy-inventory',
@@ -12,6 +14,7 @@ export class AlchemyInventoryPage implements OnInit {
   params: Params;
   generated: string = "Not Generated";
   essances: Essance[];
+  baseConcoctions: BaseConcoction[];
 
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
 
@@ -34,6 +37,19 @@ export class AlchemyInventoryPage implements OnInit {
     this.database.getEssances()
     .then((result) => {
       this.essances = result;
+    })
+  }
+
+  getBaseConcoctions(){
+    this.database.getBaseConcoctions()
+    .then((result) => {
+      this.baseConcoctions = result;
+    })
+  }
+
+  updateBaseConcoctions(){
+    this.database.updateBaseConcoctionsFromJSON()
+    .then(() => {
     })
   }
 
