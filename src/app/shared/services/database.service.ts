@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject, SQLiteDatabaseConfig } from '@ionic-native/sqlite/ngx';
-import { Essance, IEssance } from '../classes/essance/essance';
-import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssance } from '../classes/base-concoction/base-concoction';
+import { Essence, IEssence } from '../classes/essence/essence';
+import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../classes/base-concoction/base-concoction';
 import migrationsArray from './migrations.json';
 import baseConcoctionJson from '../../../../data/base_concoctions.json';
 
@@ -34,34 +34,34 @@ export class DatabaseService {
     return this.migrationComplete;
   }
 
-  public async getEssances(): Promise<Essance[]> {
-    let resultSet = (await this.db.executeSql("SELECT * FROM Essances", [])) as IQueryResults<IEssance>;
-    let iEssances = this.queryResultToArray<IEssance>(resultSet);
-    let essances: Essance[] = [];
-    iEssances.forEach(iEssance => {
-      essances.push(new Essance(iEssance.Id, iEssance.Name));
+  public async getEssences(): Promise<Essence[]> {
+    let resultSet = (await this.db.executeSql("SELECT * FROM Essences", [])) as IQueryResults<IEssence>;
+    let iEssences = this.queryResultToArray<IEssence>(resultSet);
+    let essences: Essence[] = [];
+    iEssences.forEach(iEssence => {
+      essences.push(new Essence(iEssence.Id, iEssence.Name));
     });
-    return essances;
+    return essences;
   }
 
   public async getBaseConcoctions(): Promise<BaseConcoction[]> {
     let resultSet = (await this.db.executeSql("SELECT * FROM BaseConcoctions", [])) as IQueryResults<IBaseConcoction>;
     let iBaseConcoctions = this.queryResultToArray<IBaseConcoction>(resultSet);
     let baseConcoctions: BaseConcoction[] = [];
-    let essances = await this.getEssances();
+    let essences = await this.getEssences();
     for(let i = 0; i < iBaseConcoctions.length; i++){
       let iBaseConcoction = iBaseConcoctions[i];
-      let essanceSet = (await this.db.executeSql("SELECT * FROM BaseConcoctionEssances WHERE BaseConcoctionId=?", [iBaseConcoction.Id])) as IQueryResults<IBaseConcoctionEssance>;
-      let iEssance = this.queryResultToArray<IBaseConcoctionEssance>(essanceSet);
-      let baseEssances = iEssance.map(ie => essances.find(e => e.id === ie.EssanceId));
-      baseConcoctions.push(new BaseConcoction(iBaseConcoction.Id, iBaseConcoction.Name, iBaseConcoction.BaseEffect, baseEssances));     
+      let essenceSet = (await this.db.executeSql("SELECT * FROM BaseConcoctionEssences WHERE BaseConcoctionId=?", [iBaseConcoction.Id])) as IQueryResults<IBaseConcoctionEssence>;
+      let iEssence = this.queryResultToArray<IBaseConcoctionEssence>(essenceSet);
+      let baseEssences = iEssence.map(ie => essences.find(e => e.id === ie.EssenceId));
+      baseConcoctions.push(new BaseConcoction(iBaseConcoction.Id, iBaseConcoction.Name, iBaseConcoction.BaseEffect, baseEssences));     
     }
     return baseConcoctions;
   }
 
   // public async updateBaseConcoctionsFromJSON(json: any){
   public async updateBaseConcoctionsFromJSON(){
-    let essances = await this.getEssances();
+    let essences = await this.getEssences();
     let existingBaseConcoctions = await this.getBaseConcoctions();
     for(let i = 0; i < baseConcoctionJson.length; i++) {
       let jsonBaseConcoction = baseConcoctionJson[i];
@@ -69,17 +69,17 @@ export class DatabaseService {
       if(existingBaseConcoction == null){ // There is no match
         let insertResult = await this.db.executeSql("INSERT INTO BaseConcoctions (Name, BaseEffect) VALUES (?, ?);", [jsonBaseConcoction.name, jsonBaseConcoction.baseEffect]) as IInsertResults<IBaseConcoction>; 
         for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
-          let newEssance = jsonBaseConcoction.baseEssences[j];
-          let newEssanceId = essances.find(e => e.name === newEssance).id;
-          await this.db.executeSql("INSERT INTO BaseConcoctionEssances (BaseConcoctionId, EssanceId) VALUES (?, ?);", [insertResult.insertId, newEssanceId]);
+          let newEssence = jsonBaseConcoction.baseEssences[j];
+          let newEssenceId = essences.find(e => e.name === newEssence).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [insertResult.insertId, newEssenceId]);
         }
       } else { // There is a match
         await this.db.executeSql("UPDATE BaseConcoctions SET BaseEffect=? WHERE Id=?;", [jsonBaseConcoction.baseEffect, existingBaseConcoction.id]);
-        await this.db.executeSql("DELETE FROM BaseConcoctionEssances WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
+        await this.db.executeSql("DELETE FROM BaseConcoctionEssences WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
         for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
-          let newEssance = jsonBaseConcoction.baseEssences[j];
-          let newEssanceId = essances.find(e => e.name === newEssance).id;
-          await this.db.executeSql("INSERT INTO BaseConcoctionEssances (BaseConcoctionId, EssanceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssanceId]);
+          let newEssence = jsonBaseConcoction.baseEssences[j];
+          let newEssenceId = essences.find(e => e.name === newEssence).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssenceId]);
         }
       }
     }
@@ -164,8 +164,9 @@ export class DatabaseService {
       this.db = await this._openDb();
       this._createMigrationsTable().then(() => {
         this.migrationTableExists = true;
-        this._runMigrations().then(() => {
+        this._runMigrations().then(async() => {
           this.migrationComplete = true;
+          await this.updateBaseConcoctionsFromJSON();
           resolve();
         }).catch(() => {
           reject();

@@ -26,5 +26,26 @@
     {
         "Name": "Insert Biomes",
         "RawSql": "INSERT INTO Biomes(Name) VALUES ('Arctic'),('Coast'),('Desert'),('Forest'),('Grassland'),('Hill'),('Mountain'),('Swamp'),('Underdark');"
+    },
+    {
+        "Name": "Drop Table BaseConcoctionEssances",
+        "RawSql": "DROP TABLE BaseConcoctionEssances;"
+    }
+    ,
+    {
+        "Name": "Drop Table Essances",
+        "RawSql": "DROP TABLE Essances;"
+    },
+    {
+        "Name": "Recreate Essences Table with correct spelling",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Essences(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Insert Essences",
+        "RawSql": "INSERT INTO Essences(Name) VALUES ('Air'),('Earth'),('Ether'),('Fire'),('Water');"
+    },
+    {
+        "Name": "Create BaseConcoctionEssences",
+        "RawSql": " CREATE TABLE IF NOT EXISTS BaseConcoctionEssences(Id Integer PRIMARY KEY AUTOINCREMENT, BaseConcoctionId INTEGER NOT NULL, EssenceId INTEGER NOT NULL, FOREIGN KEY (BaseConcoctionId) REFERENCES BaseConcoctions (Id), FOREIGN KEY (EssenceId) REFERENCES Essences (Id));"
     }
 ]

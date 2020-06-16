@@ -1,5 +1,5 @@
 import { IEntity, Entity } from '../entity/entity';
-import { Essance } from '../essance/essance';
+import { Essence } from '../essence/essence';
 
 export interface IBaseConcoction extends IEntity {
     Name: string;
@@ -9,13 +9,13 @@ export interface IBaseConcoction extends IEntity {
 export class BaseConcoction extends Entity {
     name: string;
     baseEffect: string;
-    baseEssances: Essance[] = [];
+    baseEssences: Essence[] = [];
 
-    constructor(id: number, name: string, baseEffect: string, baseEssances: Essance[]) {
+    constructor(id: number, name: string, baseEffect: string, baseEssences: Essence[]) {
         super(id);
         this.name = name;
         this.baseEffect = baseEffect;
-        this.baseEssances = baseEssances;
+        this.baseEssences = baseEssences;
     }
 
     toInterface(): IBaseConcoction {
@@ -25,14 +25,14 @@ export class BaseConcoction extends Entity {
         ess.BaseEffect = this.baseEffect;
         return ess;
     }
-    toBaseConcoctionEssanceInterfances(): IBaseConcoctionEssance[]{
-        let arr: IBaseConcoctionEssance[]
+    toBaseConcoctionEssenceInterfances(): IBaseConcoctionEssence[]{
+        let arr: IBaseConcoctionEssence[]
         arr = [];
-        this.baseEssances.forEach(baseEssance => {
-        let ess: IBaseConcoctionEssance;
+        this.baseEssences.forEach(baseEssence => {
+        let ess: IBaseConcoctionEssence;
         ess.Id = undefined;
         ess.BaseConcoctionId = this.id;   
-        ess.EssanceId = baseEssance.id;
+        ess.EssenceId = baseEssence.id;
         arr.push(ess);
         });
         return arr;
@@ -40,7 +40,7 @@ export class BaseConcoction extends Entity {
 }
 
 
-export interface IBaseConcoctionEssance extends IEntity {
+export interface IBaseConcoctionEssence extends IEntity {
     BaseConcoctionId: number;
-    EssanceId: number;
+    EssenceId: number;
 }

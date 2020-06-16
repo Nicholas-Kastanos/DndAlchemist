@@ -1,11 +1,11 @@
 import { IEntity, Entity } from '../entity/entity';
 
-export interface IEssance extends IEntity {
+export interface IEssence extends IEntity {
     Name: string;
 }
   
 
-export class Essance extends Entity {
+export class Essence extends Entity {
     name: string;
 
     constructor(id: number, name: string){
@@ -13,8 +13,8 @@ export class Essance extends Entity {
         this.name = name;
     }
 
-    toInterface(): IEssance{
-        let ess: IEssance;
+    toInterface(): IEssence{
+        let ess: IEssence;
         ess.Id = this.id;
         ess.Name = this.name;
         return ess;
