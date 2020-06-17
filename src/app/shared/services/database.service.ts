@@ -4,6 +4,8 @@ import { Essence, IEssence } from '../classes/essence/essence';
 import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../classes/base-concoction/base-concoction';
 import migrationsArray from './migrations.json';
 import baseConcoctionJson from '../../../../data/base_concoctions.json';
+import { Biome, IBiome } from '../classes/biome/biome';
+import { Rarity, IRarity } from '../classes/rarity/rarity';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +85,26 @@ export class DatabaseService {
         }
       }
     }
+  }
+
+  public async getBiomes(): Promise<Biome[]>{
+    let resultSet = (await this.db.executeSql("SELECT * FROM Biomes", [])) as IQueryResults<IBiome>;
+    let iBiomes = this.queryResultToArray<IBiome>(resultSet);
+    let biomes: Biome[] = [];
+    iBiomes.forEach(iBiome => {
+      biomes.push(new Biome(iBiome.Id, iBiome.Name));
+    });
+    return biomes;
+  }
+
+  public async getRarities(): Promise<Rarity[]>{
+    let resultSet = (await this.db.executeSql("SELECT * FROM Rarities", [])) as IQueryResults<IRarity>;
+    let iRarities = this.queryResultToArray<IRarity>(resultSet);
+    let rarities: Rarity[] = [];
+    iRarities.forEach(iRarity => {
+      rarities.push(new Rarity(iRarity.Id, iRarity.Name));
+    });
+    return rarities;
   }
 
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {

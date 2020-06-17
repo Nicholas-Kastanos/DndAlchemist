@@ -3,6 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-concoction';
 import { Essence } from 'src/app/shared/classes/essence/essence';
+import { Biome } from 'src/app/shared/classes/biome/biome';
+import { Rarity } from 'src/app/shared/classes/rarity/rarity';
 
 @Component({
   selector: 'app-alchemy-inventory',
@@ -13,7 +15,7 @@ export class AlchemyInventoryPage implements OnInit {
 
   params: Params;
   generated: string = "Not Generated";
-  essences: Essence[];
+  rarities: Rarity[];
   baseConcoctions: BaseConcoction[];
 
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
@@ -33,10 +35,10 @@ export class AlchemyInventoryPage implements OnInit {
     }
   }
 
-  getEssences(){
-    this.database.getEssences()
+  getRarities(){
+    this.database.getRarities()
     .then((result) => {
-      this.essences = result;
+      this.rarities = result;
     })
   }
 

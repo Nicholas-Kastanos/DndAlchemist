@@ -47,5 +47,13 @@
     {
         "Name": "Create BaseConcoctionEssences",
         "RawSql": " CREATE TABLE IF NOT EXISTS BaseConcoctionEssences(Id Integer PRIMARY KEY AUTOINCREMENT, BaseConcoctionId INTEGER NOT NULL, EssenceId INTEGER NOT NULL, FOREIGN KEY (BaseConcoctionId) REFERENCES BaseConcoctions (Id), FOREIGN KEY (EssenceId) REFERENCES Essences (Id));"
+    },
+    {
+        "Name": "Create Rarities Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Rarities(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Insert Rarities",
+        "RawSql": "INSERT INTO Rarities(Name) VALUES ('Common'),('Uncommon'),('Rare'),('Very Rare'),('Legendary'),('Artifact');"
     }
 ]
