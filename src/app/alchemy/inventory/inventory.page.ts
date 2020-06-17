@@ -5,6 +5,7 @@ import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-conc
 import { Essence } from 'src/app/shared/classes/essence/essence';
 import { Biome } from 'src/app/shared/classes/biome/biome';
 import { Rarity } from 'src/app/shared/classes/rarity/rarity';
+import { DamageType } from 'src/app/shared/classes/damage-type/damage-type';
 
 @Component({
   selector: 'app-alchemy-inventory',
@@ -15,7 +16,7 @@ export class AlchemyInventoryPage implements OnInit {
 
   params: Params;
   generated: string = "Not Generated";
-  rarities: Rarity[];
+  checkjson: DamageType[];
   baseConcoctions: BaseConcoction[];
 
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
@@ -35,10 +36,10 @@ export class AlchemyInventoryPage implements OnInit {
     }
   }
 
-  getRarities(){
-    this.database.getRarities()
+  getCheckjson(){
+    this.database.getDamageTypes()
     .then((result) => {
-      this.rarities = result;
+      this.checkjson = result;
     })
   }
 

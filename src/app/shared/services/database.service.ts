@@ -4,8 +4,10 @@ import { Essence, IEssence } from '../classes/essence/essence';
 import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../classes/base-concoction/base-concoction';
 import migrationsArray from './migrations.json';
 import baseConcoctionJson from '../../../../data/base_concoctions.json';
+import ingredientsJson from '../../../../data/ingredients.json';
 import { Biome, IBiome } from '../classes/biome/biome';
 import { Rarity, IRarity } from '../classes/rarity/rarity';
+import { DamageType, IDamageType } from '../classes/damage-type/damage-type';
 
 @Injectable({
   providedIn: 'root'
@@ -105,6 +107,16 @@ export class DatabaseService {
       rarities.push(new Rarity(iRarity.Id, iRarity.Name));
     });
     return rarities;
+  }
+
+  public async getDamageTypes(): Promise<DamageType[]>{
+    let resultSet = (await this.db.executeSql("SELECT * FROM DamageTypes", [])) as IQueryResults<IDamageType>;
+    let iDamageTypes = this.queryResultToArray<IDamageType>(resultSet);
+    let damageTypes: DamageType[] = [];
+    iDamageTypes.forEach(iDamageType => {
+      damageTypes.push(new DamageType(iDamageType.Id, iDamageType.Name));
+    });
+    return damageTypes;
   }
 
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {

@@ -55,5 +55,13 @@
     {
         "Name": "Insert Rarities",
         "RawSql": "INSERT INTO Rarities(Name) VALUES ('Common'),('Uncommon'),('Rare'),('Very Rare'),('Legendary'),('Artifact');"
+    },
+    {
+        "Name": "Create Damage Types Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS DamageTypes(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Insert Damage Types",
+        "RawSql": "INSERT INTO DamageTypes(Name) VALUES ('Acid'),('Bludgeoning'),('Cold'),('Fire'),('Force'),('Lightning'),('Necrotic'),('Piercing'),('Poison'),('Psychic'),('Radiant'),('Slashing'),('Thunder');"
     }
 ]
