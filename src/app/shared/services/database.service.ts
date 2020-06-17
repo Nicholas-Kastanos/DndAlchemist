@@ -119,6 +119,48 @@ export class DatabaseService {
     return damageTypes;
   }
 
+  private updateIngredientsFromJson(){
+    let uniqueKeys = [];
+    ingredientsJson.forEach(ingredient => {
+      Object.keys(ingredient).forEach(key => {
+        let found = uniqueKeys.find(uk => uk === key)
+        if(found == null){
+          uniqueKeys.push(key);
+        }
+      })
+    });
+    uniqueKeys.forEach(uk => {
+      console.debug(uk)
+    });
+  }
+
+  /* 
+  CREATE TABLE Ingredients(
+  Id Integer PRIMARY KEY AUTOINCREMENT,
+  Name TEXT NOT NULL UNIQUE,
+  Details TEXT,
+  DamageType INTEGER,
+  IncreaseHealing BIT NOT NULL,
+  IncreaseArcaneRecovery BIT NOT NULL,
+  IncreaseDamageNumber BIT NOT NULL,
+  IncreaseDamageSize BIT NOT NULL,
+  IncreaseSave BIT NOT NULL,
+  DoubleDuration BIT NOT NULL,
+  DoubleBombRadius BIT NOT NULL,
+  DoubleDustArea BIT NOT NULL,
+  ExtraOilUse BIT NOT NULL,
+  DisadvantageDex BIT NOT NULL,
+  DisadvantageCon BIT NOT NULL,
+  DisadvantageWis BIT NOT NULL,
+  DisadvantageSaves BIT NOT NULL,
+  AddDamageTypeBomb BIT NOT NULL,
+  AddDamageTypeDust BIT NOT NULL,
+  AddDamageTypePoison BIT NOT NULL,
+  AddDamageTypePotion BIT NOT NULL,
+  FOREIGN KEY (DamageType) REFERENCES DamageTypes(Id)
+);
+  */
+
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
     let arr = [];
     for(let i = 0; i < resultSet.rows.length; i++){
@@ -201,6 +243,7 @@ export class DatabaseService {
         this._runMigrations().then(async() => {
           this.migrationComplete = true;
           await this.updateBaseConcoctionsFromJSON();
+          this.updateIngredientsFromJson();
           resolve();
         }).catch(() => {
           reject();
