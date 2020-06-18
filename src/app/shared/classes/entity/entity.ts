@@ -4,7 +4,6 @@ export abstract class Entity {
     constructor(id: number) {
         this.id = id;
     }
-    abstract toInterface(): IEntity;
 }
 
 export interface IEntity {

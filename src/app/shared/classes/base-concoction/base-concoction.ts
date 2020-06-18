@@ -17,26 +17,6 @@ export class BaseConcoction extends Entity {
         this.baseEffect = baseEffect;
         this.baseEssences = baseEssences;
     }
-
-    toInterface(): IBaseConcoction {
-        let ess: IBaseConcoction;
-        ess.Id = this.id;
-        ess.Name = this.name;
-        ess.BaseEffect = this.baseEffect;
-        return ess;
-    }
-    toBaseConcoctionEssenceInterfances(): IBaseConcoctionEssence[]{
-        let arr: IBaseConcoctionEssence[]
-        arr = [];
-        this.baseEssences.forEach(baseEssence => {
-        let ess: IBaseConcoctionEssence;
-        ess.Id = undefined;
-        ess.BaseConcoctionId = this.id;   
-        ess.EssenceId = baseEssence.id;
-        arr.push(ess);
-        });
-        return arr;
-    }
 }
 
 

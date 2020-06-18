@@ -12,11 +12,4 @@ export class Essence extends Entity {
         super(id);
         this.name = name;
     }
-
-    toInterface(): IEssence{
-        let ess: IEssence;
-        ess.Id = this.id;
-        ess.Name = this.name;
-        return ess;
-    }
 }

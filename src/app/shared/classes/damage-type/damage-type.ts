@@ -12,11 +12,4 @@ export class DamageType extends Entity {
         super(id);
         this.name = name;
     }
-
-    toInterface(): IDamageType{
-        let dam: IDamageType;
-        dam.Id = this.id;
-        dam.Name = this.name;
-        return dam;
-    }
 }

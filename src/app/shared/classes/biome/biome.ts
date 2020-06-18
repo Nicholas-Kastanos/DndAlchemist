@@ -12,11 +12,4 @@ export class Biome extends Entity {
         super(id);
         this.name = name;
     }
-
-    toInterface(): IBiome{
-        let ess: IBiome;
-        ess.Id = this.id;
-        ess.Name = this.name;
-        return ess;
-    }
 }
