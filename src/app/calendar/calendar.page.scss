@@ -26,6 +26,9 @@
   .calendar-header {
     background-color: #1a732d;
     color: #FFFFFF;
+    .calendar-month {
+        margin: auto;
+    }
   }
   .event-bullet {
     margin: 2px auto;
@@ -63,3 +66,8 @@
       border-bottom: solid 1px #1a732d;
     }
   }
+
+img{
+    max-width: 0.75em;
+    max-height: 0.75em;
+}

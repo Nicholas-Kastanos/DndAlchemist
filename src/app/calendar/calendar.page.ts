@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Month, CustomDate} from './services/custom-date.service';
+import {Month, CustomDate, MoonPhases} from './services/custom-date.service';
+import {AddEventModal} from './add-event-modal/add-event-modal.page';
+import {ModalController} from '@ionic/angular';
 
 @Component({
     selector: 'app-calendar',
@@ -16,7 +18,9 @@ export class CalendarPage implements OnInit {
     currentYear: any;
     currentDate: any;
 
-    constructor() {
+    constructor(
+        public modalController: ModalController
+    ) {
 
         this.date = new CustomDate(2547, 1, 1);
         this.monthNames = [
@@ -41,7 +45,7 @@ export class CalendarPage implements OnInit {
     getDaysOfMonth() {
         this.currentMonth = this.date.getMonthName();
         this.currentYear = this.date.getYear();
-        this.currentDate = this.date;
+        this.currentDate = this.date.getMonthDay();
 
         this.daysInThisMonth = new Array();
         this.daysInLastMonth = new Array();
@@ -76,8 +80,6 @@ export class CalendarPage implements OnInit {
         new CustomDate(this.date.getYear() - 1, 9, this.date.getDaysInMonth(9)) :
          new CustomDate(this.date.getYear(), this.date.getMonth() - 1, this.date.getDaysInMonth(this.date.getMonth() - 1));
          this.getDaysOfMonth();
-
-        console.log(this.date.getMoons());
     }
 
     goToNextMonth() {
@@ -85,8 +87,59 @@ export class CalendarPage implements OnInit {
         new CustomDate(this.date.getYear() + 1, 0, 1) :
         new CustomDate(this.date.getYear(), this.date.getMonth() + 1, 1);
         this.getDaysOfMonth();
+    }
 
-        console.log(this.date.getMoons());
+    select(day: any){
+        this.date.setDay( this.date.getMonth(), day);
+        this.currentDate = day;
+    }
+
+    getPhase(phase: number){
+        switch(phase){
+            case 0: {
+                return "../assets/img/full_moon.svg";
+            }
+            case 1: {
+                return "../assets/img/wanning_gibbous.svg";
+            }
+            case 2:{
+                return "../assets/img/third_quarter.svg";
+            }
+            case 3:{
+                return "../assets/img/wanning_crescent.svg";
+            }
+            case 4:{
+                return "../assets/img/new_moon.svg";
+            }
+            case 5:{
+                return "../assets/img/waxing_crescent.svg";
+            }
+            case 6:{
+                return "../assets/img/first_quarter.svg";
+            }
+            case 7:{
+                return "../assets/img/waxing_gibbous.svg";
+            }
+            default:{
+                return "../assets/icon/favicon.png";
+            }
+        }
+    }
+
+    async addEvent(){
+        console.log("add event");
+        const modal = await this.modalController.create({
+            component: AddEventModal,
+            swipeToClose: true,
+            //cssClass: 'add-event-class',
+            componentProps: {
+                'month': this.currentMonth,
+                'day' : this.currentDate,
+                'year' : this.currentYear
+            }
+        });
+
+        return await modal.present();
     }
 
 }
