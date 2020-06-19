@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InventoryPageRoutingModule } from './inventory-routing.module';
 
 import { AlchemyInventoryPage } from './inventory.page';
+import {LineItem} from '../line-item/line-item.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,10 @@ import { AlchemyInventoryPage } from './inventory.page';
     IonicModule,
     InventoryPageRoutingModule
   ],
-  declarations: [AlchemyInventoryPage],
+  declarations: [
+    AlchemyInventoryPage,
+    LineItem
+  ],
   exports: [AlchemyInventoryPage]
 })
 export class AlchemyInventoryPageModule {}

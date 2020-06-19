@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 
+interface DisplayItem {
+    name: string;
+}
+
 @Component({
     selector: 'app-line-item',
     templateUrl: './line-item.component.html',
     styleUrls: ['./line-item.component.scss']
 })
-
-interface DisplayItem {
-    name: string;
-}
 
 export class LineItem implements OnInit{
     displayItem: DisplayItem;
@@ -19,6 +19,10 @@ export class LineItem implements OnInit{
 
     ngOnInit() {
         this.displayItem = this.item as DisplayItem;
+        console.debug(this.displayItem);
+        console.log(this.displayItem);
+        console.debug(this.item);
+        console.log(this.item);
     }
 
 }

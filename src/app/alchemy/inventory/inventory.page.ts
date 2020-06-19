@@ -19,6 +19,11 @@ export class AlchemyInventoryPage implements OnInit {
   checkjson: DamageType[];
   baseConcoctions: BaseConcoction[];
 
+  testList: any[] = [
+    {"name": "one"},
+    {"name": "two"}
+  ]
+
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
 
   ngOnInit() {
@@ -47,6 +52,7 @@ export class AlchemyInventoryPage implements OnInit {
     this.database.getBaseConcoctions()
     .then((result) => {
       this.baseConcoctions = result;
+      console.debug(this.baseConcoctions);
     })
   }
 
