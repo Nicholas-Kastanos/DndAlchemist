@@ -1,10 +1,6 @@
-<!-- <ion-item>
-    {{displayItem.name}}
-</ion-item> -->
-
-<ion-card>
+<ion-card (click)="openDetails()">
     <ion-card-header>
-        <ion-card-subtitle>Base Concoction</ion-card-subtitle>
+        <ion-card-subtitle>{{itemType}}</ion-card-subtitle>
         <ion-card-title>{{displayItem.name}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>

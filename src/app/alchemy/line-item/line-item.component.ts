@@ -1,7 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {ItemDetailModal} from '../item-detail/item-detail.component';
+import {Essence} from '../../shared/classes/essence/essence';
 
 interface DisplayItem {
     name: string;
+    //baseEssences: Essence[];
 }
 
 @Component({
@@ -13,16 +17,31 @@ interface DisplayItem {
 export class LineItem implements OnInit{
     displayItem: DisplayItem;
 
-    constructor() {}
+    constructor(
+        public modalController: ModalController
+    ) {}
 
     @Input() item: any;
+    @Input() itemType: string;
 
     ngOnInit() {
         this.displayItem = this.item as DisplayItem;
-        console.debug(this.displayItem);
-        console.log(this.displayItem);
-        console.debug(this.item);
-        console.log(this.item);
+    }
+
+    async openDetails(){
+        console.log("opening details")
+        const modal = await this.modalController.create({
+            component: ItemDetailModal,
+            swipeToClose: true,
+            cssClass: 'modal-class',
+            showBackdrop: true,
+            backdropDismiss: true,
+            componentProps: {
+                'item': this.item
+            }
+        });
+
+        return await modal.present();
     }
 
 }
