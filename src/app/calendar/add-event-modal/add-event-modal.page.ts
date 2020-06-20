@@ -2,7 +2,9 @@ import {Component, Input} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 
 @Component({
-    selector: 'app-add-event-modal'
+    selector: 'app-add-event-modal',
+    templateUrl: './add-event-modal.page.html',
+    styleUrls: ['./add-event-modal.page.scss']
 })
 
 export class AddEventModal{
@@ -15,6 +17,7 @@ export class AddEventModal{
     @Input() year: number;
 
     dismiss(){
+        console.log('dismiss')
         this.modalCtrl.dismiss();
     }
 }

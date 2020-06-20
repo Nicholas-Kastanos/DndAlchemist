@@ -131,7 +131,6 @@ export class CalendarPage implements OnInit {
         const modal = await this.modalController.create({
             component: AddEventModal,
             swipeToClose: true,
-            //cssClass: 'add-event-class',
             componentProps: {
                 'month': this.currentMonth,
                 'day' : this.currentDate,
