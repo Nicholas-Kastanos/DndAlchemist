@@ -6,6 +6,7 @@ import { Essence } from 'src/app/shared/classes/essence/essence';
 import { Biome } from 'src/app/shared/classes/biome/biome';
 import { Rarity } from 'src/app/shared/classes/rarity/rarity';
 import { DamageType } from 'src/app/shared/classes/damage-type/damage-type';
+import { Ingredient } from 'src/app/shared/classes/ingredient/ingredient';
 
 @Component({
   selector: 'app-alchemy-inventory',
@@ -16,7 +17,7 @@ export class AlchemyInventoryPage implements OnInit {
 
   params: Params;
   generated: string = "Not Generated";
-  checkjson: DamageType[];
+  checkjson: Ingredient[];
   baseConcoctions: BaseConcoction[];
 
   testList: any[] = [
@@ -42,7 +43,7 @@ export class AlchemyInventoryPage implements OnInit {
   }
 
   getCheckjson(){
-    this.database.getDamageTypes()
+    this.database.getIngredients()
     .then((result) => {
       this.checkjson = result;
     })
@@ -58,6 +59,12 @@ export class AlchemyInventoryPage implements OnInit {
 
   updateBaseConcoctions(){
     this.database.updateBaseConcoctionsFromJSON()
+    .then(() => {
+    })
+  }
+
+  updateIngredients(){
+    this.database.updateIngredientsFromJson()
     .then(() => {
     })
   }

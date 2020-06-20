@@ -75,5 +75,33 @@
     {
         "Name": "Create IngredientBiomes Table",
         "RawSql": " CREATE TABLE IF NOT EXISTS IngredientBiomes(Id INTEGER PRIMARY KEY AUTOINCREMENT, IngredientId INTEGER NOT NULL, BiomeId INTEGER NOT NULL, FOREIGN KEY (IngredientId) REFERENCES Ingredients(Id), FOREIGN KEY (BiomeId) REFERENCES Biomes (Id));"
+    },
+    {
+        "Name": "Drop IngredientEssences Table 20200620",
+        "RawSql": "DROP TABLE IngredientEssences;"
+    },
+    {
+        "Name": "Drop IngredientBiomes Table 20200620",
+        "RawSql": "DROP TABLE IngredientBiomes;"
+    },
+    {
+        "Name": "Drop Ingredients Table 20200620",
+        "RawSql": "DROP TABLE Ingredients;"
+    },
+    {
+        "Name": "Create Ingredients Table 20200620",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Ingredients(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE, Details TEXT, RarityId INTEGER, DamageTypeId INTEGER, IncreaseHealing BIT NOT NULL, IncreaseArcaneRecovery BIT NOT NULL, IncreaseDamageNumber BIT NOT NULL, IncreaseDamageSize BIT NOT NULL, IncreaseSave BIT NOT NULL, DoubleDuration BIT NOT NULL, DoubleBombRadius BIT NOT NULL, DoubleDustArea BIT NOT NULL, ExtraOilUse BIT NOT NULL, DisadvantageDex BIT NOT NULL, DisadvantageCon BIT NOT NULL, DisadvantageWis BIT NOT NULL, DisadvantageSaves BIT NOT NULL, AddDamageTypeBomb BIT NOT NULL, AddDamageTypeDust BIT NOT NULL, AddDamageTypeOil BIT NOT NULL, AddDamageTypePotion BIT NOT NULL, FOREIGN KEY (DamageTypeId) REFERENCES DamageTypes(Id), FOREIGN KEY (RarityId) REFERENCES Rarities(Id));"
+    },
+    {
+        "Name": "Create IngredientEssences Table 20200620",
+        "RawSql": "CREATE TABLE IF NOT EXISTS IngredientEssences(Id INTEGER PRIMARY KEY AUTOINCREMENT, IngredientId INTEGER NOT NULL, EssenceId INTEGER NOT NULL, FOREIGN KEY (IngredientId) REFERENCES Ingredients(Id), FOREIGN KEY (EssenceId) REFERENCES Essences (Id));"
+    },
+    {
+        "Name": "Create IngredientBiomes Table 20200620",
+        "RawSql": " CREATE TABLE IF NOT EXISTS IngredientBiomes(Id INTEGER PRIMARY KEY AUTOINCREMENT, IngredientId INTEGER NOT NULL, BiomeId INTEGER NOT NULL, FOREIGN KEY (IngredientId) REFERENCES Ingredients(Id), FOREIGN KEY (BiomeId) REFERENCES Biomes (Id));"
+    },
+    {
+        "Name": "Add Healing and Arcane Recovery damage types",
+        "RawSql": "INSERT INTO DamageTypes(Name) VALUES ('Healing'),('Arcane Recovery');"
     }
 ]

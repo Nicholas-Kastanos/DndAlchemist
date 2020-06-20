@@ -14,6 +14,9 @@
     <div>
         <ion-button (click)="updateBaseConcoctions()">Update Base Concoctions</ion-button>
     </div>
+    <div>
+        <ion-button (click)="updateIngredients()">Update Ingredients</ion-button>
+    </div>
 
     <div>
         <app-line-item *ngFor="let item of baseConcoctions" [item]="item">hello</app-line-item>

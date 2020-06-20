@@ -695,8 +695,8 @@
             "Ether",
             "Fire"
         ],
-        "addDamageTypePoison": true,
-        "details": "Allows another damage type to be added to a poison (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a poison would originally do 1d6 poison damage, the poison would now do 1d6 poison damage and 1d6 fire damage.",
+        "addDamageTypePotion": true,
+        "details": "Allows another damage type to be added to a potion (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a poison would originally do 1d6 poison damage, the poison would now do 1d6 poison damage and 1d6 fire damage.",
         "locations": [
             "Underdark"
         ]
