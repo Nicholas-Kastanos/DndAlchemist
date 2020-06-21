@@ -5,6 +5,7 @@ import {Essence} from '../../shared/classes/essence/essence';
 interface DisplayItem{
     name: string;
     baseEssences: Essence[];
+    essences: Essence[];
 }
 
 @Component({
@@ -24,8 +25,6 @@ export class ItemDetailModal implements OnInit{
 
     ngOnInit() {
         this.displayItem = this.item as DisplayItem;
-        console.debug(this.displayItem);
-        console.debug(this.item);
     }
 
     dismiss(){

@@ -20,11 +20,6 @@ export class AlchemyInventoryPage implements OnInit {
   checkjson: Ingredient[];
   baseConcoctions: BaseConcoction[];
 
-  testList: any[] = [
-    {"name": "one"},
-    {"name": "two"}
-  ]
-
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
 
   ngOnInit() {
@@ -35,6 +30,11 @@ export class AlchemyInventoryPage implements OnInit {
         this.generated = "Generated";
       }
     })
+  }
+
+  ngAfterViewInit() {
+    console.debug('in enter function')
+    this.getBaseConcoctions();
   }
 
   check(){

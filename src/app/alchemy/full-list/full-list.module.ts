@@ -7,13 +7,15 @@ import {IonicModule} from '@ionic/angular';
 import {FullListPageRoutingModule} from './full-list-routing.module';
 
 import {FullListPage} from './full-list.page';
+import {LineItemPageModule} from '../line-item/line-item.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        FullListPageRoutingModule
+        FullListPageRoutingModule,
+        LineItemPageModule
     ],
     declarations: [FullListPage],
     exports: [FullListPage]

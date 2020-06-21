@@ -1,3 +1,22 @@
 <ion-content>
-    full list page
+    <div>
+        <ion-button (click)="loadData()">Load Data</ion-button>
+    </div>
+
+    <div>
+        <ion-item-divider>
+            <ion-label>
+                Base Concoctions
+            </ion-label>
+        </ion-item-divider>
+        <app-line-item *ngFor="let item of baseConcoctionsDisplay" [item]="item" [itemType]="'Base Concoction'"></app-line-item>
+    </div>
+    <div>
+        <ion-item-divider>
+            <ion-label>
+                Ingredients
+            </ion-label>
+        </ion-item-divider>
+        <app-line-item *ngFor="let item of ingredientsDisplay" [item]="item" [itemType]="'Ingredient'"></app-line-item>
+    </div>
 </ion-content>

@@ -10,8 +10,16 @@
 </ion-header>
 <ion-content class="ion-padding">
     <div>
-        Essences:
+        Base Essences:
         <div *ngFor="let essence of displayItem.baseEssences">
+            <div class="element-list-container">
+                <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
+            </div>
+        </div>
+    </div>
+    <div>
+        Essences:
+        <div *ngFor="let essence of displayItem.essences">
             <div class="element-list-container">
                 <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
             </div>
