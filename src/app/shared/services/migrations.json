@@ -103,5 +103,14 @@
     {
         "Name": "Add Healing and Arcane Recovery damage types",
         "RawSql": "INSERT INTO DamageTypes(Name) VALUES ('Healing'),('Arcane Recovery');"
+    },
+    {
+        "Name": "Create SaveTypes Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS SaveTypes(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE);"
+    },
+    {
+        "Name": "Insert SaveTypes",
+        "RawSql": "INSERT INTO SaveTypes(Name) VALUES ('Strength'),('Dexterity'),('Constitution'),('Intelligence'),('Wisdon'),('Charisma');"
     }
+
 ]

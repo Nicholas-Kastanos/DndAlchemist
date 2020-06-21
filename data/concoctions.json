@@ -4,7 +4,7 @@
         "dieType": 6,
         "dieNumber": 1,
         "DC": 12,
-        "save": "con",
+        "save": "Constitution",
         "damageType": "poison",
         "essences": [
             "Fire"
@@ -19,7 +19,7 @@
         "damageType": "poison",
         "durationType": "hour",
         "dieNumber": 1,
-        "save": "con",
+        "save": "Constitution",
         "essences":[
             "Ether",
             "Fire",
@@ -30,7 +30,7 @@
     },{
         "name": "Burnt Other Fumes",
         "DC": 13,
-        "save": "con",
+        "save": "Constitution",
         "dieNumber": 3,
         "damageType": "poison",
         "dieType": 6,
@@ -44,7 +44,7 @@
     },{
         "name": "Crawler Mucus",
         "DC": 13,
-        "save": "con",
+        "save": "Constitution",
         "durationLength": 1,
         "durationType": "minute",
         "essences": [
@@ -58,7 +58,7 @@
     },{
         "name": "Drow Poison",
         "DC": 13,
-        "save": "con",
+        "save": "Constitution",
         "durationLength": 1,
         "durationType": "hour",
         "essences":[
@@ -72,7 +72,7 @@
         "effect": "This poison is typically made only by the drow, and only in a place far removed from sunlight. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 hour. If the saving throw fails by 5 or more, the creature is also Unconscious while Poisoned in this way. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
     },{
         "name": "Essence of Ether",
-        "save": "con",
+        "save": "Constitution",
         "DC": 15,
         "durationType": "hour",
         "durationLength": 8,
@@ -87,7 +87,7 @@
     },{
         "name": "Malice",
         "DC": 15,
-        "save": "con",
+        "save": "Constitution",
         "durationLength": 1,
         "durationType": "hour",
         "essences":[
@@ -104,7 +104,7 @@
         "dieType": 6,
         "damageType": "poison",
         "DC": 17,
-        "save": "con",
+        "save": "Constitution",
         "essences":[
             "Ether",
             "Fire",
@@ -116,7 +116,7 @@
     },{
         "name": "Oil of Taggit",
         "DC": 13,
-        "save": "con",
+        "save": "Constitution",
         "durationLength": 24,
         "durationType": "hour",
         "essences":[
@@ -130,7 +130,7 @@
     },{
         "name": "Pale Tincture",
         "DC": 16,
-        "save": "con",
+        "save": "Constitution",
         "dieType": 6,
         "damageType": "poison",
         "dieNumber": 1,
@@ -145,7 +145,7 @@
     },{
         "name": "Purple Worm Poison",
         "DC": 19,
-        "save": "con",
+        "save": "Constitution",
         "dieType": 6,
         "dieNumber": 12,
         "damageType": "poison",
@@ -161,7 +161,7 @@
     },{
         "name": "Serpent Venom",
         "DC": 11,
-        "save": "con",
+        "save": "Constitution",
         "dieNumber": 3,
         "dieType": 6,
         "damageType":"poison",
@@ -174,7 +174,7 @@
     },{
         "name": "Torpor",
         "DC": 15,
-        "save": "con",
+        "save": "Constitution",
         "durationLength": 4,
         "durationType": "d6 hours",
         "essences":[
@@ -188,7 +188,7 @@
     },{
         "name": "Truth Serum",
         "DC": 11,
-        "save": "con",
+        "save": "Constitution",
         "durationLength": 1,
         "durationType": "hour",
         "essences":[
@@ -202,7 +202,7 @@
     },{
         "name": "Wyvern Poison",
         "DC": 15,
-        "save": "con",
+        "save": "Constitution",
         "dieType": 6,
         "dieNumber": 7,
         "damageType":"poison",
@@ -229,7 +229,7 @@
         "effect": "Gain 1d4+1 points which can be used to recover spell slots. A spell slot level costs one point."
     },{
         "name": "Animal Friendship",
-        "save": "wis",
+        "save": "Wisdom",
         "DC": 13,
         "durationLength": 1,
         "durationType": "hour",
@@ -270,7 +270,7 @@
     },{
         "name": "Frost Dragon Breath",
         "DC": 13,
-        "save": "dex",
+        "save": "Dexterity",
         "dieNumber": 4,
         "dieType":6,
         "damageType": "cold",
@@ -287,7 +287,7 @@
     },{
         "name": "Fire Dragon Breath",
         "DC": 13,
-        "save": "dex",
+        "save": "Dexterity",
         "dieNumber": 4,
         "dieType":6,
         "damageType": "fire",
@@ -304,7 +304,7 @@
     },{
         "name": "Poison Dragon Breath",
         "DC": 13,
-        "save": "dex",
+        "save": "Dexterity",
         "dieNumber": 4,
         "damageType": "poison",
         "dieType":6,
@@ -321,7 +321,7 @@
     },{
         "name": "Acid Dragon Breath",
         "DC": 13,
-        "save": "dex",
+        "save": "Dexterity",
         "dieNumber": 4,
         "dieType":6,
         "damageType": "acid",
@@ -338,7 +338,7 @@
     },{
         "name": "Lightning Dragon Breath",
         "DC": 13,
-        "save": "dex",
+        "save": "Dexterity",
         "dieNumber": 4,
         "dieType":6,
         "damageType": "lightning",
@@ -730,7 +730,7 @@
         "durationLength": 1,
         "durationType": "minute",
         "DC": 13,
-        "save":"wis",
+        "save": "Wisdom",
         "essences":[
             "Air",
             "Ether",
@@ -773,7 +773,7 @@
     },{
         "name": "Sneezing and Choking",
         "DC": 15,
-        "save": "con",
+        "save": "Constitution",
         "essences":[
             "Air",
             "Ether",
