@@ -1,10 +1,6 @@
 <ion-content>
     <div>
-        <ion-button (click)="loadData()">Load Data</ion-button>
-    </div>
-
-    <div>
-        <ion-item-divider>
+        <ion-item-divider (click)="toggleBase()">
             <ion-label>
                 Base Concoctions
             </ion-label>
@@ -12,7 +8,7 @@
         <app-line-item *ngFor="let item of baseConcoctionsDisplay" [item]="item" [itemType]="'Base Concoction'"></app-line-item>
     </div>
     <div>
-        <ion-item-divider>
+        <ion-item-divider (click)="toggleIngredients()">
             <ion-label>
                 Ingredients
             </ion-label>
