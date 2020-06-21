@@ -29,9 +29,12 @@ export class AlchemyInventoryPage implements OnInit {
 
   ngOnInit() {
     this.params = this.route.snapshot.params;
-    if(this.database.migrationTableCreated()){
-      this.generated = "Generated";
-    }
+    this.database.initialiseSubject.subscribe(() => {
+      console.debug(this.database.migrationTableCreated());
+      if(this.database.migrationTableCreated()){
+        this.generated = "Generated";
+      }
+    })
   }
 
   check(){

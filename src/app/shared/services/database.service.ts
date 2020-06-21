@@ -5,11 +5,12 @@ import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../clas
 import migrationsArray from './migrations.json';
 import baseConcoctionJson from '../../../../data/base_concoctions.json';
 import ingredientsJson from '../../../../data/ingredients.json';
+import concoctionsJson from '../../../../data/concoctions.json';
 import { Biome, IBiome } from '../classes/biome/biome';
 import { Rarity, IRarity } from '../classes/rarity/rarity';
 import { DamageType, IDamageType } from '../classes/damage-type/damage-type';
 import { Ingredient, IIngredient, IIngredientEssence, IIngredientBiome, IIngredientImport } from '../classes/ingredient/ingredient';
-import { RaceSubscriber } from 'rxjs/internal/observable/race';
+import { AsyncSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,8 @@ export class DatabaseService {
   private migrationTableExists: boolean = false;
   private migrationComplete: boolean = false;
   private readonly SqlMigrationsTableName: string = 'SQLMigrations';
+
+  public initialiseSubject = new AsyncSubject<void>();
 
   private sqliteConfig: SQLiteDatabaseConfig = {
     name: "alchemy.db",
@@ -308,6 +311,23 @@ export class DatabaseService {
     }
   }
 
+  private getConcoctionKeys(){
+    let uniqueKeys = [];
+    concoctionsJson.forEach(concoction => {
+      Object.keys(concoction).forEach(key => {
+        let found = uniqueKeys.find(uk => uk === key)
+        if(found == null){
+          uniqueKeys.push(key);
+        }
+      })
+    });
+    console.debug("Concoction Keys")
+    uniqueKeys.forEach(uk => {
+      console.debug(uk)
+    });
+    console.debug("Concoction Keys - Done")
+  }
+
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
     let arr = [];
     for(let i = 0; i < resultSet.rows.length; i++){
@@ -382,24 +402,18 @@ export class DatabaseService {
     });
   }
 
-  public initialise(): Promise<void> {
-    return new Promise<void>(async (resolve, reject) => {
-      this.db = await this._openDb();
-      this._createMigrationsTable().then(() => {
-        this.migrationTableExists = true;
-        this._runMigrations().then(async() => {
-          this.migrationComplete = true;
-          await this.updateBaseConcoctionsFromJSON();
-          await this.updateIngredientsFromJson();
-          // this.getIngredientKeys();
-          resolve();
-        }).catch(() => {
-          reject();
-        });
-      }).catch(() => {
-        reject();
-      });
-    })
+  public async initialise(): Promise<void> {
+    this.db = await this._openDb();    
+    await this._createMigrationsTable();
+    this.migrationTableExists = true;
+    await this._runMigrations();
+    this.migrationComplete = true;
+    await this.updateBaseConcoctionsFromJSON();
+    await this.updateIngredientsFromJson();
+    this.getConcoctionKeys();
+
+    this.initialiseSubject.next();
+    this.initialiseSubject.complete();
   }
 }
 
