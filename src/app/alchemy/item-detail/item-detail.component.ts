@@ -29,7 +29,35 @@ export class ItemDetailModal implements OnInit{
     }
 
     dismiss(){
-        console.log('dismiss')
         this.modalCtrl.dismiss();
     }
+
+    getElement(elementId: number){
+        // 1: air
+        // 2 earth
+        // 3 ether
+        // 4 fire
+        // 5 water
+        switch(elementId){
+            case 1: {
+                return "../../assets/img/air.png";
+            }
+            case 2: {
+                return "../../assets/img/earth.png";
+            }
+            case 3: {
+                return "../../assets/img/ether.png";
+            }
+            case 4: {
+                return "../../assets/img/fire.png";
+            }
+            case 5: {
+                return "../../assets/img/water.png";
+            }
+            default: {
+                return "../../assets/img/new_moon.svg";
+            }
+        }
+    }
+
 }

@@ -11,8 +11,10 @@
 <ion-content class="ion-padding">
     <div>
         Essences:
-        <ion-list *ngFor="let essence of displayItem.baseEssences">
-            {{essence.name}}
-        </ion-list>
+        <div *ngFor="let essence of displayItem.baseEssences">
+            <div class="element-list-container">
+                <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
+            </div>
+        </div>
     </div>
-</ion-content>`
+</ion-content>
