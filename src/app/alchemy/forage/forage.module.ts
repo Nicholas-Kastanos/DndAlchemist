@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import {ForagePageRoutingModule} from './forage-routing.module';
 
 import {ForagePage} from './forage.page';
+import {ForageResultComponent} from '../forage-result/forage-result.component';
+import {LineItemPageModule} from '../line-item/line-item.module';
 
 @NgModule({
     imports: [
@@ -14,9 +16,13 @@ import {ForagePage} from './forage.page';
         FormsModule,
         ReactiveFormsModule,
         IonicModule,
-        ForagePageRoutingModule
+        ForagePageRoutingModule,
+        LineItemPageModule
     ],
-    declarations: [ForagePage],
+    declarations: [
+        ForagePage,
+        ForageResultComponent
+    ],
     exports: [ForagePage]
 })
 export class ForagePageModule {}

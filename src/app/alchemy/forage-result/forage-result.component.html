@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Foraged Ingredients</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="dismiss()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <app-line-item *ngFor="let item of ingredients" [item]="item" [itemType]="'Ingredient'"></app-line-item>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon (click)="addToInventory()" name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+</ion-content>

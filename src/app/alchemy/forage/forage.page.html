@@ -10,11 +10,11 @@
 
         <ion-list>
 
-            <ion-item class="ion-margin" *ngFor="let item of biomes; let i=index">
+            <ion-item class="ion-margin" *ngFor="let item of biomeChecklist; let i=index">
 
-                <ion-label>{{item.value}}</ion-label>
-                <ion-checkbox [value]="item.value" [checked]="item.checked"
-                (ionChange)="onSelectionChange($event,i)">
+                <ion-label>{{item.biome.name}}</ion-label>
+                <ion-checkbox [value]="item.biome" [checked]="item.checked"
+                (ionChange)="check(item)">
             </ion-checkbox>
 
             </ion-item>
