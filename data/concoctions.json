@@ -67,9 +67,8 @@
             "Water"
         ],
         "requiredIngredients": [
-            "Must be brewed in the dark."
         ],
-        "effect": "This poison is typically made only by the drow, and only in a place far removed from sunlight. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 hour. If the saving throw fails by 5 or more, the creature is also Unconscious while Poisoned in this way. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
+        "effect": "This poison is typically made only by the drow, and can only be brewed in the dark. A creature subjected to this poison must succeed on a DC 13 Constitution saving throw or be Poisoned for 1 hour. If the saving throw fails by 5 or more, the creature is also Unconscious while Poisoned in this way. The creature wakes up if it takes damage or if another creature takes an action to shake it awake."
     },{
         "name": "Essence of Ether",
         "save": "Constitution",
@@ -218,6 +217,7 @@
         "name": "Arcane Recovery",
         "dieType": 4,
         "dieNumber": 1,
+        "damageType": "arcane recovery",
         "essences":[
             "Air",
             "Earth",
@@ -253,7 +253,7 @@
             "Fire"
         ],
         "requiredIngredients":[
-            "Cosmos Glond OR Rock Vine OR Verdant"
+            "Cosmos Glond OR Rock Vine OR Verdant Nettle"
         ],
         "effect": "When you drink this potion, you gain the effect of the clairvoyance spell."
     },{
@@ -489,8 +489,8 @@
         "requiredIngredients":[
             "Twilight Wormwood",
             "Voidroot",
-            "Wispstalk",
-            "Primordial Balm OR Chromus Slime"
+            "Wisp Stalks",
+            "Primordial Balm OR Chronus Slime"
         ],
         "effect": "The affected creature then gains the effect of the Etherealness spell for 1 hour."
     },{
@@ -537,9 +537,9 @@
         ],
         "requiredIngredients":[
             "Erbium Fungus",
-            "Dragontongue",
+            "Dragontongue Petals",
             "Blackleaf Rose",
-            "Ashchives"
+            "Ash Chives"
         ],
         "effect": "When you drink this potion, your Strength score changes to 21 for 1 hour."
     },{
@@ -554,7 +554,7 @@
         ],
         "requiredIngredients":[
             "Erbium Fungus",
-            "Dragontongue",
+            "Dragontongue Petals",
             "Blackleaf Rose",
             "Olina Petals"
         ],
@@ -571,7 +571,7 @@
         ],
         "requiredIngredients":[
             "Erbium Fungus",
-            "Dragontongue",
+            "Dragontongue Petals",
             "Blackleaf Rose",
             "Frozen Seedlings"
         ],
@@ -588,7 +588,7 @@
         ],
         "requiredIngredients":[
             "Erbium Fungus",
-            "Dragontongue",
+            "Dragontongue Petals",
             "Blackleaf Rose",
             "Wisp Stalks"
         ],
@@ -605,7 +605,7 @@
         ],
         "requiredIngredients":[
             "Erbium Fungus",
-            "Dragontongue",
+            "Dragontongue Petals",
             "Blackleaf Rose",
             "Behir Skin"
         ],
@@ -642,6 +642,7 @@
         "name": "Healing",
         "dieNumber": 2,
         "dieType": 4,
+        "damageType": "healing",
         "essences":[
             "Ether",
             "Water",
@@ -693,7 +694,8 @@
             "Water"
         ],
         "requiredIngredients":[
-            "Fiend's Ivy OR (Hydrathistle AND Genko Bush)"
+            "Hydrathistle",
+            "Genko Brush"
         ],
         "effect": "For 1 minute after you drink this potion, you have Resistance to all damage."
     },{

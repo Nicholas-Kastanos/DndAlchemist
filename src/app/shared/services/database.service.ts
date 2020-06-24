@@ -11,6 +11,9 @@ import { Rarity, IRarity } from '../classes/rarity/rarity';
 import { DamageType, IDamageType } from '../classes/damage-type/damage-type';
 import { Ingredient, IIngredient, IIngredientEssence, IIngredientBiome, IIngredientImport } from '../classes/ingredient/ingredient';
 import { AsyncSubject } from 'rxjs';
+import { SaveType, ISaveType } from '../classes/save-type/save-type';
+import { IConcoction, Concoction, IConcoctionEssence, IConcoctionIngredient, ConcoctionIngredient, IConcoctionImport } from '../classes/concoction/concoction';
+import { NgModel } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +46,16 @@ export class DatabaseService {
     return this.migrationComplete;
   }
 
+  // public async getLookup<Model, IModel>(tableName: string): Promise<Array<Model>>{
+  //   let resultSet: IQueryResults<IModel> = await this.db.executeSql("SELECT * FROM " + tableName +";", []);
+  //   let iResultSet = this.queryResultToArray<IModel>(resultSet);
+  //   let results: Array<Model> = new Array<Model>();
+  //   iResultSet.forEach((iResult: IModel) => {
+  //     results.push(new Model(iResult.Id, iResult.Name));
+  //   })
+  //   return results;
+  // }
+
   public async getEssences(): Promise<Essence[]> {
     let resultSet = (await this.db.executeSql("SELECT * FROM Essences", [])) as IQueryResults<IEssence>;
     let iEssences = this.queryResultToArray<IEssence>(resultSet);
@@ -52,48 +65,17 @@ export class DatabaseService {
     });
     return essences;
   }
-
-  public async getBaseConcoctions(): Promise<BaseConcoction[]> {
-    let resultSet = (await this.db.executeSql("SELECT * FROM BaseConcoctions", [])) as IQueryResults<IBaseConcoction>;
-    let iBaseConcoctions = this.queryResultToArray<IBaseConcoction>(resultSet);
-    let baseConcoctions: BaseConcoction[] = [];
-    let essences = await this.getEssences();
-    for(let i = 0; i < iBaseConcoctions.length; i++){
-      let iBaseConcoction = iBaseConcoctions[i];
-      let essenceSet = (await this.db.executeSql("SELECT * FROM BaseConcoctionEssences WHERE BaseConcoctionId=?", [iBaseConcoction.Id])) as IQueryResults<IBaseConcoctionEssence>;
-      let iEssence = this.queryResultToArray<IBaseConcoctionEssence>(essenceSet);
-      let baseEssences = iEssence.map(ie => essences.find(e => e.id === ie.EssenceId));
-      baseConcoctions.push(new BaseConcoction(iBaseConcoction.Id, iBaseConcoction.Name, iBaseConcoction.BaseEffect, baseEssences));     
-    }
-    return baseConcoctions;
+    
+  public async getSaveTypes(): Promise<SaveType[]>{
+    let resultSet = (await this.db.executeSql("SELECT * FROM SaveTypes", [])) as IQueryResults<ISaveType>;
+    let iSaveTypes = this.queryResultToArray<ISaveType>(resultSet);
+    let saveTypes: SaveType[] = [];
+    iSaveTypes.forEach(iSaveType => {
+      saveTypes.push(new DamageType(iSaveType.Id, iSaveType.Name));
+    });
+    return saveTypes;
   }
-
-  // public async updateBaseConcoctionsFromJSON(json: any){
-  public async updateBaseConcoctionsFromJSON(){
-    let essences = await this.getEssences();
-    let existingBaseConcoctions = await this.getBaseConcoctions();
-    for(let i = 0; i < baseConcoctionJson.length; i++) {
-      let jsonBaseConcoction = baseConcoctionJson[i];
-      let existingBaseConcoction = existingBaseConcoctions.find(existing => existing.name === jsonBaseConcoction.name);
-      if(existingBaseConcoction == null){ // There is no match
-        let insertResult = await this.db.executeSql("INSERT INTO BaseConcoctions (Name, BaseEffect) VALUES (?, ?);", [jsonBaseConcoction.name, jsonBaseConcoction.baseEffect]) as IInsertResults<IBaseConcoction>; 
-        for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
-          let newEssence = jsonBaseConcoction.baseEssences[j];
-          let newEssenceId = essences.find(e => e.name === newEssence).id;
-          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [insertResult.insertId, newEssenceId]);
-        }
-      } else { // There is a match
-        await this.db.executeSql("UPDATE BaseConcoctions SET BaseEffect=? WHERE Id=?;", [jsonBaseConcoction.baseEffect, existingBaseConcoction.id]);
-        await this.db.executeSql("DELETE FROM BaseConcoctionEssences WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
-        for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
-          let newEssence = jsonBaseConcoction.baseEssences[j];
-          let newEssenceId = essences.find(e => e.name === newEssence).id;
-          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssenceId]);
-        }
-      }
-    }
-  }
-
+  
   public async getBiomes(): Promise<Biome[]>{
     let resultSet = (await this.db.executeSql("SELECT * FROM Biomes", [])) as IQueryResults<IBiome>;
     let iBiomes = this.queryResultToArray<IBiome>(resultSet);
@@ -124,13 +106,53 @@ export class DatabaseService {
     return damageTypes;
   }
 
+  public async getBaseConcoctions(): Promise<BaseConcoction[]> {
+    let resultSet = (await this.db.executeSql("SELECT * FROM BaseConcoctions", [])) as IQueryResults<IBaseConcoction>;
+    let iBaseConcoctions = this.queryResultToArray<IBaseConcoction>(resultSet);
+    let baseConcoctions: BaseConcoction[] = [];
+    let essences = await this.getEssences();
+    for(let i = 0; i < iBaseConcoctions.length; i++){
+      let iBaseConcoction = iBaseConcoctions[i];
+      let essenceSet = (await this.db.executeSql("SELECT * FROM BaseConcoctionEssences WHERE BaseConcoctionId=?", [iBaseConcoction.Id])) as IQueryResults<IBaseConcoctionEssence>;
+      let iEssence = this.queryResultToArray<IBaseConcoctionEssence>(essenceSet);
+      let baseEssences = iEssence.map(ie => essences.find(e => e.id === ie.EssenceId));
+      baseConcoctions.push(new BaseConcoction(iBaseConcoction.Id, iBaseConcoction.Name, iBaseConcoction.BaseEffect, baseEssences));     
+    }
+    return baseConcoctions;
+  }
+  
+    public async updateBaseConcoctionsFromJson(){
+      let essences = await this.getEssences();
+      let existingBaseConcoctions = await this.getBaseConcoctions();
+      for(let i = 0; i < baseConcoctionJson.length; i++) {
+        let jsonBaseConcoction = baseConcoctionJson[i];
+        let existingBaseConcoction = existingBaseConcoctions.find(existing => existing.name === jsonBaseConcoction.name);
+        if(existingBaseConcoction == null){ // There is no match
+          let insertResult = await this.db.executeSql("INSERT INTO BaseConcoctions (Name, BaseEffect) VALUES (?, ?);", [jsonBaseConcoction.name, jsonBaseConcoction.baseEffect]) as IInsertResults<IBaseConcoction>; 
+          for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
+            let newEssence = jsonBaseConcoction.baseEssences[j];
+            let newEssenceId = essences.find(e => e.name === newEssence).id;
+            await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [insertResult.insertId, newEssenceId]);
+          }
+        } else { // There is a match
+          await this.db.executeSql("UPDATE BaseConcoctions SET BaseEffect=? WHERE Id=?;", [jsonBaseConcoction.baseEffect, existingBaseConcoction.id]);
+          await this.db.executeSql("DELETE FROM BaseConcoctionEssences WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
+        for(let j = 0; j < jsonBaseConcoction.baseEssences.length; j++){
+          let newEssence = jsonBaseConcoction.baseEssences[j];
+          let newEssenceId = essences.find(e => e.name === newEssence).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssenceId]);
+        }
+      }
+    }
+  }
+
   public async getIngredients(): Promise<Ingredient[]>{
     let essences = await this.getEssences();
     let biomes = await this.getBiomes();
     let damageTypes = await this.getDamageTypes();
     let rarities = await this.getRarities();
 
-    let resultSet = (await this.db.executeSql("SELECT * FROM Ingredients", [])) as IQueryResults<IIngredient>;
+    let resultSet = (await this.db.executeSql("SELECT * FROM Ingredients;", [])) as IQueryResults<IIngredient>;
     let iIngredients = this.queryResultToArray<IIngredient>(resultSet);
     let ingredients: Ingredient[] = [];
 
@@ -188,27 +210,30 @@ export class DatabaseService {
     let ingredientsImportJson = ingredientsJson as IIngredientImport[];
     for(let i = 0; i < ingredientsImportJson.length; i++){
       let jsonIngredient = ingredientsImportJson[i];
+
+      let rarityId = null;
+      if(jsonIngredient.rarity){
+        let rarity = rarities.find(r => r.name.toLowerCase() === jsonIngredient.rarity!.toLowerCase());
+        if (rarity != null){
+          rarityId = rarity.id;
+        } else {
+          throw new Error("No rarity " + jsonIngredient.rarity);
+        }
+      }
+
+      let damageTypeId = null;
+      if(jsonIngredient.damageType){
+        let damageType = damageTypes.find(d => d.name.toLowerCase() === jsonIngredient.damageType!.toLowerCase());
+        if (damageType != null){
+          damageTypeId = damageType.id;
+        } else {
+          throw new Error("No damage type " + jsonIngredient.damageType);
+        }
+      }
+      
+      let ingredientId = null;
       let existingIngredient = existingIngredients.find(existing => existing.name === jsonIngredient.name);
       if(existingIngredient == null) { // There was no match
-        let rarityId = null;
-        if(jsonIngredient.rarity){
-          let rarity = rarities.find(r => r.name.toLowerCase() === jsonIngredient.rarity!.toLowerCase());
-          if (rarity != null){
-            rarityId = rarity.id;
-          } else {
-            throw new Error("No rarity " + jsonIngredient.rarity);
-          }
-        }
-
-        let damageTypeId = null;
-        if(jsonIngredient.damageType){
-          let damageType = damageTypes.find(d => d.name.toLowerCase() === jsonIngredient.damageType!.toLowerCase());
-          if (damageType != null){
-            damageTypeId = damageType.id;
-          } else {
-            throw new Error("No damage type " + jsonIngredient.damageType);
-          }
-        }
 
         let insertResult = await this.db.executeSql("INSERT INTO Ingredients(Name, Details, RarityId, DamageTypeId, IncreaseHealing, " +
           "IncreaseArcaneRecovery, IncreaseDamageNumber, IncreaseDamageSize, IncreaseSave, DoubleDuration, DoubleBombRadius, DoubleDustArea, " +
@@ -237,37 +262,9 @@ export class DatabaseService {
             jsonIngredient.addDamageTypeOil ?? false,
             jsonIngredient.addDamageTypePotion ?? false
           ]) as IInsertResults<IIngredient>;
-        for(let j = 0; j < jsonIngredient.essences.length; j++){
-          let newEssence = jsonIngredient.essences[j];
-          let newEssenceId = essences.find(e => e.name === newEssence).id;
-          await this.db.executeSql("INSERT INTO IngredientEssences (IngredientId, EssenceId) VALUES (?, ?);", [insertResult.insertId, newEssenceId]);
-        }
-        for(let j = 0; j < jsonIngredient.locations.length; j++){
-          let newLocation = jsonIngredient.locations[j];
-          let newLocationId = biomes.find(b => b.name === newLocation).id;
-          await this.db.executeSql("INSERT INTO IngredientBiomes (IngredientId, BiomeId) VALUES (?, ?);", [insertResult.insertId, newLocationId]);
-        }
+        ingredientId = insertResult.insertId;    
       } else { // There is a match
-        let rarityId = null;
-        if(jsonIngredient.rarity){
-          let rarity = rarities.find(r => r.name.toLowerCase() === jsonIngredient.rarity!.toLowerCase());
-          if (rarity){
-            rarityId = rarity.id;
-          } else {
-            throw new Error("No rarity " + jsonIngredient.rarity);
-          }
-        }
-
-        let damageTypeId = null;
-        if(jsonIngredient.damageType){
-          let damageType = damageTypes.find(d => d.name.toLowerCase() === jsonIngredient.damageType!.toLowerCase());
-          if (damageType){
-            damageTypeId = damageType.id;
-          } else {
-            throw new Error("No damage type " + jsonIngredient.damageType);
-          }
-        }
-
+        ingredientId = existingIngredient.id;
         await this.db.executeSql("UPDATE Ingredients SET Details=?, RarityId=?, DamageTypeId=?, IncreaseHealing=?, " +
           "IncreaseArcaneRecovery=?, IncreaseDamageNumber=?, IncreaseDamageSize=?, IncreaseSave=?, DoubleDuration=?, DoubleBombRadius=?, DoubleDustArea=?, " +
           "ExtraOilUse=?, DisadvantageDex=?, DisadvantageCon=?, DisadvantageWis=?, DisadvantageSaves=?, AddDamageTypeBomb=?, AddDamageTypeDust=?, AddDamageTypeOil=?, " + 
@@ -293,39 +290,169 @@ export class DatabaseService {
             jsonIngredient.addDamageTypeDust ?? false,
             jsonIngredient.addDamageTypeOil ?? false,
             jsonIngredient.addDamageTypePotion ?? false,
-            existingIngredient.id
-          ]);
-        await this.db.executeSql("DELETE FROM IngredientEssences WHERE IngredientId=?;", [existingIngredient.id]);
-        await this.db.executeSql("DELETE FROM IngredientBiomes WHERE IngredientId=?;", [existingIngredient.id]);
-        for(let j = 0; j < jsonIngredient.essences.length; j++){
-          let newEssence = jsonIngredient.essences[j];
-          let newEssenceId = essences.find(e => e.name === newEssence).id;
-          await this.db.executeSql("INSERT INTO IngredientEssences (IngredientId, EssenceId) VALUES (?, ?);", [existingIngredient.id, newEssenceId]);
-        }
-        for(let j = 0; j < jsonIngredient.locations.length; j++){
-          let newLocation = jsonIngredient.locations[j];
-          let newLocationId = biomes.find(b => b.name === newLocation).id;
-          await this.db.executeSql("INSERT INTO IngredientBiomes (IngredientId, BiomeId) VALUES (?, ?);", [existingIngredient.id, newLocationId]); 
-        }
+            ingredientId
+        ]);
+        await this.db.executeSql("DELETE FROM IngredientEssences WHERE IngredientId=?;", [ingredientId]);
+        await this.db.executeSql("DELETE FROM IngredientBiomes WHERE IngredientId=?;", [ingredientId]);
+      }
+
+      for(let j = 0; j < jsonIngredient.essences.length; j++){
+        let newEssence = jsonIngredient.essences[j];
+        let newEssenceId = essences.find(e => e.name === newEssence).id;
+        await this.db.executeSql("INSERT INTO IngredientEssences (IngredientId, EssenceId) VALUES (?, ?);", [ingredientId, newEssenceId]);
+      }
+      for(let j = 0; j < jsonIngredient.locations.length; j++){
+        let newLocation = jsonIngredient.locations[j];
+        let newLocationId = biomes.find(b => b.name === newLocation).id;
+        await this.db.executeSql("INSERT INTO IngredientBiomes (IngredientId, BiomeId) VALUES (?, ?);", [ingredientId, newLocationId]); 
       }
     }
   }
 
-  private getConcoctionKeys(){
-    let uniqueKeys = [];
-    concoctionsJson.forEach(concoction => {
-      Object.keys(concoction).forEach(key => {
-        let found = uniqueKeys.find(uk => uk === key)
-        if(found == null){
-          uniqueKeys.push(key);
+  public async getConcoctions(): Promise<Concoction[]>{
+    let saveTypes = await this.getSaveTypes();
+    let damageTypes = await this.getDamageTypes();
+    let essences = await this.getEssences();
+    let ingredients = await this.getIngredients();
+
+    let resultSet = (await this.db.executeSql("SELECT * FROM Concoctions;", [])) as IQueryResults<IConcoction>;
+    let iConcoctions = this.queryResultToArray<IConcoction>(resultSet);
+    let concoctions: Concoction[] = [];
+
+    for(let i = 0; i < iConcoctions.length; i++){
+      let iConcoction = iConcoctions[i];
+
+      let iConcoctionEssenceSet = (await this.db.executeSql("SELECT * FROM ConcoctionEssences WHERE ConcoctionId=?", [iConcoction.Id])) as IQueryResults<IConcoctionEssence>;
+      let iConcoctionEssences = this.queryResultToArray<IConcoctionEssence>(iConcoctionEssenceSet);
+      let concoctionEssences = iConcoctionEssences.map(iConcoctionEssence => essences.find(e => e.id === iConcoctionEssence.EssenceId));
+
+      let iConcoctionIngredientSet = (await this.db.executeSql("SELECT * FROM ConcoctionIngredients WHERE ConcoctionId=?", [iConcoction.Id])) as IQueryResults<IConcoctionIngredient>;
+      let iConcoctionIngredients = this.queryResultToArray<IConcoctionIngredient>(iConcoctionIngredientSet);
+      let concoctionIngredients = iConcoctionIngredients.map(iConcoctionIngredient => 
+        new ConcoctionIngredient(
+          iConcoctionIngredient.Id, 
+          iConcoctionIngredient.ConcoctionId, 
+          ingredients.filter(ingredient => 
+            ingredient.id === iConcoctionIngredient.IngredientId || 
+            ingredient.id === iConcoctionIngredient.PrimaryAlternateIngredientId || 
+            ingredient.id === iConcoctionIngredient.SecondaryAlternateIngredientId)
+          )
+        );
+
+      let saveType = saveTypes.find(s => s.id === iConcoction.SaveTypeId) || null;
+      let damageType = damageTypes.find(d => d.id === iConcoction.DamageTypeId) || null;
+      
+      let newConcoction = new Concoction(iConcoction.Id, iConcoction.Name, iConcoction.Effect, concoctionEssences,
+        concoctionIngredients, iConcoction.DieType, iConcoction.DieNumber, iConcoction.DC, saveType, damageType,
+        iConcoction.DurationLength, iConcoction.DurationType);
+      concoctions.push(newConcoction);
+    }
+
+    return concoctions;
+  }
+
+  public async updateConcoctionsFromJson(){
+    // console.log("Getting SaveTypes");
+    let saveTypes = await this.getSaveTypes();
+    // console.log(saveTypes);
+    console.log("Getting DamageTypes");
+    let damageTypes = await this.getDamageTypes();
+    // console.log(damageTypes);
+    console.log("Getting Essences");
+    let essences  = await this.getEssences();
+    // console.log(essences);
+    console.log("Getting Ingredients");
+    let ingredients = await this.getIngredients();
+    // console.log(ingredients);
+
+    console.log("Getting Existing Concoctions");
+    let existingConcoctions = await this.getConcoctions();
+    console.log(existingConcoctions);
+    let concoctionsImportJson = concoctionsJson as IConcoctionImport[];
+    for(let i = 0; i < concoctionsImportJson.length; i++){
+      let jsonConcoction = concoctionsImportJson[i];
+      console.log(jsonConcoction)
+
+      let damageTypeId: number = null;
+      if (jsonConcoction.damageType){
+        let damage = damageTypes.find(d => d.name.toLowerCase() === jsonConcoction.damageType.toLowerCase());
+        if(damage != null){
+          damageTypeId = damage.id;
+        } else {
+          throw new Error("No damage type " + jsonConcoction.damageType);
         }
-      })
-    });
-    console.debug("Concoction Keys")
-    uniqueKeys.forEach(uk => {
-      console.debug(uk)
-    });
-    console.debug("Concoction Keys - Done")
+      }
+      // console.log("DamageTypeId", damageTypeId)
+
+      let saveTypeId: number = null;
+      if (jsonConcoction.save){
+        let save = saveTypes.find(s => s.name.toLowerCase() === jsonConcoction.save.toLowerCase());
+        if(save != null){
+          saveTypeId = save.id;
+        } else {
+          throw new Error("No save type " + jsonConcoction.save);
+        }
+      }
+      // console.log("SaveTypeId", saveTypeId)
+
+      let concoctionId = null;
+      let existingConcoction = existingConcoctions.find(existing => existing.name === jsonConcoction.name);
+      if(existingConcoction == null){ // There was no match
+        console.log("No Existing Concoction found")
+        let insertResult = await this.db.executeSql("INSERT INTO Concoctions (Name, DieType, DieNumber, DC, SaveTypeId, DamageTypeId, Effect, DurationLength, DurationType) " + 
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", [
+          jsonConcoction.name, jsonConcoction.dieType, jsonConcoction.dieNumber, jsonConcoction.DC, saveTypeId, damageTypeId, jsonConcoction.effect, jsonConcoction.durationLength, jsonConcoction.durationType
+        ]) as IInsertResults<IConcoction>;
+        concoctionId = insertResult.insertId;
+
+      } else { // There is a match
+        console.log("There was a match.")
+        concoctionId = existingConcoction.id;
+
+
+        await this.db.executeSql("UPDATE Concoctions " +
+        "SET DieType=?, DieNumber=?, DC=?, SaveTypeId=?, DamageTypeId=?, Effect=?, DurationLength=?, DurationType=?" +
+        "WHERE Id=?",
+        [jsonConcoction.dieType, jsonConcoction.dieNumber, jsonConcoction.DC, saveTypeId, damageTypeId, jsonConcoction.effect, jsonConcoction.durationLength, jsonConcoction.durationType, concoctionId]);
+        // console.log("After Update")
+        await this.db.executeSql("DELETE FROM ConcoctionEssences WHERE ConcoctionId=?", [concoctionId]);
+        await this.db.executeSql("DELETE FROM ConcoctionIngredients WHERE ConcoctionId=?", [concoctionId]);
+        // console.log("After deletes")
+      }
+
+      for(let j = 0; j < jsonConcoction.essences.length; j++){
+        let newEssence = jsonConcoction.essences[j];
+        let newEssenceId = essences.find(e => e.name === newEssence).id;
+        await this.db.executeSql("INSERT INTO ConcoctionEssences (ConcoctionId, EssenceId) VALUES (?, ?);", [concoctionId, newEssenceId]);
+      }
+
+      for(let j = 0; j < jsonConcoction.requiredIngredients.length; j++){
+        let newRequiredIngredients = jsonConcoction.requiredIngredients[j].split(" OR ");
+        console.log(newRequiredIngredients)
+        let ingredient = ingredients.find(i => i.name.toLowerCase() === newRequiredIngredients[0].toLowerCase())
+        let ingredientId = ingredient.id || null;
+        console.log("Got first ingredient")
+        let primaryAlternateIngredient = null;
+        let primaryAlternateIngredientId = null;
+        let secondaryAlternateIngredient = null;
+        let secondaryAlternateIngredientId = null;
+        if(newRequiredIngredients.length >= 2){
+          primaryAlternateIngredient = ingredients.find(i => i.name.toLowerCase() === newRequiredIngredients[1].toLowerCase())
+          primaryAlternateIngredientId =  primaryAlternateIngredient.id || null;
+          console.log("Got second ingredient")
+        }
+        if(newRequiredIngredients.length >= 3){
+          secondaryAlternateIngredient = ingredients.find(i => i.name.toLowerCase() === newRequiredIngredients[2].toLowerCase())
+          secondaryAlternateIngredientId = secondaryAlternateIngredient.id || null;
+          console.log("Got third ingredient")
+        }
+        console.log(ingredient, primaryAlternateIngredient, secondaryAlternateIngredient)
+        await this.db.executeSql("INSERT INTO ConcoctionIngredients(ConcoctionId, IngredientId, PrimaryAlternateIngredientId, SecondaryAlternateIngredientId) " +
+        "VALUES(?, ?, ?, ?);",
+        [concoctionId, ingredientId, primaryAlternateIngredientId, secondaryAlternateIngredientId]);      
+      }
+      console.log(jsonConcoction.name, "Done")   
+    }
   }
 
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
@@ -408,10 +535,9 @@ export class DatabaseService {
     this.migrationTableExists = true;
     await this._runMigrations();
     this.migrationComplete = true;
-    await this.updateBaseConcoctionsFromJSON();
+    await this.updateBaseConcoctionsFromJson();
     await this.updateIngredientsFromJson();
-    this.getConcoctionKeys();
-
+    await this.updateConcoctionsFromJson();
     this.initialiseSubject.next();
     this.initialiseSubject.complete();
   }

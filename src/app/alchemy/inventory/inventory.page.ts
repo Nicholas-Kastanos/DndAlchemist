@@ -7,6 +7,8 @@ import { Biome } from 'src/app/shared/classes/biome/biome';
 import { Rarity } from 'src/app/shared/classes/rarity/rarity';
 import { DamageType } from 'src/app/shared/classes/damage-type/damage-type';
 import { Ingredient } from 'src/app/shared/classes/ingredient/ingredient';
+import { SaveType } from 'src/app/shared/classes/save-type/save-type';
+import { Concoction } from 'src/app/shared/classes/concoction/concoction';
 
 @Component({
   selector: 'app-alchemy-inventory',
@@ -17,7 +19,7 @@ export class AlchemyInventoryPage implements OnInit {
 
   params: Params;
   generated: string = "Not Generated";
-  checkjson: Ingredient[];
+  checkjson: Concoction[];
   baseConcoctions: BaseConcoction[];
 
   constructor(private route: ActivatedRoute, private database: DatabaseService) { }
@@ -46,7 +48,7 @@ export class AlchemyInventoryPage implements OnInit {
   }
 
   getCheckjson(){
-    this.database.getIngredients()
+    this.database.getConcoctions()
     .then((result) => {
       this.checkjson = result;
     })
@@ -61,7 +63,7 @@ export class AlchemyInventoryPage implements OnInit {
   }
 
   updateBaseConcoctions(){
-    this.database.updateBaseConcoctionsFromJSON()
+    this.database.updateBaseConcoctionsFromJson()
     .then(() => {
     })
   }

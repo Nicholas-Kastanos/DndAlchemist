@@ -111,6 +111,22 @@
     {
         "Name": "Insert SaveTypes",
         "RawSql": "INSERT INTO SaveTypes(Name) VALUES ('Strength'),('Dexterity'),('Constitution'),('Intelligence'),('Wisdon'),('Charisma');"
+    },
+    {
+        "Name": "Create Concoctions table",
+        "RawSql": "CREATE TABLE Concoctions(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE, DieType INTEGER, DieNumber INTEGER, DC INTEGER, SaveTypeId INTEGER, DamageTypeId INTEGER, Effect TEXT NOT NULL, DurationLength INTEGER, DurationType TEXT);"
+    },
+    {
+        "Name": "Update save type wisdom name",
+        "RawSql": "UPDATE SaveTypes SET Name='Wisdom' WHERE Name='Wisdon';"
+    },
+    {
+        "Name": "Add ConcoctionEssences table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS ConcoctionEssences(Id INTEGER PRIMARY KEY AUTOINCREMENT, ConcoctionId INTEGER NOT NULL, EssenceId INTEGER NOT NULL, FOREIGN KEY (ConcoctionId) REFERENCES Concoctions(Id), FOREIGN KEY (EssenceId) REFERENCES Essences (Id));"
+    },
+    {
+        "Name": "Add ConcoctionIngredients table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS ConcoctionIngredients(Id INTEGER PRIMARY KEY AUTOINCREMENT, ConcoctionId INTEGER NOT NULL, IngredientId INTEGER NOT NULL, PrimaryAlternateIngredientId INTEGER, SecondaryAlternateIngredientId INTEGER, FOREIGN KEY (ConcoctionId) REFERENCES Concoctions(Id), FOREIGN KEY (IngredientId) REFERENCES Ingredients (Id), FOREIGN KEY (PrimaryAlternateIngredientId) REFERENCES Ingredients (Id), FOREIGN KEY (SecondaryAlternateIngredientId) REFERENCES Ingredients (Id));"
     }
 
 ]

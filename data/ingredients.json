@@ -1,6 +1,6 @@
 [
     {
-        "name": "Amanita Cap",
+        "name": "Amantia Cap",
         "rarity": "common",
         "essences": [
             "Fire"
@@ -116,6 +116,17 @@
         ]
     },{
         "name": "Fennel Silk",
+        "rarity": "common",
+        "essences": [
+            "Air"
+        ],
+        "details": "",
+        "locations": [
+            "Arctic",
+            "Underdark"
+        ]
+    },{
+        "name": "Harrada Leaf",
         "rarity": "common",
         "essences": [
             "Ether"
@@ -254,7 +265,7 @@
             "Underdark"
         ]
     },{
-        "name": "Wyrmtongue",
+        "name": "Wyrmtongue Petals",
         "rarity": "common",
         "essences": [
             "Air"
@@ -730,7 +741,7 @@
             "Underdark"
         ]
     },{
-        "name": "Dragontongue",
+        "name": "Dragontongue Petals",
         "rarity": "very rare",
         "essences": [
             "Air",
