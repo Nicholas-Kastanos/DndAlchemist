@@ -1,11 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {Essence} from '../../shared/classes/essence/essence';
+import {Biome} from '../../shared/classes/biome/biome';
 
 interface DisplayItem{
     name: string;
     baseEssences: Essence[];
     essences: Essence[];
+    locations: Biome[];
+    details?: string;
 }
 
 @Component({

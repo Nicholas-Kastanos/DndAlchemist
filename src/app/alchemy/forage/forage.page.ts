@@ -79,7 +79,7 @@ export class ForagePage implements OnInit {
     }
     else {
       var ingredients = this.forageService.forage(this.forageInput.get('forageCheck').value, biomes);
-      this.resetForm();
+      //this.resetForm();
       const modal = await this.modalController.create({
         component: ForageResultComponent,
         swipeToClose: true,

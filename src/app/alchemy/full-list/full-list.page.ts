@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-concoction';
 import { Ingredient } from 'src/app/shared/classes/ingredient/ingredient';
+import { Concoction } from 'src/app/shared/classes/concoction/concoction';
 
 @Component({
     selector: 'app-full-list',
@@ -12,9 +13,11 @@ export class FullListPage implements OnInit {
 
     baseConcoctions: BaseConcoction[];
     ingredients: Ingredient[];
+    concoctions: Concoction[];
 
     baseConcoctionsDisplay: BaseConcoction[] = [];
     ingredientsDisplay: Ingredient[] = [];
+    concoctionDisplay: Concoction[] = [];
 
     constructor(
         private database: DatabaseService
@@ -30,6 +33,10 @@ export class FullListPage implements OnInit {
                 .then((result) => {
                     this.ingredients = result;
                 })
+            this.database.getConcoctions()
+                .then((result) => {
+                    this.concoctions = result;
+                })
         })
     }
 
@@ -42,6 +49,12 @@ export class FullListPage implements OnInit {
     toggleIngredients(){
         this.ingredientsDisplay = this.ingredientsDisplay.length === 0 ?
             this.ingredients :
+            [];
+    }
+
+    toggleConcoctions(){
+        this.concoctionDisplay = this.concoctionDisplay.length === 0 ?
+            this.concoctions :
             [];
     }
 

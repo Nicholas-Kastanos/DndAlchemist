@@ -9,7 +9,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-    <div>
+    <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
         Base Essences:
         <div *ngFor="let essence of displayItem.baseEssences">
             <div class="element-list-container">
@@ -17,12 +17,30 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="section-container" *ngIf="displayItem.essences?.length > 0">
         Essences:
         <div *ngFor="let essence of displayItem.essences">
             <div class="element-list-container">
                 <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
             </div>
         </div>
+    </div>
+    <div class="section-container" *ngIf="displayItem.locations?.length > 0">
+        Locations:
+        <div *ngFor="let location of displayItem.locations">
+                <p>{{location.name}}</p>
+        </div>
+    </div>
+    <div class="section-container" *ngIf="displayItem.details">
+        Details:
+        <p>{{displayItem.details}}</p>
+    </div>
+    <div class="section-container" *ngIf="displayItem.effect">
+        Effect:
+        <p>{{displayItem.effect}}</p>
+    </div>
+    <div class="section-container" *ngIf="displayItem.baseEffect">
+        Base Effect:
+        <p>{{displayItem.baseEffect}}</p>
     </div>
 </ion-content>

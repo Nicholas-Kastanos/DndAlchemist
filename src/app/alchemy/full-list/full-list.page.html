@@ -15,4 +15,12 @@
         </ion-item-divider>
         <app-line-item *ngFor="let item of ingredientsDisplay" [item]="item" [itemType]="'Ingredient'"></app-line-item>
     </div>
+    <div>
+        <ion-item-divider (click)="toggleConcoctions()">
+            <ion-label>
+                Concoctions
+            </ion-label>
+        </ion-item-divider>
+        <app-line-item *ngFor="let item of concoctionDisplay" [item]="item" [itemType]="'Concoction'"></app-line-item>
+    </div>
 </ion-content>
