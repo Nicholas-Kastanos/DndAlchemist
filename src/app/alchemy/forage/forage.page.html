@@ -1,29 +1,21 @@
 <ion-content>
     <h1>Forage Ingredients</h1>
 
-    <form (ngSubmit)="submit()" [formGroup]="forageInput">
 
-        <ion-item class="ion-margin">
-            <ion-label>Forage Check:</ion-label>
-            <ion-input type="number" formControlName="forageCheck"></ion-input>
-        </ion-item>
+    <ion-item class="ion-margin">
+        <ion-label>Forage Check:</ion-label>
+        <ion-input type="number" [(ngModel)]="forageCheck"></ion-input>
+    </ion-item>
 
-        <ion-list>
+    <ion-item>
+        <ion-label>
+            Location
+        </ion-label>
+        <ion-select multiple="true" [(ngModel)]="selectedBiomes">
+            <ion-select-option *ngFor="let item of biomes" [value]="item.id">{{item.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
 
-            <ion-item class="ion-margin" *ngFor="let item of biomeChecklist; let i=index">
+    <ion-button (click)="submit()" color="alchemyprimary">Forage</ion-button>
 
-                <ion-label>{{item.biome.name}}</ion-label>
-                <ion-checkbox [value]="item.biome" [checked]="item.checked"
-                (ionChange)="check(item)">
-            </ion-checkbox>
-
-            </ion-item>
-
-        </ion-list>
-
-        <ion-button 
-            type="submit"
-            color="primary">Forage</ion-button>
-
-    </form>
 </ion-content>

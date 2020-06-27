@@ -1,13 +1,15 @@
-<ion-header translucent="true">
+<ion-header>
     <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+        <ion-title>Alchemy Brewery</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="dismiss()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
         </ion-buttons>
-        <ion-title>title</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
     <ion-card>
         <ion-card-header>
             <ion-card-subtitle>Base concoction</ion-card-subtitle>

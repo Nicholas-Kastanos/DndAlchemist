@@ -7,15 +7,22 @@ import { IonicModule } from '@ionic/angular';
 import {BrewSelectPageRoutingModule} from './brewSelect-routing.module';
 
 import {BrewSelectPage} from './brewSelect.page';
+import {BrewComponent} from '../brew/brew.page';
+import {LineItemPageModule} from '../line-item/line-item.module';
+
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        BrewSelectPageRoutingModule
+        BrewSelectPageRoutingModule,
+        LineItemPageModule
     ],
-    declarations: [BrewSelectPage],
+    declarations: [
+        BrewSelectPage,
+        BrewComponent
+    ],
     exports: [BrewSelectPage]
 })
 export class BrewSelectPageModule {}
