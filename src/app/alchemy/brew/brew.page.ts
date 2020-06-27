@@ -15,6 +15,8 @@ export class BrewComponent implements OnInit {
 
     ingredients: Ingredient[];
 
+    newConcoction: Concoction;
+
     constructor(
         public modalCtrl: ModalController,
         private database: DatabaseService
@@ -30,5 +32,9 @@ export class BrewComponent implements OnInit {
                     this.ingredients = result;
                 })
         })
+
+        this.newConcoction = this.concoction;
+        console.log(this.concoction)
+        console.log(this.newConcoction)
     }
 }

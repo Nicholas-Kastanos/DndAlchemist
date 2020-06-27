@@ -5,6 +5,7 @@ import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoc
 import { Concoction } from '../../shared/classes/concoction/concoction';
 import {ModalController} from '@ionic/angular';
 import {BrewComponent} from '../brew/brew.page';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
     selector: 'app-brew-select',
@@ -37,17 +38,27 @@ export class BrewSelectPage implements OnInit {
     }
 
     async submit(){
-        var concoctionItem = this.concoctionList.filter(c => c.id === this.concoction);
-        var baseConcoctionItem = this.baseConcoctionList.filter(c => c.id === this.baseConcoction);
-
+        console.debug(this.concoction)
+        var selectedConcoction: Concoction;
+        this.concoctionList.forEach(concoction => {
+            if(concoction.id == this.concoction){
+                selectedConcoction = concoction;
+            }
+        });
+        var selectedBaseConcoction: BaseConcoction; 
+        this.baseConcoctionList.forEach(base => {
+            if(base.id == this.baseConcoction){
+                selectedBaseConcoction = base;
+            }
+        });
+        console.debug(this.concoctionList.filter(c => c.id == this.concoction))
         this.reset();
-
         const modal = await this.modalController.create({
             component: BrewComponent,
             swipeToClose: true,
             componentProps: {
-                'concoction': concoctionItem,
-                'baseConcoction': baseConcoctionItem
+                'concoction': selectedConcoction,
+                'baseConcoction': selectedBaseConcoction
             }
         })
 
