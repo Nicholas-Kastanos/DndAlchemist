@@ -29,14 +29,57 @@
                 </ion-col>
             </ion-row>
 
-            Description of base concoction.
+            <ion-row>
+                <h2 ion-text>Base Effect</h2>
+                <ion-text>{{baseConcoction.baseEffect}}</ion-text>
+            </ion-row>
+            <ion-row>
+                <h2 ion-text>Concoction Effect</h2>
+                <ion-text>{{concoction.effect}}</ion-text>
+            </ion-row>
+            <ion-row>
+                <div class="section-container">
+                    Base Essences:
+                    <div *ngFor="let essence of baseConcoction.baseEssences">
+                        <div class="base-element-list-container">
+                            <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
+                        </div>
+                    </div>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container">
+                    Essences:
+                    <div *ngFor="let essence of concoction.essences">
+                        <div class="essence-element-list-container">
+                            <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
+                        </div>
+                    </div>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container">
+                    Required Essences:
+                    <div *ngFor="let item of requiredEssences">
+                        <div class="essence-element-list-container">
+                            <ion-thumbnail><img [src]="getElement(item.essence.id)"></ion-thumbnail>
+                        </div>
+                    </div>
+                    {{requiredEssences | json}}
+                </div>
+            </ion-row>
         </ion-card-content>
     </ion-card>
 
     <ion-list>
         <ion-item *ngFor="let item of ingredients">
             <ion-label>{{item.name}}</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
+            <div *ngFor="let essence of item.essences">
+                <div class="essence-element-list-container">
+                    <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
+                </div>
+            </div>
+            <ion-checkbox slot="end" [(ngModel)]="item.checked" (ionChange)="select(item)"></ion-checkbox>
         </ion-item>
     </ion-list>
 
