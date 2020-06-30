@@ -39,33 +39,12 @@
             </ion-row>
             <ion-row>
                 <div class="section-container">
-                    Base Essences:
-                    <div *ngFor="let essence of baseConcoction.baseEssences">
-                        <div class="base-element-list-container">
-                            <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
-                        </div>
-                    </div>
-                </div>
-            </ion-row>
-            <ion-row>
-                <div class="section-container">
-                    Essences:
-                    <div *ngFor="let essence of concoction.essences">
-                        <div class="essence-element-list-container">
-                            <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
-                        </div>
-                    </div>
-                </div>
-            </ion-row>
-            <ion-row>
-                <div class="section-container">
                     Required Essences:
                     <div *ngFor="let item of requiredEssences">
                         <div class="essence-element-list-container">
                             <ion-thumbnail><img [src]="getElement(item.essence.id)"></ion-thumbnail>
                         </div>
                     </div>
-                    {{requiredEssences | json}}
                 </div>
             </ion-row>
         </ion-card-content>

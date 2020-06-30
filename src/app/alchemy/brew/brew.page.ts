@@ -15,11 +15,12 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 
 export class BrewComponent implements OnInit {
 
-    ingredients: Ingredient[];
+    ingredients: Ingredient[] = [];
 
     newConcoction: Concoction;
 
-    requiredEssences: any[];
+    requiredEssences: any[] = [];
+    selectedIngredients: Ingredient[] = [];
 
     constructor(
         public modalCtrl: ModalController,
@@ -35,37 +36,33 @@ export class BrewComponent implements OnInit {
                 .then((result) => {
                     this.ingredients = result;
                 })
-                this.getRequired();
+                this.baseConcoction.baseEssences.forEach(essence => {
+                    var item = {essence: essence, fulfilled: false}
+                    this.requiredEssences.push(item)
+                })
+                this.concoction.essences.forEach(essence => {
+                    var item = {essence: essence, fulfilled: false}
+                    this.requiredEssences.push(item)
+                })
         })
 
         this.newConcoction = this.concoction;
     }
 
-    getRequired(){
-        console.debug('dhdhdhdhdhd')
-        console.debug(JSON.stringify(this.baseConcoction.baseEssences))
+    checkRequired(){
 
-        for(var x = 0; x < this.baseConcoction.baseEssences.length; x++){
-            this.requiredEssences.push({essence: this.baseConcoction.baseEssences[x], fulfilled: false});
-        }
-
-        for(var x = 0; x < this.concoction.essences.length; x++){
-            this.requiredEssences.push({essence: this.concoction.essences[x], fulfilled: false});
-        }
-        console.debug(JSON.stringify(this.requiredEssences))
-        this.baseConcoction.baseEssences.forEach(essence => {
-            var item = {essence: essence, fulfilled: false}
-            this.requiredEssences.push(item)
-            console.debug('ananananananana')
-        })
-        this.concoction.essences.forEach(essence => {
-            var item = {essence: essence, fulfilled: false}
-            this.requiredEssences.push(item)
-        })
     }
 
     select(item: any){
         console.debug(JSON.stringify(item))
+
+        if(item.checked){
+            console.debug("checked")
+            this.selectedIngredients.push(item);
+        }else{
+            console.debug("unchecked")
+            this.selectedIngredients = this.selectedIngredients.filter(i => i.id != item.id);
+        }
     }
 
     getElement(elementId: number){
