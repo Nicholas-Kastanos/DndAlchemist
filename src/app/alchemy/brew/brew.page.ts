@@ -20,7 +20,22 @@ export class BrewComponent implements OnInit {
     newConcoction: Concoction;
 
     requiredEssences: any[] = [];
-    selectedIngredients: Ingredient[] = [];
+
+    requiredCollection = {
+        "ether": 0,
+        "earth": 0,
+        "fire": 0,
+        "air": 0,
+        "water": 0
+    };
+
+    selectedCollection = {
+        "ether": 0,
+        "earth": 0,
+        "fire": 0,
+        "air": 0,
+        "water": 0
+    }
 
     constructor(
         public modalCtrl: ModalController,
@@ -36,33 +51,83 @@ export class BrewComponent implements OnInit {
                 .then((result) => {
                     this.ingredients = result;
                 })
-                this.baseConcoction.baseEssences.forEach(essence => {
-                    var item = {essence: essence, fulfilled: false}
-                    this.requiredEssences.push(item)
-                })
-                this.concoction.essences.forEach(essence => {
-                    var item = {essence: essence, fulfilled: false}
-                    this.requiredEssences.push(item)
-                })
+                
         })
 
+        this.baseConcoction.baseEssences.forEach(essence => {
+            var item = {essence: essence, fulfilled: false}
+            this.requiredEssences.push(item)
+        })
+        this.getRequired(this.baseConcoction.baseEssences);
+        this.concoction.essences.forEach(essence => {
+            var item = {essence: essence, fulfilled: false}
+            this.requiredEssences.push(item)
+        })
+        this.getRequired(this.concoction.essences);
+
         this.newConcoction = this.concoction;
-    }
-
-    checkRequired(){
-
+        console.debug(JSON.stringify(this.requiredCollection))
     }
 
     select(item: any){
-        console.debug(JSON.stringify(item))
+        this.addChecked(item, item.checked);
+        this.checkRequired()
+        console.debug(JSON.stringify(this.requiredEssences));
+    }
 
-        if(item.checked){
-            console.debug("checked")
-            this.selectedIngredients.push(item);
-        }else{
-            console.debug("unchecked")
-            this.selectedIngredients = this.selectedIngredients.filter(i => i.id != item.id);
-        }
+    addChecked(item: Ingredient, checked: boolean){
+        item.essences.forEach(essence => {
+            var x = checked ? 1 : -1;
+            switch(essence.id){
+                case 1: {
+                    this.selectedCollection.air = this.selectedCollection.air + x;
+                    break;
+                }
+                case 2: {
+                    this.selectedCollection.earth = this.selectedCollection.earth + x;
+                    break;
+                }
+                case 3: {
+                    this.selectedCollection.ether = this.selectedCollection.ether + x;
+                    break;
+                }
+                case 4: {
+                    this.selectedCollection.fire = this.selectedCollection.fire + x;
+                    break;
+                }
+                case 5: {
+                    this.selectedCollection.water = this.selectedCollection.water + x;
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        })
+    }
+
+    dismiss(){
+        this.modalCtrl.dismiss();
+    }
+
+    checkRequired(){
+        var elements = [];
+        elements[0] = this.selectedCollection.air > this.requiredCollection.air ? this.requiredCollection.air : this.selectedCollection.air;
+        elements[1] = this.selectedCollection.earth > this.requiredCollection.earth ? this.requiredCollection.earth : this.selectedCollection.earth;
+        elements[2] = this.selectedCollection.ether > this.requiredCollection.ether ? this.requiredCollection.ether : this.selectedCollection.ether;
+        elements[3] = this.selectedCollection.fire > this.requiredCollection.fire ? this.requiredCollection.fire : this.selectedCollection.fire;
+        elements[4] = this.selectedCollection.water > this.requiredCollection.water ? this.requiredCollection.water : this.selectedCollection.water;
+        console.debug(elements)
+        this.requiredEssences.forEach(essence => {
+            console.debug(essence.essence.id)
+            if(elements[essence.essence.id-1] > 0){
+                essence.fulfilled = true;
+                elements[essence.essence.id-1]--
+            }else {
+                essence.fulfilled = false;
+            }
+            console.debug(JSON.stringify(essence))
+        })
     }
 
     getElement(elementId: number){
@@ -91,5 +156,36 @@ export class BrewComponent implements OnInit {
                 return "../../assets/img/new_moon.svg";
             }
         }
+    }
+
+    getRequired(essences: Essence[]){
+        essences.forEach(essence => {
+            var x = 1;
+            switch(essence.id){
+                case 1: {
+                    this.requiredCollection.air++;
+                    break;
+                }
+                case 2: {
+                    this.requiredCollection.earth++;
+                    break;
+                }
+                case 3: {
+                    this.requiredCollection.ether++;
+                    break;
+                }
+                case 4: {
+                    this.requiredCollection.fire++;
+                    break;
+                }
+                case 5: {
+                    this.requiredCollection.water++;
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        })
     }
 }

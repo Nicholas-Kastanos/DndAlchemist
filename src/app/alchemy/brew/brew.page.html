@@ -42,10 +42,16 @@
                     Required Essences:
                     <div *ngFor="let item of requiredEssences">
                         <div class="essence-element-list-container">
-                            <ion-thumbnail><img [src]="getElement(item.essence.id)"></ion-thumbnail>
+                            <ion-thumbnail>
+                                <img *ngIf="item.fulfilled" [src]="getElement(item.essence.id)">
+                                <img *ngIf="!item.fulfilled" style="filter: grayscale(100%);" [src]="getElement(item.essence.id)">
+                            </ion-thumbnail>
                         </div>
                     </div>
                 </div>
+            </ion-row>
+            <ion-row>
+                {{concoction.requiredIngredients | json}}
             </ion-row>
         </ion-card-content>
     </ion-card>
