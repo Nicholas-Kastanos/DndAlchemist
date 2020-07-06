@@ -27,10 +27,7 @@ export class AlchemyInventoryPage implements OnInit {
   ngOnInit() {
     this.params = this.route.snapshot.params;
     this.database.initialiseSubject.subscribe(() => {
-      console.debug(this.database.migrationTableCreated());
-      if(this.database.migrationTableCreated()){
-        this.generated = "Generated";
-      }
+      this.generated = "Generated";
     })
   }
 
@@ -39,39 +36,11 @@ export class AlchemyInventoryPage implements OnInit {
     this.getBaseConcoctions();
   }
 
-  check(){
-    let checkB = this.database.migrationTableCreated();
-    console.log("checkB="+checkB);
-    if(checkB){
-      this.generated = "Generated";
-    }
-  }
-
-  getCheckjson(){
-    this.database.getConcoctions()
-    .then((result) => {
-      this.checkjson = result;
-    })
-  }
-
-  getBaseConcoctions(){
+  getBaseConcoctions() {
     this.database.getBaseConcoctions()
-    .then((result) => {
-      this.baseConcoctions = result;
-      console.debug(this.baseConcoctions);
-    })
+      .then((result) => {
+        this.baseConcoctions = result;
+        console.debug(this.baseConcoctions);
+      })
   }
-
-  updateBaseConcoctions(){
-    this.database.updateBaseConcoctionsFromJson()
-    .then(() => {
-    })
-  }
-
-  updateIngredients(){
-    this.database.updateIngredientsFromJson()
-    .then(() => {
-    })
-  }
-
 }

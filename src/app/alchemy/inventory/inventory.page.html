@@ -1,24 +1,5 @@
 <ion-content>
     <div>
-        Database: {{generated}}
-        <ion-button (click)="check()">Check</ion-button>
-    </div>
-    <div>
-        Database: {{checkjson | json}}
-        <ion-button (click)="getCheckjson()">Damage Types</ion-button>
-    </div>
-    <div>
-        BaseConcoctions: {{baseConcoctions | json}}
-        <ion-button (click)="getBaseConcoctions()">Base Concoctions</ion-button>
-    </div>
-    <div>
-        <ion-button (click)="updateBaseConcoctions()">Update Base Concoctions</ion-button>
-    </div>
-    <div>
-        <ion-button (click)="updateIngredients()">Update Ingredients</ion-button>
-    </div>
-
-    <div>
         <app-line-item *ngFor="let item of baseConcoctions" [item]="item" [itemType]="'Base Concoction'"></app-line-item>
     </div>
 </ion-content>
