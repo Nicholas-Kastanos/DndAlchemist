@@ -559,15 +559,23 @@ export class DatabaseService {
     });
   }
 
+  private async _deleteDatabase(): Promise<void>{
+    await this.db.close()
+    await this.sqlite.deleteDatabase(this.sqliteConfig)
+    console.debug("Deleted Database")
+  }
+
   public async initialise(): Promise<void> {
     this.db = await this._openDb();
-    await this._createMigrationsTable();
-    await this._runMigrations();
-    await this.updateBaseConcoctionsFromJson();
-    await this.updateIngredientsFromJson();
-    await this.updateConcoctionsFromJson();
-    this.initialiseSubject.next();
-    this.initialiseSubject.complete();
+    // await this._createMigrationsTable();
+    // await this._runMigrations();
+    // await this.updateBaseConcoctionsFromJson();
+    // await this.updateIngredientsFromJson();
+    // await this.updateConcoctionsFromJson();
+    // this.initialiseSubject.next();
+    // this.initialiseSubject.complete();
+    await this._deleteDatabase();
+    this.initialiseSubject.error("Reset");
   }
 }
 
