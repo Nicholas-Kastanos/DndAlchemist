@@ -23,22 +23,49 @@ export class DatabaseService {
   constructor(private sqlite: SQLite) { }
 
   public initialiseSubject = new ReplaySubject<void>();
-  public essences$ = () => this._essences$;
-  public saveTypes$ = () => this._saveTypes$;
-  public biomes$ = () => this._biomes$;
-  public rarities$ = () => this._rarities$;
-  public damageTypes$ = () => this._damageTypes$;
-  public baseConcoctions$ = () => this._baseConcoctions$;
-  public ingredients$ = () => this._ingredients$;
-  public concoctions$ = () => this._concoctions$;
-  public getEssences(): Promise<Essence[]> { return this._essences$.toPromise(); }
-  public getSaveTypes(): Promise<SaveType[]> { return this._saveTypes$.toPromise(); }
-  public getBiomes(): Promise<Biome[]> { return this._biomes$.toPromise(); }
-  public getRarities(): Promise<Rarity[]> { return this._rarities$.toPromise(); }
-  public getDamageTypes(): Promise<DamageType[]> { return this._damageTypes$.toPromise(); }
-  public getBaseConcoctions(): Promise<BaseConcoction[]> { return this._baseConcoctions$.toPromise(); }
-  public getIngredients(): Promise<Ingredient[]> { return this._ingredients$.toPromise(); }
-  public getConcoctions(): Promise<Concoction[]> { return this._concoctions$.toPromise(); }
+
+  public async getEssences(): Promise<Essence[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._essences$.toPromise(); 
+  }
+  public async getSaveTypes(): Promise<SaveType[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._saveTypes$.toPromise(); 
+  }
+  public async getBiomes(): Promise<Biome[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._biomes$.toPromise(); 
+  }
+  public async getRarities(): Promise<Rarity[]> {
+    await this.initialiseSubject.toPromise(); 
+    return this._rarities$.toPromise(); 
+  }
+  public async getDamageTypes(): Promise<DamageType[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._damageTypes$.toPromise(); 
+  }
+  public async getBaseConcoctions(): Promise<BaseConcoction[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._baseConcoctions$.toPromise();
+  }
+  public async getIngredients(): Promise<Ingredient[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._ingredients$.toPromise(); 
+  }
+  public async getConcoctions(): Promise<Concoction[]> { 
+    await this.initialiseSubject.toPromise();
+    return this._concoctions$.toPromise(); 
+  }
+
+  public refreshBaseConcoctions() {
+    this._baseConcoctions$ = this.cache(this._getBaseConcoctions());
+  }
+  public refreshIngredients() {
+    this._ingredients$ = this.cache(this._getIngredients());
+  }
+  public refreshConcoctions() {
+    this._concoctions$ = this.cache(this._getConcoctions());
+  }
 
   private db: SQLiteObject;
   private sqliteConfig: SQLiteDatabaseConfig = {
@@ -69,8 +96,17 @@ export class DatabaseService {
   //   return results;
   // }
 
-  private _essences$ = this.cache(
-    new Observable<Essence[]>(observer => {
+  private _setLookups(){
+    this._essences$ = this.cache(this._getEssences());
+    this._saveTypes$ = this.cache(this._getSaveTypes());
+    this._biomes$ = this.cache(this._getBiomes());
+    this._rarities$ = this.cache(this._getRarities());
+    this._damageTypes$ = this.cache(this._getDamageTypes());
+  }
+
+  private _essences$: Observable<Essence[]>;
+  private _getEssences(): Observable<Essence[]>{
+    return new Observable<Essence[]>(observer => {
       this.db.executeSql("SELECT * FROM Essences", [])
         .then((resultSet: IQueryResults<IEssence>) => {
           let iEssences = this.queryResultToArray<IEssence>(resultSet);
@@ -81,11 +117,12 @@ export class DatabaseService {
           observer.next(essences);
           observer.complete();
         });
-    })
-  );
+    });
+  }
 
-  private _saveTypes$ = this.cache(
-    new Observable<SaveType[]>((observer) => {
+  private _saveTypes$: Observable<SaveType[]>;
+  private _getSaveTypes(): Observable<SaveType[]>{
+    return new Observable<SaveType[]>((observer) => {
       this.db.executeSql("SELECT * FROM SaveTypes", [])
         .then((resultSet: IQueryResults<ISaveType>) => {
           let iSaveTypes = this.queryResultToArray<ISaveType>(resultSet);
@@ -96,11 +133,12 @@ export class DatabaseService {
           observer.next(saveTypes);
           observer.complete()
         });
-    })
-  );
+    });
+  }
 
-  private _biomes$ = this.cache(
-    new Observable<Biome[]>(observer => {
+  private _biomes$: Observable<Biome[]>;
+  private _getBiomes(): Observable<Biome[]>{
+    return new Observable<Biome[]>(observer => {
       this.db.executeSql("SELECT * FROM Biomes", [])
         .then((resultSet: IQueryResults<IBiome>) => {
           let iBiomes = this.queryResultToArray<IBiome>(resultSet);
@@ -111,11 +149,12 @@ export class DatabaseService {
           observer.next(biomes);
           observer.complete();
         });
-    })
-  );
+    });
+  }
 
-  private _rarities$ = this.cache(
-    new Observable<Rarity[]>(observer => {
+  private _rarities$: Observable<Rarity[]>;
+  private _getRarities(): Observable<Rarity[]> {
+    return new Observable<Rarity[]>(observer => {
       this.db.executeSql("SELECT * FROM Rarities", [])
         .then((resultSet: IQueryResults<IRarity>) => {
           let iRarities = this.queryResultToArray<IRarity>(resultSet);
@@ -126,11 +165,12 @@ export class DatabaseService {
           observer.next(rarities);
           observer.complete();
         });
-    })
-  );
+    });
+  }
 
-  private _damageTypes$ = this.cache(
-    new Observable<DamageType[]>(observer => {
+  private _damageTypes$: Observable<DamageType[]>;
+  private _getDamageTypes(): Observable<DamageType[]>{
+    return new Observable<DamageType[]>(observer => {
       this.db.executeSql("SELECT * FROM DamageTypes", []).then((resultSet: IQueryResults<IDamageType>) => {
         let iDamageTypes = this.queryResultToArray<IDamageType>(resultSet);
         let damageTypes: DamageType[] = [];
@@ -140,16 +180,17 @@ export class DatabaseService {
         observer.next(damageTypes);
         observer.complete();
       });
-    })
-  );
+    });
+  }
 
-  private _baseConcoctions$ = this.cache(
-    new Observable<BaseConcoction[]>(observer => {
+  private _baseConcoctions$: Observable<BaseConcoction[]>;
+  private _getBaseConcoctions(): Observable<BaseConcoction[]> {
+    return new Observable<BaseConcoction[]>(observer => {
       this.db.executeSql("SELECT * FROM BaseConcoctions", [])
         .then(async (resultSet: IQueryResults<IBaseConcoction>) => {
           let iBaseConcoctions = this.queryResultToArray<IBaseConcoction>(resultSet);
           let baseConcoctions: BaseConcoction[] = [];
-          let essences = await this.getEssences();
+          let essences = await this._essences$.toPromise();
           for (let i = 0; i < iBaseConcoctions.length; i++) {
             let iBaseConcoction = iBaseConcoctions[i];
             let essenceSet = (await this.db.executeSql("SELECT * FROM BaseConcoctionEssences WHERE BaseConcoctionId=?", [iBaseConcoction.Id])) as IQueryResults<IBaseConcoctionEssence>;
@@ -160,46 +201,21 @@ export class DatabaseService {
           observer.next(baseConcoctions);
           observer.complete();
         });
-    })
-  );
-
-
-  public async updateBaseConcoctionsFromJson() {
-    let essences = await this.getEssences();
-    let existingBaseConcoctions = await this.getBaseConcoctions();
-    for (let i = 0; i < baseConcoctionJson.length; i++) {
-      let jsonBaseConcoction = baseConcoctionJson[i];
-      let existingBaseConcoction = existingBaseConcoctions.find(existing => existing.name === jsonBaseConcoction.name);
-      if (existingBaseConcoction == null) { // There is no match
-        let insertResult = await this.db.executeSql("INSERT INTO BaseConcoctions (Name, BaseEffect) VALUES (?, ?);", [jsonBaseConcoction.name, jsonBaseConcoction.baseEffect]) as IInsertResults<IBaseConcoction>;
-        for (let j = 0; j < jsonBaseConcoction.baseEssences.length; j++) {
-          let newEssence = jsonBaseConcoction.baseEssences[j];
-          let newEssenceId = essences.find(e => e.name === newEssence).id;
-          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [insertResult.insertId, newEssenceId]);
-        }
-      } else { // There is a match
-        await this.db.executeSql("UPDATE BaseConcoctions SET BaseEffect=? WHERE Id=?;", [jsonBaseConcoction.baseEffect, existingBaseConcoction.id]);
-        await this.db.executeSql("DELETE FROM BaseConcoctionEssences WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
-        for (let j = 0; j < jsonBaseConcoction.baseEssences.length; j++) {
-          let newEssence = jsonBaseConcoction.baseEssences[j];
-          let newEssenceId = essences.find(e => e.name === newEssence).id;
-          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssenceId]);
-        }
-      }
-    }
+    });
   }
 
-  private _ingredients$ = this.cache(
-    new Observable<Ingredient[]>(observer => {
+  private _ingredients$: Observable<Ingredient[]>;
+  private _getIngredients(): Observable<Ingredient[]>{
+    return new Observable<Ingredient[]>(observer => {
       this.db.executeSql("SELECT * FROM Ingredients;", [])
         .then(async (resultSet: IQueryResults<IIngredient>) => {
           let iIngredients = this.queryResultToArray<IIngredient>(resultSet);
           let ingredients: Ingredient[] = [];
 
-          let essences = await this.getEssences();
-          let biomes = await this.getBiomes();
-          let damageTypes = await this.getDamageTypes();
-          let rarities = await this.getRarities();
+          let essences = await this._essences$.toPromise();
+          let biomes = await this._biomes$.toPromise();
+          let damageTypes = await this._damageTypes$.toPromise();
+          let rarities = await this._rarities$.toPromise();
 
           for (let i = 0; i < iIngredients.length; i++) {
             let iIngredient = iIngredients[i];
@@ -246,15 +262,92 @@ export class DatabaseService {
           observer.next(ingredients);
           observer.complete();
         });
-    })
-  );
+    });
+  }
+
+  private _concoctions$: Observable<Concoction[]>;
+  private _getConcoctions(): Observable<Concoction[]>{
+    return new Observable<Concoction[]>((observer) => {
+      this.db.executeSql("SELECT * FROM Concoctions;", [])
+        .then(async (resultSet: IQueryResults<IConcoction>) => {
+          let iConcoctions = this.queryResultToArray<IConcoction>(resultSet);
+          let concoctions: Concoction[] = [];
+
+          let saveTypes = await this._saveTypes$.toPromise();
+          let damageTypes = await this._damageTypes$.toPromise();
+          let essences = await this._essences$.toPromise();
+          let ingredients = await this._ingredients$.toPromise();
+
+          for (let i = 0; i < iConcoctions.length; i++) {
+            let iConcoction = iConcoctions[i];
+
+            let iConcoctionEssenceSet = (await this.db.executeSql("SELECT * FROM ConcoctionEssences WHERE ConcoctionId=?", [iConcoction.Id])) as IQueryResults<IConcoctionEssence>;
+            let iConcoctionEssences = this.queryResultToArray<IConcoctionEssence>(iConcoctionEssenceSet);
+            let concoctionEssences = iConcoctionEssences.map(iConcoctionEssence => essences.find(e => e.id === iConcoctionEssence.EssenceId));
+
+            let iConcoctionIngredientSet = (await this.db.executeSql("SELECT * FROM ConcoctionIngredients WHERE ConcoctionId=?", [iConcoction.Id])) as IQueryResults<IConcoctionIngredient>;
+            let iConcoctionIngredients = this.queryResultToArray<IConcoctionIngredient>(iConcoctionIngredientSet);
+            let concoctionIngredients = iConcoctionIngredients.map(iConcoctionIngredient =>
+              new ConcoctionIngredient(
+                iConcoctionIngredient.Id,
+                iConcoctionIngredient.ConcoctionId,
+                ingredients.filter(ingredient =>
+                  ingredient.id === iConcoctionIngredient.IngredientId ||
+                  ingredient.id === iConcoctionIngredient.PrimaryAlternateIngredientId ||
+                  ingredient.id === iConcoctionIngredient.SecondaryAlternateIngredientId)
+              )
+            );
+
+            let saveType = saveTypes.find(s => s.id === iConcoction.SaveTypeId) || null;
+            let damageType = damageTypes.find(d => d.id === iConcoction.DamageTypeId) || null;
+
+            let newConcoction = new Concoction(iConcoction.Id, iConcoction.Name, iConcoction.Effect, concoctionEssences,
+              concoctionIngredients, iConcoction.DieType, iConcoction.DieNumber, iConcoction.DC, saveType, damageType,
+              iConcoction.DurationLength, iConcoction.DurationType);
+            concoctions.push(newConcoction);
+          }
+
+          observer.next(concoctions);
+          observer.complete();
+        });
+    });
+  }
+
+  public async updateBaseConcoctionsFromJson() {
+    console.debug("Updating BaseConcoctions")
+    let essences = await this._essences$.toPromise();
+
+    let existingBaseConcoctions = await this._baseConcoctions$.toPromise();
+    for (let i = 0; i < baseConcoctionJson.length; i++) {
+      let jsonBaseConcoction = baseConcoctionJson[i];
+      let existingBaseConcoction = existingBaseConcoctions.find(existing => existing.name === jsonBaseConcoction.name);
+      if (existingBaseConcoction == null) { // There is no match
+        let insertResult = await this.db.executeSql("INSERT INTO BaseConcoctions (Name, BaseEffect) VALUES (?, ?);", [jsonBaseConcoction.name, jsonBaseConcoction.baseEffect]) as IInsertResults<IBaseConcoction>;
+        for (let j = 0; j < jsonBaseConcoction.baseEssences.length; j++) {
+          let newEssence = jsonBaseConcoction.baseEssences[j];
+          let newEssenceId = essences.find(e => e.name === newEssence).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [insertResult.insertId, newEssenceId]);
+        }
+      } else { // There is a match
+        await this.db.executeSql("UPDATE BaseConcoctions SET BaseEffect=? WHERE Id=?;", [jsonBaseConcoction.baseEffect, existingBaseConcoction.id]);
+        await this.db.executeSql("DELETE FROM BaseConcoctionEssences WHERE BaseConcoctionId=?;", [existingBaseConcoction.id]);
+        for (let j = 0; j < jsonBaseConcoction.baseEssences.length; j++) {
+          let newEssence = jsonBaseConcoction.baseEssences[j];
+          let newEssenceId = essences.find(e => e.name === newEssence).id;
+          await this.db.executeSql("INSERT INTO BaseConcoctionEssences (BaseConcoctionId, EssenceId) VALUES (?, ?);", [existingBaseConcoction.id, newEssenceId]);
+        }
+      }
+    }
+    this._baseConcoctions$ = this.cache(this._getBaseConcoctions());
+  }
 
   public async updateIngredientsFromJson() {
-    let essences = await this.getEssences();
-    let rarities = await this.getRarities();
-    let damageTypes = await this.getDamageTypes();
-    let biomes = await this.getBiomes();
-    let existingIngredients = await this.getIngredients();
+    console.debug("Updating Ingredients")
+    let essences = await this._essences$.toPromise();
+    let rarities = await this._rarities$.toPromise();
+    let damageTypes = await this._damageTypes$.toPromise();
+    let biomes = await this._biomes$.toPromise();
+    let existingIngredients = await this._ingredients$.toPromise();
     let ingredientsImportJson = ingredientsJson as IIngredientImport[];
     for (let i = 0; i < ingredientsImportJson.length; i++) {
       let jsonIngredient = ingredientsImportJson[i];
@@ -355,62 +448,18 @@ export class DatabaseService {
         await this.db.executeSql("INSERT INTO IngredientBiomes (IngredientId, BiomeId) VALUES (?, ?);", [ingredientId, newLocationId]);
       }
     }
+
+    this._ingredients$ = this.cache(this._getIngredients());
   }
 
-  private _concoctions$ = this.cache(
-    new Observable<Concoction[]>((observer) => {
-      this.db.executeSql("SELECT * FROM Concoctions;", [])
-        .then(async (resultSet: IQueryResults<IConcoction>) => {
-          let iConcoctions = this.queryResultToArray<IConcoction>(resultSet);
-          let concoctions: Concoction[] = [];
-
-          let saveTypes = await this.getSaveTypes();
-          let damageTypes = await this.getDamageTypes();
-          let essences = await this.getEssences();
-          let ingredients = await this.getIngredients();
-
-          for (let i = 0; i < iConcoctions.length; i++) {
-            let iConcoction = iConcoctions[i];
-
-            let iConcoctionEssenceSet = (await this.db.executeSql("SELECT * FROM ConcoctionEssences WHERE ConcoctionId=?", [iConcoction.Id])) as IQueryResults<IConcoctionEssence>;
-            let iConcoctionEssences = this.queryResultToArray<IConcoctionEssence>(iConcoctionEssenceSet);
-            let concoctionEssences = iConcoctionEssences.map(iConcoctionEssence => essences.find(e => e.id === iConcoctionEssence.EssenceId));
-
-            let iConcoctionIngredientSet = (await this.db.executeSql("SELECT * FROM ConcoctionIngredients WHERE ConcoctionId=?", [iConcoction.Id])) as IQueryResults<IConcoctionIngredient>;
-            let iConcoctionIngredients = this.queryResultToArray<IConcoctionIngredient>(iConcoctionIngredientSet);
-            let concoctionIngredients = iConcoctionIngredients.map(iConcoctionIngredient =>
-              new ConcoctionIngredient(
-                iConcoctionIngredient.Id,
-                iConcoctionIngredient.ConcoctionId,
-                ingredients.filter(ingredient =>
-                  ingredient.id === iConcoctionIngredient.IngredientId ||
-                  ingredient.id === iConcoctionIngredient.PrimaryAlternateIngredientId ||
-                  ingredient.id === iConcoctionIngredient.SecondaryAlternateIngredientId)
-              )
-            );
-
-            let saveType = saveTypes.find(s => s.id === iConcoction.SaveTypeId) || null;
-            let damageType = damageTypes.find(d => d.id === iConcoction.DamageTypeId) || null;
-
-            let newConcoction = new Concoction(iConcoction.Id, iConcoction.Name, iConcoction.Effect, concoctionEssences,
-              concoctionIngredients, iConcoction.DieType, iConcoction.DieNumber, iConcoction.DC, saveType, damageType,
-              iConcoction.DurationLength, iConcoction.DurationType);
-            concoctions.push(newConcoction);
-          }
-
-          observer.next(concoctions);
-          observer.complete();
-        });
-    })
-  );
-
   public async updateConcoctionsFromJson() {
-    let saveTypes = await this.getSaveTypes();
-    let damageTypes = await this.getDamageTypes();
-    let essences = await this.getEssences();
-    let ingredients = await this.getIngredients();
+    console.debug("Updating Concoctions")
+    let saveTypes = await this._saveTypes$.toPromise();
+    let damageTypes = await this._damageTypes$.toPromise();
+    let essences = await this._essences$.toPromise();
+    let ingredients = await this._ingredients$.toPromise();
 
-    let existingConcoctions = await this.getConcoctions();
+    let existingConcoctions = await this._concoctions$.toPromise();
     let concoctionsImportJson = concoctionsJson as IConcoctionImport[];
     for (let i = 0; i < concoctionsImportJson.length; i++) {
       let jsonConcoction = concoctionsImportJson[i];
@@ -483,6 +532,8 @@ export class DatabaseService {
           [concoctionId, ingredientId, primaryAlternateIngredientId, secondaryAlternateIngredientId]);
       }
     }
+
+    this._concoctions$ = this.cache(this._getConcoctions());
   }
 
   queryResultToArray<T>(resultSet: IQueryResults<T>): T[] {
@@ -550,7 +601,6 @@ export class DatabaseService {
           result = await this.db.executeSql("INSERT INTO " + this.SqlMigrationsTableName + " VALUES (?)", [missingMigrations[i].Name]);
         }
         console.debug("Done");
-
         resolve();
       }).catch((err: any) => {
         console.error(JSON.stringify(err));
@@ -559,15 +609,30 @@ export class DatabaseService {
     });
   }
 
+  private async _deleteDatabase(): Promise<void>{
+    await this.db.close()
+    await this.sqlite.deleteDatabase(this.sqliteConfig)
+    console.debug("Deleted Database")
+  }
+
   public async initialise(): Promise<void> {
     this.db = await this._openDb();
     await this._createMigrationsTable();
     await this._runMigrations();
+
+    // Must be called after _runMigrations so that the tables exist
+    this._setLookups(); // Must be called to set the caches
+    this.refreshBaseConcoctions();// Must be called to set the cache, is also set at the end of the UpdateFromJson
+    this.refreshIngredients();// Must be called to set the cache, is also set at the end of the UpdateFromJson
+    this.refreshConcoctions();// Must be called to set the cache, is also set at the end of the UpdateFromJson
+
     await this.updateBaseConcoctionsFromJson();
     await this.updateIngredientsFromJson();
     await this.updateConcoctionsFromJson();
     this.initialiseSubject.next();
     this.initialiseSubject.complete();
+    // await this._deleteDatabase();
+    // this.initialiseSubject.error("Reset");
   }
 }
 
