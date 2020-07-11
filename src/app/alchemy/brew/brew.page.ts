@@ -1,13 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Ingredient } from '../../shared/classes/ingredient/ingredient';
-import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoction';
-import { Concoction } from '../../shared/classes/concoction/concoction';
+import { Ingredient } from '../../shared/classes/ingredient/ingredient.class';
+import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoction.class';
+import { Concoction, ConcoctionIngredient } from '../../shared/classes/concoction/concoction.class';
 import { DatabaseService } from '../../shared/services/database.service';
-import { Essence } from '../../shared/classes/essence/essence';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { BrewService } from '../services/brew.service';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import { Essence } from 'src/app/shared/classes/essence/essence.class';
 
 @Component({
     selector: 'app-brew',
@@ -18,7 +16,10 @@ import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 export class BrewComponent implements OnInit {
 
     ingredients: Ingredient[] = [];
-    requiredIngredients: string[] = [];
+
+    requiredEssences: {essence: Essence, fulfilled: boolean}[] = [];
+    newConcoction: Concoction;
+    requiredIngredients: {display: string, requiredIngredient: ConcoctionIngredient, fulfilled: number}[] = [];
 
     constructor(
         public modalCtrl: ModalController,
@@ -36,19 +37,20 @@ export class BrewComponent implements OnInit {
             })
 
         this.brewService.initialise(this.baseConcoction, this.concoction);
-        this.concoction.requiredIngredients.forEach(required => {
-            var requiredString = "";
-            for(var x = 0; x < required.ingredients.length-1; x++){
-                requiredString = requiredString + required.ingredients[x].name + " or ";
-            }
-            requiredString = requiredString + required.ingredients[required.ingredients.length-1];
+        
+        this.updateData();
 
-            this.requiredIngredients.push(requiredString);
-        })
     }
+
+    updateData(){
+        this.requiredEssences = this.brewService.requiredEssences;
+        this.newConcoction = this.brewService.brewedConcoction;
+        this.requiredIngredients = this.brewService.requiredIngredients;
+    }   
 
     select(item: any) {
         this.brewService.selectItem(item, item.checked);
+        this.updateData();
     }
 
     dismiss() {

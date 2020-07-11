@@ -694,7 +694,7 @@
             "Fire"
         ],
         "disadvantageCon": true,
-        "details": "Constitution saving throws are made with disadvantage.",
+        "details": "Constitution saving throws are made with disadvantage for the next minute.",
         "locations": [
             "Mountain"
         ]
@@ -706,8 +706,8 @@
             "Ether",
             "Fire"
         ],
-        "addDamageTypePotion": true,
-        "details": "Allows another damage type to be added to a potion (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a poison would originally do 1d6 poison damage, the poison would now do 1d6 poison damage and 1d6 fire damage.",
+        "disadvantageSaves": true,
+        "details": "All saving throws to resist the concoction are made with disadvantage.",
         "locations": [
             "Underdark"
         ]
@@ -763,7 +763,7 @@
             "Ether"
         ],
         "disadvantageDex": true,
-        "details": "Dexterity saving throws are made with disadvantage.",
+        "details": "Dexterity saving throws are made with disadvantage for the next minute.",
         "locations": [
             "Desert"
         ]
@@ -775,8 +775,8 @@
             "Earth",
             "Fire"
         ],
-        "addDamageTypeBomb": true,
-        "details": "Allows another damage type to be added to bombs (requires an ingredient that adds a damage type). Both damage types do damage equal to the original value. For example, if a bomb would originally do 1d6 budgeoning damage, the bomb would now do 1d6 bludgeoning damage and 1d6 fire damage.",
+        "disadvantageSaves": true,
+        "details": "All saving throws to resist the concoction are made with disadvantage.",
         "locations": [
             "Arctic",
             "Underdark"
@@ -831,7 +831,7 @@
             "Earth"
         ],
         "disadvantageWis": true,
-        "details": "Wisdom saving throws are made with disadvantage",
+        "details": "Wisdom saving throws are made with disadvantage for the next minute.",
         "locations": [
             "Swamp",
             "Underdark"
