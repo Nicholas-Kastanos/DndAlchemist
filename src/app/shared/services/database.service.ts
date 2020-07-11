@@ -14,6 +14,7 @@ import { ReplaySubject, Observable} from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { SaveType, ISaveType } from '../classes/save-type/save-type.class';
 import { IConcoction, Concoction, IConcoctionEssence, IConcoctionIngredient, ConcoctionIngredient, IConcoctionImport } from '../classes/concoction/concoction.class';
+import { Character, ICharacter } from '../classes/character/character.class';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,10 @@ export class DatabaseService {
     await this.initialiseSubject.toPromise();
     return this._concoctions$.toPromise(); 
   }
+  public async getCharacters(): Promise<Character[]>{
+    await this.initialiseSubject.toPromise();
+    return this._characters$.toPromise();
+  }
 
   public refreshBaseConcoctions() {
     this._baseConcoctions$ = this.cache(this._getBaseConcoctions());
@@ -65,6 +70,9 @@ export class DatabaseService {
   }
   public refreshConcoctions() {
     this._concoctions$ = this.cache(this._getConcoctions());
+  }
+  public refreshCharacters() {
+    this._characters$ = this.cache(this._getCharacters());
   }
 
   private db: SQLiteObject;
@@ -310,6 +318,21 @@ export class DatabaseService {
           observer.next(concoctions);
           observer.complete();
         });
+    });
+  }
+
+  private _characters$: Observable<Character[]>;
+  private _getCharacters(): Observable<Character[]>{
+    return new Observable<Character[]>(observer => {
+      this.db.executeSql("SELECT * FROM Characters;", []).then((resultSet: IQueryResults<ICharacter>) => {
+        let iCharacters = this.queryResultToArray<ICharacter>(resultSet);
+        let characters: Character[] = [];
+        iCharacters.forEach(iCharacter => {
+          characters.push(new Character(iCharacter.Id, iCharacter.Name, iCharacter.Year, iCharacter.Month, iCharacter.Day));
+        })
+        observer.next(characters);
+        observer.complete();
+      });
     });
   }
 
@@ -625,6 +648,7 @@ export class DatabaseService {
     this.refreshBaseConcoctions();// Must be called to set the cache, is also set at the end of the UpdateFromJson
     this.refreshIngredients();// Must be called to set the cache, is also set at the end of the UpdateFromJson
     this.refreshConcoctions();// Must be called to set the cache, is also set at the end of the UpdateFromJson
+    this.refreshCharacters();// Must be called to set the cache
 
     await this.updateBaseConcoctionsFromJson();
     await this.updateIngredientsFromJson();

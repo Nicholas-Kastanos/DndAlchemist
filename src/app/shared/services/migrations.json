@@ -70,5 +70,9 @@
     {
         "Name": "Add ConcoctionIngredients table",
         "RawSql": "CREATE TABLE IF NOT EXISTS ConcoctionIngredients(Id INTEGER PRIMARY KEY AUTOINCREMENT, ConcoctionId INTEGER NOT NULL, IngredientId INTEGER NOT NULL, PrimaryAlternateIngredientId INTEGER, SecondaryAlternateIngredientId INTEGER, FOREIGN KEY (ConcoctionId) REFERENCES Concoctions(Id), FOREIGN KEY (IngredientId) REFERENCES Ingredients (Id), FOREIGN KEY (PrimaryAlternateIngredientId) REFERENCES Ingredients (Id), FOREIGN KEY (SecondaryAlternateIngredientId) REFERENCES Ingredients (Id));"
+    },
+    {
+        "Name": "Create Characters Table",
+        "RawSql": "CREATE TABLE IF NOT EXISTS Characters(Id Integer PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL UNIQUE, Year INTEGER NOT NULL, Month INTEGER NOT NULL, Day INTEGER NOT NULL);"
     }
 ]
