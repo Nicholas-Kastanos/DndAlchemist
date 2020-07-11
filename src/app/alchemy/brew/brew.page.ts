@@ -1,11 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {Ingredient} from '../../shared/classes/ingredient/ingredient.class';
-import {BaseConcoction} from '../../shared/classes/base-concoction/base-concoction.class';
-import {Concoction} from '../../shared/classes/concoction/concoction.class';
-import {DatabaseService} from '../../shared/services/database.service';
-import {Essence} from '../../shared/classes/essence/essence.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Ingredient } from '../../shared/classes/ingredient/ingredient';
+import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoction';
+import { Concoction } from '../../shared/classes/concoction/concoction';
+import { DatabaseService } from '../../shared/services/database.service';
+import { Essence } from '../../shared/classes/essence/essence';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { BrewService } from '../services/brew.service';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 @Component({
     selector: 'app-brew',
@@ -16,127 +18,50 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 export class BrewComponent implements OnInit {
 
     ingredients: Ingredient[] = [];
-
-    newConcoction: Concoction;
-
-    requiredEssences: any[] = [];
-
-    requiredCollection = {
-        "ether": 0,
-        "earth": 0,
-        "fire": 0,
-        "air": 0,
-        "water": 0
-    };
-
-    selectedCollection = {
-        "ether": 0,
-        "earth": 0,
-        "fire": 0,
-        "air": 0,
-        "water": 0
-    }
+    requiredIngredients: string[] = [];
 
     constructor(
         public modalCtrl: ModalController,
-        private database: DatabaseService
-    ) {}
+        private database: DatabaseService,
+        private brewService: BrewService
+    ) { }
 
     @Input() concoction: Concoction;
     @Input() baseConcoction: BaseConcoction;
 
     ngOnInit() {
-        this.database.initialiseSubject.subscribe(() => {
-            this.database.getIngredients()
-                .then((result) => {
-                    this.ingredients = result;
-                })
-                
-        })
+        this.database.getIngredients()
+            .then((result) => {
+                this.ingredients = result;
+            })
 
-        this.baseConcoction.baseEssences.forEach(essence => {
-            var item = {essence: essence, fulfilled: false}
-            this.requiredEssences.push(item)
-        })
-        this.getRequired(this.baseConcoction.baseEssences);
-        this.concoction.essences.forEach(essence => {
-            var item = {essence: essence, fulfilled: false}
-            this.requiredEssences.push(item)
-        })
-        this.getRequired(this.concoction.essences);
-
-        this.newConcoction = this.concoction;
-        console.debug(JSON.stringify(this.requiredCollection))
-    }
-
-    select(item: any){
-        this.addChecked(item, item.checked);
-        this.checkRequired()
-        console.debug(JSON.stringify(this.requiredEssences));
-    }
-
-    addChecked(item: Ingredient, checked: boolean){
-        item.essences.forEach(essence => {
-            var x = checked ? 1 : -1;
-            switch(essence.id){
-                case 1: {
-                    this.selectedCollection.air = this.selectedCollection.air + x;
-                    break;
-                }
-                case 2: {
-                    this.selectedCollection.earth = this.selectedCollection.earth + x;
-                    break;
-                }
-                case 3: {
-                    this.selectedCollection.ether = this.selectedCollection.ether + x;
-                    break;
-                }
-                case 4: {
-                    this.selectedCollection.fire = this.selectedCollection.fire + x;
-                    break;
-                }
-                case 5: {
-                    this.selectedCollection.water = this.selectedCollection.water + x;
-                    break;
-                }
-                default: {
-                    break;
-                }
+        this.brewService.initialise(this.baseConcoction, this.concoction);
+        this.concoction.requiredIngredients.forEach(required => {
+            var requiredString = "";
+            for(var x = 0; x < required.ingredients.length-1; x++){
+                requiredString = requiredString + required.ingredients[x].name + " or ";
             }
+            requiredString = requiredString + required.ingredients[required.ingredients.length-1];
+
+            this.requiredIngredients.push(requiredString);
         })
     }
 
-    dismiss(){
+    select(item: any) {
+        this.brewService.selectItem(item, item.checked);
+    }
+
+    dismiss() {
         this.modalCtrl.dismiss();
     }
 
-    checkRequired(){
-        var elements = [];
-        elements[0] = this.selectedCollection.air > this.requiredCollection.air ? this.requiredCollection.air : this.selectedCollection.air;
-        elements[1] = this.selectedCollection.earth > this.requiredCollection.earth ? this.requiredCollection.earth : this.selectedCollection.earth;
-        elements[2] = this.selectedCollection.ether > this.requiredCollection.ether ? this.requiredCollection.ether : this.selectedCollection.ether;
-        elements[3] = this.selectedCollection.fire > this.requiredCollection.fire ? this.requiredCollection.fire : this.selectedCollection.fire;
-        elements[4] = this.selectedCollection.water > this.requiredCollection.water ? this.requiredCollection.water : this.selectedCollection.water;
-        console.debug(elements)
-        this.requiredEssences.forEach(essence => {
-            console.debug(essence.essence.id)
-            if(elements[essence.essence.id-1] > 0){
-                essence.fulfilled = true;
-                elements[essence.essence.id-1]--
-            }else {
-                essence.fulfilled = false;
-            }
-            console.debug(JSON.stringify(essence))
-        })
-    }
-
-    getElement(elementId: number){
+    getElement(elementId: number) {
         // 1: air
         // 2 earth
         // 3 ether
         // 4 fire
         // 5 water
-        switch(elementId){
+        switch (elementId) {
             case 1: {
                 return "../../assets/img/air.png";
             }
@@ -158,34 +83,5 @@ export class BrewComponent implements OnInit {
         }
     }
 
-    getRequired(essences: Essence[]){
-        essences.forEach(essence => {
-            var x = 1;
-            switch(essence.id){
-                case 1: {
-                    this.requiredCollection.air++;
-                    break;
-                }
-                case 2: {
-                    this.requiredCollection.earth++;
-                    break;
-                }
-                case 3: {
-                    this.requiredCollection.ether++;
-                    break;
-                }
-                case 4: {
-                    this.requiredCollection.fire++;
-                    break;
-                }
-                case 5: {
-                    this.requiredCollection.water++;
-                    break;
-                }
-                default: {
-                    break;
-                }
-            }
-        })
-    }
+
 }

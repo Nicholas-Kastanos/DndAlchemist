@@ -19,13 +19,13 @@
         <ion-card-content>
             <ion-row>
                 <ion-col size="6" *ngIf="concoction.DC">
-                    Save DC: {{newConcoction.DC}} {{newConcoction.saveType.name}}
+                    Save DC: {{brewService.brewedConcoction.DC}} {{brewService.brewedConcoction.saveType.name}}
                 </ion-col>
                 <ion-col size="6" *ngIf="concoction.damageType">
-                    {{newConcoction.dieNumber}}d{{newConcoction.dieType}} {{newConcoction.damageType.name}}
+                    {{brewService.brewedConcoction.dieNumber}}d{{brewService.brewedConcoction.dieType}} {{brewService.brewedConcoction.damageType.name}}
                 </ion-col>
                 <ion-col size="6" *ngIf="concoction.durationLength">
-                    Duration: {{newConcoction.durationLength}} {{newConcoction.durationType}}
+                    Duration: {{brewService.brewedConcoction.durationLength}} {{brewService.brewedConcoction.durationType}}
                 </ion-col>
             </ion-row>
 
@@ -40,7 +40,7 @@
             <ion-row>
                 <div class="section-container">
                     Required Essences:
-                    <div *ngFor="let item of requiredEssences">
+                    <div *ngFor="let item of brewService.requiredEssences">
                         <div class="essence-element-list-container">
                             <ion-thumbnail>
                                 <img *ngIf="item.fulfilled" [src]="getElement(item.essence.id)">
@@ -51,7 +51,11 @@
                 </div>
             </ion-row>
             <ion-row>
-                {{concoction.requiredIngredients | json}}
+                <ion-list>
+                    <ion-item *ngFor="let item of requiredIngredients">
+                        <ion-label>{{item}}</ion-label>
+                    </ion-item>
+                </ion-list>
             </ion-row>
         </ion-card-content>
     </ion-card>
