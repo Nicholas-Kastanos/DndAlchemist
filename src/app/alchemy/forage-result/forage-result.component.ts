@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {Ingredient} from '../../shared/classes/ingredient/ingredient';
+import {Ingredient} from '../../shared/classes/ingredient/ingredient.class';
 
 @Component({
     selector: 'app-forage-result',

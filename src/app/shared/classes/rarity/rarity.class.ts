@@ -1,4 +1,4 @@
-import { IEntity, Entity } from '../entity/entity';
+import { IEntity, Entity } from '../entity/entity.class';
 
 export interface IRarity extends IEntity {
     Name: string;

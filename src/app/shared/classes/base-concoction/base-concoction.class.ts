@@ -1,5 +1,5 @@
-import { IEntity, Entity } from '../entity/entity';
-import { Essence } from '../essence/essence';
+import { IEntity, Entity } from '../entity/entity.class';
+import { Essence } from '../essence/essence.class';
 
 export interface IBaseConcoction extends IEntity {
     Name: string;

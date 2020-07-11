@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Month, CustomDate, MoonPhases} from './classes/custom-date';
+import {Month, CustomDate, MoonPhases} from './classes/custom-date.class';
 import {AddEventModal} from './add-event-modal/add-event-modal.page';
 import {ModalController} from '@ionic/angular';
 

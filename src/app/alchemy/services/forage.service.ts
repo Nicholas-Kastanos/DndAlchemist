@@ -1,8 +1,8 @@
 import {Injectable, OnInit} from '@angular/core';
 import {DatabaseService} from 'src/app/shared/services/database.service';
-import {Biome} from 'src/app/shared/classes/biome/biome';
-import {Ingredient} from 'src/app/shared/classes/ingredient/ingredient';
-import {Rarity} from 'src/app/shared/classes/rarity/rarity';
+import {Biome} from 'src/app/shared/classes/biome/biome.class';
+import {Ingredient} from 'src/app/shared/classes/ingredient/ingredient.class';
+import {Rarity} from 'src/app/shared/classes/rarity/rarity.class';
 
 @Injectable({
     providedIn: 'root'

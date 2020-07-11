@@ -1,8 +1,8 @@
-import { IEntity, Entity } from '../entity/entity';
-import { DamageType } from '../damage-type/damage-type';
-import { Essence } from '../essence/essence';
-import { SaveType } from '../save-type/save-type';
-import { Ingredient } from '../ingredient/ingredient';
+import { IEntity, Entity } from '../entity/entity.class';
+import { DamageType } from '../damage-type/damage-type.class';
+import { Essence } from '../essence/essence.class';
+import { SaveType } from '../save-type/save-type.class';
+import { Ingredient } from '../ingredient/ingredient.class';
 
 export interface IConcoction extends IEntity {
     Name: string;

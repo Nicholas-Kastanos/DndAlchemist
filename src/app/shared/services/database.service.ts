@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject, SQLiteDatabaseConfig } from '@ionic-native/sqlite/ngx';
-import { Essence, IEssence } from '../classes/essence/essence';
-import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../classes/base-concoction/base-concoction';
+import { Essence, IEssence } from '../classes/essence/essence.class';
+import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../classes/base-concoction/base-concoction.class';
 import migrationsArray from './migrations.json';
 import baseConcoctionJson from '../../../../data/base_concoctions.json';
 import ingredientsJson from '../../../../data/ingredients.json';
 import concoctionsJson from '../../../../data/concoctions.json';
-import { Biome, IBiome } from '../classes/biome/biome';
-import { Rarity, IRarity } from '../classes/rarity/rarity';
-import { DamageType, IDamageType } from '../classes/damage-type/damage-type';
-import { Ingredient, IIngredient, IIngredientEssence, IIngredientBiome, IIngredientImport } from '../classes/ingredient/ingredient';
+import { Biome, IBiome } from '../classes/biome/biome.class';
+import { Rarity, IRarity } from '../classes/rarity/rarity.class';
+import { DamageType, IDamageType } from '../classes/damage-type/damage-type.class';
+import { Ingredient, IIngredient, IIngredientEssence, IIngredientBiome, IIngredientImport } from '../classes/ingredient/ingredient.class';
 import { ReplaySubject, Observable} from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { SaveType, ISaveType } from '../classes/save-type/save-type';
-import { IConcoction, Concoction, IConcoctionEssence, IConcoctionIngredient, ConcoctionIngredient, IConcoctionImport } from '../classes/concoction/concoction';
+import { SaveType, ISaveType } from '../classes/save-type/save-type.class';
+import { IConcoction, Concoction, IConcoctionEssence, IConcoctionIngredient, ConcoctionIngredient, IConcoctionImport } from '../classes/concoction/concoction.class';
 
 @Injectable({
   providedIn: 'root'

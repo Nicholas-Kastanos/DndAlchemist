@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {Ingredient} from '../../shared/classes/ingredient/ingredient';
-import {BaseConcoction} from '../../shared/classes/base-concoction/base-concoction';
-import {Concoction} from '../../shared/classes/concoction/concoction';
+import {Ingredient} from '../../shared/classes/ingredient/ingredient.class';
+import {BaseConcoction} from '../../shared/classes/base-concoction/base-concoction.class';
+import {Concoction} from '../../shared/classes/concoction/concoction.class';
 import {DatabaseService} from '../../shared/services/database.service';
-import {Essence} from '../../shared/classes/essence/essence';
+import {Essence} from '../../shared/classes/essence/essence.class';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({

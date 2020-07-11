@@ -1,8 +1,8 @@
-import { IEntity, Entity } from '../entity/entity';
-import { DamageType } from '../damage-type/damage-type';
-import { Biome } from '../biome/biome';
-import { Essence } from '../essence/essence';
-import { Rarity } from '../rarity/rarity';
+import { IEntity, Entity } from '../entity/entity.class';
+import { DamageType } from '../damage-type/damage-type.class';
+import { Biome } from '../biome/biome.class';
+import { Essence } from '../essence/essence.class';
+import { Rarity } from '../rarity/rarity.class';
 
 export interface IIngredient extends IEntity {
     Name: string;

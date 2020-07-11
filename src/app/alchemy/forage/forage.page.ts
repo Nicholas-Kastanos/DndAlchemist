@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ForageService } from '../services/forage.service';
-import { Biome } from '../../shared/classes/biome/biome';
+import { Biome } from '../../shared/classes/biome/biome.class';
 import { DatabaseService } from '../../shared/services/database.service';
 import { ForageResultComponent } from '../forage-result/forage-result.component';
 import { ModalController } from '@ionic/angular';

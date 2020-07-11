@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {Essence} from '../../shared/classes/essence/essence';
-import {Biome} from '../../shared/classes/biome/biome';
+import {Essence} from '../../shared/classes/essence/essence.class';
+import {Biome} from '../../shared/classes/biome/biome.class';
 
 interface DisplayItem{
     name: string;

@@ -1,4 +1,4 @@
-import { IEntity, Entity } from '../entity/entity';
+import { IEntity, Entity } from '../entity/entity.class';
 
 export interface IEssence extends IEntity {
     Name: string;

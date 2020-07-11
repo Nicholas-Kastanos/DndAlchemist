@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/shared/services/database.service';
-import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-concoction';
-import { Ingredient } from 'src/app/shared/classes/ingredient/ingredient';
-import { Concoction } from 'src/app/shared/classes/concoction/concoction';
+import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-concoction.class';
+import { Ingredient } from 'src/app/shared/classes/ingredient/ingredient.class';
+import { Concoction } from 'src/app/shared/classes/concoction/concoction.class';
 
 @Component({
     selector: 'app-full-list',

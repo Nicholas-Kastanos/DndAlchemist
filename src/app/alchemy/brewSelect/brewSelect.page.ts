@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import { DatabaseService } from '../../shared/services/database.service';
-import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoction';
-import { Concoction } from '../../shared/classes/concoction/concoction';
+import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoction.class';
+import { Concoction } from '../../shared/classes/concoction/concoction.class';
 import {ModalController} from '@ionic/angular';
 import {BrewComponent} from '../brew/brew.page';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
