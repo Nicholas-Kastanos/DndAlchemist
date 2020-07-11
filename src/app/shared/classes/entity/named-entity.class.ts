@@ -5,11 +5,19 @@ export interface INamedEntity extends IEntity {
 }
   
 
-export class NamedEntity extends Entity {
+export abstract class NamedEntity extends Entity {
+    static tableName: string;
     name: string;
 
     constructor(id: number, name: string){
         super(id);
         this.name = name;
+    }
+}
+
+export class Lookup extends NamedEntity{
+    static tableName: string = ""
+    constructor({ Id, Name }: INamedEntity){
+        super(Id, Name);
     }
 }

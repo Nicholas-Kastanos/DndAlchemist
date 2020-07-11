@@ -56,6 +56,7 @@ export interface IIngredientImport {
   
 
 export class Ingredient extends NamedEntity {
+    static tableName: string = "Ingredients";
     details?: string = null;
     rarity?: Rarity = null;
     essences: Essence[] = [];

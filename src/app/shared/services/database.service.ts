@@ -10,11 +10,12 @@ import { Biome, IBiome } from '../classes/biome/biome.class';
 import { Rarity, IRarity } from '../classes/rarity/rarity.class';
 import { DamageType, IDamageType } from '../classes/damage-type/damage-type.class';
 import { Ingredient, IIngredient, IIngredientEssence, IIngredientBiome, IIngredientImport } from '../classes/ingredient/ingredient.class';
-import { ReplaySubject, Observable} from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { SaveType, ISaveType } from '../classes/save-type/save-type.class';
 import { IConcoction, Concoction, IConcoctionEssence, IConcoctionIngredient, ConcoctionIngredient, IConcoctionImport } from '../classes/concoction/concoction.class';
 import { Character, ICharacter } from '../classes/character/character.class';
+import { Lookup, INamedEntity } from '../classes/entity/named-entity.class';
 
 @Injectable({
   providedIn: 'root'
@@ -25,39 +26,39 @@ export class DatabaseService {
 
   public initialiseSubject = new ReplaySubject<void>();
 
-  public async getEssences(): Promise<Essence[]> { 
+  public async getEssences(): Promise<Essence[]> {
     await this.initialiseSubject.toPromise();
-    return this._essences$.toPromise(); 
+    return this._essences$.toPromise();
   }
-  public async getSaveTypes(): Promise<SaveType[]> { 
+  public async getSaveTypes(): Promise<SaveType[]> {
     await this.initialiseSubject.toPromise();
-    return this._saveTypes$.toPromise(); 
+    return this._saveTypes$.toPromise();
   }
-  public async getBiomes(): Promise<Biome[]> { 
+  public async getBiomes(): Promise<Biome[]> {
     await this.initialiseSubject.toPromise();
-    return this._biomes$.toPromise(); 
+    return this._biomes$.toPromise();
   }
   public async getRarities(): Promise<Rarity[]> {
-    await this.initialiseSubject.toPromise(); 
-    return this._rarities$.toPromise(); 
-  }
-  public async getDamageTypes(): Promise<DamageType[]> { 
     await this.initialiseSubject.toPromise();
-    return this._damageTypes$.toPromise(); 
+    return this._rarities$.toPromise();
   }
-  public async getBaseConcoctions(): Promise<BaseConcoction[]> { 
+  public async getDamageTypes(): Promise<DamageType[]> {
+    await this.initialiseSubject.toPromise();
+    return this._damageTypes$.toPromise();
+  }
+  public async getBaseConcoctions(): Promise<BaseConcoction[]> {
     await this.initialiseSubject.toPromise();
     return this._baseConcoctions$.toPromise();
   }
-  public async getIngredients(): Promise<Ingredient[]> { 
+  public async getIngredients(): Promise<Ingredient[]> {
     await this.initialiseSubject.toPromise();
-    return this._ingredients$.toPromise(); 
+    return this._ingredients$.toPromise();
   }
-  public async getConcoctions(): Promise<Concoction[]> { 
+  public async getConcoctions(): Promise<Concoction[]> {
     await this.initialiseSubject.toPromise();
-    return this._concoctions$.toPromise(); 
+    return this._concoctions$.toPromise();
   }
-  public async getCharacters(): Promise<Character[]>{
+  public async getCharacters(): Promise<Character[]> {
     await this.initialiseSubject.toPromise();
     return this._characters$.toPromise();
   }
@@ -73,6 +74,33 @@ export class DatabaseService {
   }
   public refreshCharacters() {
     this._characters$ = this.cache(this._getCharacters());
+  }
+
+  public createCharacter(name: string, year: number, month: number, day: number) {
+    return new Promise<Character>((resolve, reject) => {
+      this.db.executeSql("INSERT INTO " + Character.tableName + "(Name, Year, Month, Day) " +
+        "VALUES (?, ?, ?, ?)",
+        [name, year, month, day]).then((result: IInsertResults<ICharacter>) => {
+          this.refreshCharacters();
+          resolve(new Character(result.insertId, name, year, month, day));
+        }).catch(reject);
+    });
+  }
+
+  // Only works on NamedEntities
+  public async Lookup(tableName: string): Promise<Lookup[]> {
+    await this.initialiseSubject.toPromise();
+    return new Observable<Lookup[]>((observer) => {
+      this.db.executeSql("SELECT Id, Name FROM " + tableName + ";", []).then((resultSet: IQueryResults<INamedEntity>) => {
+        let iNameEntities = this.queryResultToArray<INamedEntity>(resultSet);
+        let lookup: Lookup[] = [];
+        iNameEntities.forEach(iNamedEntity => {
+          lookup.push(new Lookup(iNamedEntity));
+        });
+        observer.next(lookup);
+        observer.complete();
+      });
+    }).toPromise();
   }
 
   private db: SQLiteObject;
@@ -104,7 +132,7 @@ export class DatabaseService {
   //   return results;
   // }
 
-  private _setLookups(){
+  private _setLookups() {
     this._essences$ = this.cache(this._getEssences());
     this._saveTypes$ = this.cache(this._getSaveTypes());
     this._biomes$ = this.cache(this._getBiomes());
@@ -113,7 +141,7 @@ export class DatabaseService {
   }
 
   private _essences$: Observable<Essence[]>;
-  private _getEssences(): Observable<Essence[]>{
+  private _getEssences(): Observable<Essence[]> {
     return new Observable<Essence[]>(observer => {
       this.db.executeSql("SELECT * FROM Essences", [])
         .then((resultSet: IQueryResults<IEssence>) => {
@@ -129,7 +157,7 @@ export class DatabaseService {
   }
 
   private _saveTypes$: Observable<SaveType[]>;
-  private _getSaveTypes(): Observable<SaveType[]>{
+  private _getSaveTypes(): Observable<SaveType[]> {
     return new Observable<SaveType[]>((observer) => {
       this.db.executeSql("SELECT * FROM SaveTypes", [])
         .then((resultSet: IQueryResults<ISaveType>) => {
@@ -145,7 +173,7 @@ export class DatabaseService {
   }
 
   private _biomes$: Observable<Biome[]>;
-  private _getBiomes(): Observable<Biome[]>{
+  private _getBiomes(): Observable<Biome[]> {
     return new Observable<Biome[]>(observer => {
       this.db.executeSql("SELECT * FROM Biomes", [])
         .then((resultSet: IQueryResults<IBiome>) => {
@@ -177,7 +205,7 @@ export class DatabaseService {
   }
 
   private _damageTypes$: Observable<DamageType[]>;
-  private _getDamageTypes(): Observable<DamageType[]>{
+  private _getDamageTypes(): Observable<DamageType[]> {
     return new Observable<DamageType[]>(observer => {
       this.db.executeSql("SELECT * FROM DamageTypes", []).then((resultSet: IQueryResults<IDamageType>) => {
         let iDamageTypes = this.queryResultToArray<IDamageType>(resultSet);
@@ -213,7 +241,7 @@ export class DatabaseService {
   }
 
   private _ingredients$: Observable<Ingredient[]>;
-  private _getIngredients(): Observable<Ingredient[]>{
+  private _getIngredients(): Observable<Ingredient[]> {
     return new Observable<Ingredient[]>(observer => {
       this.db.executeSql("SELECT * FROM Ingredients;", [])
         .then(async (resultSet: IQueryResults<IIngredient>) => {
@@ -274,7 +302,7 @@ export class DatabaseService {
   }
 
   private _concoctions$: Observable<Concoction[]>;
-  private _getConcoctions(): Observable<Concoction[]>{
+  private _getConcoctions(): Observable<Concoction[]> {
     return new Observable<Concoction[]>((observer) => {
       this.db.executeSql("SELECT * FROM Concoctions;", [])
         .then(async (resultSet: IQueryResults<IConcoction>) => {
@@ -322,7 +350,7 @@ export class DatabaseService {
   }
 
   private _characters$: Observable<Character[]>;
-  private _getCharacters(): Observable<Character[]>{
+  private _getCharacters(): Observable<Character[]> {
     return new Observable<Character[]>(observer => {
       this.db.executeSql("SELECT * FROM Characters;", []).then((resultSet: IQueryResults<ICharacter>) => {
         let iCharacters = this.queryResultToArray<ICharacter>(resultSet);
@@ -632,7 +660,7 @@ export class DatabaseService {
     });
   }
 
-  private async _deleteDatabase(): Promise<void>{
+  private async _deleteDatabase(): Promise<void> {
     await this.db.close()
     await this.sqlite.deleteDatabase(this.sqliteConfig)
     console.debug("Deleted Database")
@@ -650,9 +678,9 @@ export class DatabaseService {
     this.refreshConcoctions();// Must be called to set the cache, is also set at the end of the UpdateFromJson
     this.refreshCharacters();// Must be called to set the cache
 
-    await this.updateBaseConcoctionsFromJson();
-    await this.updateIngredientsFromJson();
-    await this.updateConcoctionsFromJson();
+    // await this.updateBaseConcoctionsFromJson();
+    // await this.updateIngredientsFromJson();
+    // await this.updateConcoctionsFromJson();
     this.initialiseSubject.next();
     this.initialiseSubject.complete();
     // await this._deleteDatabase();

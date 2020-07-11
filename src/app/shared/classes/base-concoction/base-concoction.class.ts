@@ -7,6 +7,7 @@ export interface IBaseConcoction extends INamedEntity {
 }
 
 export class BaseConcoction extends NamedEntity {
+    static tableName: string = "BaseConcoctions";
     baseEffect: string;
     baseEssences: Essence[] = [];
 

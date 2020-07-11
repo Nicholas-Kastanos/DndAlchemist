@@ -31,6 +31,7 @@ export interface IConcoctionImport {
 }
 
 export class Concoction extends NamedEntity {
+    static tableName: string = "Concoctions";
     dieType?: number;
     dieNumber?: number;
     DC?: number;

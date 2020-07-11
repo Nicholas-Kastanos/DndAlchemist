@@ -9,6 +9,7 @@ export interface ICharacter extends INamedEntity {
   
 
 export class Character extends NamedEntity {
+    static tableName: string = "Characters";
     date: CustomDate;
 
     constructor(id: number, name: string, year: number, month: number, day: number){

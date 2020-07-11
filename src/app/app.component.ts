@@ -5,6 +5,7 @@ import { Plugins } from '@capacitor/core';
 const { SplashScreen } = Plugins;
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { DatabaseService } from './shared/services/database.service';
+import { Character } from './shared/classes/character/character.class';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit {
       icon: 'calendar'
     }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+
+  characters$: Promise<Character[]>;
 
   constructor(
     private platform: Platform,
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit {
     private database: DatabaseService
   ) {
     this.initializeApp();
+    this.characters$ = this.database.getCharacters();
   }
 
 
