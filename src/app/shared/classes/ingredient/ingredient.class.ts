@@ -1,11 +1,11 @@
-import { IEntity, Entity } from '../entity/entity.class';
+import { IEntity } from '../entity/entity.class';
 import { DamageType } from '../damage-type/damage-type.class';
 import { Biome } from '../biome/biome.class';
 import { Essence } from '../essence/essence.class';
 import { Rarity } from '../rarity/rarity.class';
+import { INamedEntity, NamedEntity } from '../entity/named-entity.class';
 
-export interface IIngredient extends IEntity {
-    Name: string;
+export interface IIngredient extends INamedEntity {
     Details?: string;
     RarityId?: number;
     DamageTypeId?: number;
@@ -55,8 +55,7 @@ export interface IIngredientImport {
 }
   
 
-export class Ingredient extends Entity {
-    name: string;
+export class Ingredient extends NamedEntity {
     details?: string = null;
     rarity?: Rarity = null;
     essences: Essence[] = [];
@@ -106,8 +105,7 @@ export class Ingredient extends Entity {
         addDamageTypeOil?: boolean,
         addDamageTypePotion?: boolean,
         ){
-        super(id);
-        this.name = name;
+        super(id, name);
         this.details = details;
         this.rarity = rarity;
         this.essences = essences;

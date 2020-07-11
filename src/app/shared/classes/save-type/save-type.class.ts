@@ -1,15 +1,12 @@
-import { IEntity, Entity } from '../entity/entity.class';
+import { INamedEntity, NamedEntity } from '../entity/named-entity.class';
 
-export interface ISaveType extends IEntity {
-    Name: string;
+export interface ISaveType extends INamedEntity {
 }
   
 
-export class SaveType extends Entity {
-    name: string;
+export class SaveType extends NamedEntity {
 
     constructor(id: number, name: string){
-        super(id);
-        this.name = name;
+        super(id, name);
     }
 }

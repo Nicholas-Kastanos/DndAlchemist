@@ -3,9 +3,9 @@ import { DamageType } from '../damage-type/damage-type.class';
 import { Essence } from '../essence/essence.class';
 import { SaveType } from '../save-type/save-type.class';
 import { Ingredient } from '../ingredient/ingredient.class';
+import { INamedEntity, NamedEntity } from '../entity/named-entity.class';
 
-export interface IConcoction extends IEntity {
-    Name: string;
+export interface IConcoction extends INamedEntity {
     DieType?: number;
     DieNumber?: number;
     DC?: number;
@@ -30,8 +30,7 @@ export interface IConcoctionImport {
     durationType: number | undefined;
 }
 
-export class Concoction extends Entity {
-    name: string;
+export class Concoction extends NamedEntity {
     dieType?: number;
     dieNumber?: number;
     DC?: number;
@@ -57,8 +56,7 @@ export class Concoction extends Entity {
         durationLength?: number,
         durationType?: string,
     ){
-        super(id);
-        this.name = name;
+        super(id, name);
         this.effect = effect;
         this.essences = essences;
         this.requiredIngredients = requiredIngredients;

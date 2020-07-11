@@ -1,15 +1,12 @@
-import { IEntity, Entity } from '../entity/entity.class';
+import { INamedEntity, NamedEntity } from '../entity/named-entity.class';
 
-export interface IDamageType extends IEntity {
-    Name: string;
+export interface IDamageType extends INamedEntity {
 }
   
 
-export class DamageType extends Entity {
-    name: string;
+export class DamageType extends NamedEntity {
 
     constructor(id: number, name: string){
-        super(id);
-        this.name = name;
+        super(id, name);
     }
 }

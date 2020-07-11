@@ -1,15 +1,11 @@
-import { IEntity, Entity } from '../entity/entity.class';
+import { INamedEntity, NamedEntity } from '../entity/named-entity.class';
 
-export interface IEssence extends IEntity {
-    Name: string;
+export interface IEssence extends INamedEntity {
 }
   
-
-export class Essence extends Entity {
-    name: string;
+export class Essence extends NamedEntity {
 
     constructor(id: number, name: string){
-        super(id);
-        this.name = name;
+        super(id, name);
     }
 }
