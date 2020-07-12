@@ -33,8 +33,7 @@ export class BrewService {
     constructor() { }
 
     public initialise(base: BaseConcoction, concoction: Concoction) {
-        this.requiredEssences = [];
-        this.requiredIngredients = [];
+        this.brewedConcoction = concoction;
         this.getRequired(base.baseEssences);
         this.getRequired(concoction.essences);
         base.baseEssences.forEach(essence => {
@@ -44,8 +43,6 @@ export class BrewService {
             this.requiredEssences.push({ essence: essence, fulfilled: false });
         })
 
-        this.brewedConcoction = concoction;
-
         concoction.requiredIngredients.forEach(required => {
             var requiredString = "";
             for (var x = 0; x < required.ingredients.length - 1; x++) {
@@ -54,6 +51,25 @@ export class BrewService {
             requiredString = requiredString + required.ingredients[required.ingredients.length - 1].name;
             this.requiredIngredients.push({ display: requiredString, requiredIngredient: required, fulfilled: 0 });
         })
+    }
+
+    public reset() {
+        this.requiredEssences = [];
+        this.requiredIngredients = [];
+        this.requiredCollection = {
+            "ether": 0,
+            "earth": 0,
+            "fire": 0,
+            "air": 0,
+            "water": 0
+        }
+        this.selectedCollection = {
+            "ether": 0,
+            "earth": 0,
+            "fire": 0,
+            "air": 0,
+            "water": 0
+        }
     }
 
 
@@ -93,14 +109,57 @@ export class BrewService {
 
     private checkIngredient(item: Ingredient, checked: boolean) {
         if (this.brewedConcoction.DC != undefined) {
-            if (item.increaseSave) {
+            if (item.increaseSave == true) {
                 this.brewedConcoction.DC = checked ? (this.brewedConcoction.DC + 1) : (this.brewedConcoction.DC - 1);
             }
         }
 
         if (this.brewedConcoction.dieNumber != undefined) {
-            if (item.increaseDamageNumber) {
+            if (item.increaseDamageNumber == true) {
                 this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+            }
+        }
+
+        if (this.brewedConcoction.damageType != undefined) {
+            // TODO check if healing or arcane recov
+            if (item.damageType != undefined) {
+                this.brewedConcoction.damageType = item.damageType;
+            }
+        }
+
+        if (this.brewedConcoction.dieType != undefined) {
+            if (item.increaseDamageSize == true) {
+                switch (this.brewedConcoction.dieType) {
+                    case 4:
+                        this.brewedConcoction.dieType = checked ? 6 : 4;
+                        break;
+                    case 6:
+                        this.brewedConcoction.dieType = checked ? 8 : 4;
+                        break;
+                    case 8:
+                        this.brewedConcoction.dieType = checked ? 10 : 6;
+                        break;
+                    case 10:
+                        this.brewedConcoction.dieType = checked ? 12 : 8;
+                        break;
+                    case 12:
+                        this.brewedConcoction.dieType = checked ? 20 : 10;
+                        break;
+                    case 20:
+                        this.brewedConcoction.dieType = checked ? 20 : 12;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        if (this.brewedConcoction.durationLength != undefined) {
+            console.debug(JSON.stringify(item))
+            console.debug(item.doubleDuration == true);
+            if (item.doubleDuration == true) {
+                console.debug("inside if")
+                this.brewedConcoction.durationLength = checked ? this.brewedConcoction.durationLength * 2 : this.brewedConcoction.durationLength/2;
             }
         }
 
@@ -110,7 +169,6 @@ export class BrewService {
                     required.fulfilled = checked ? required.fulfilled + 1 : required.fulfilled - 1;
                 }
             })
-            console.debug(JSON.stringify(this.requiredIngredients))
         }
 
     }

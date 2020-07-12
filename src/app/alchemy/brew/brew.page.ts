@@ -15,7 +15,7 @@ import { Essence } from 'src/app/shared/classes/essence/essence.class';
 
 export class BrewComponent implements OnInit {
 
-    ingredients: Ingredient[] = [];
+    ingredients: {ingredient:Ingredient, checked: boolean}[] = [];
 
     requiredEssences: {essence: Essence, fulfilled: boolean}[] = [];
     newConcoction: Concoction;
@@ -33,7 +33,9 @@ export class BrewComponent implements OnInit {
     ngOnInit() {
         this.database.getIngredients()
             .then((result) => {
-                this.ingredients = result;
+                result.forEach(ingredient => {
+                    this.ingredients.push({ingredient: ingredient, checked: false});
+                });
             })
 
         this.brewService.initialise(this.baseConcoction, this.concoction);
@@ -49,11 +51,15 @@ export class BrewComponent implements OnInit {
     }   
 
     select(item: any) {
-        this.brewService.selectItem(item, item.checked);
+        this.brewService.selectItem(item.ingredient, item.checked);
         this.updateData();
     }
 
     dismiss() {
+        this.brewService.reset();
+        this.ingredients.forEach(ingredient => {
+            ingredient.checked = false;
+        })
         this.modalCtrl.dismiss();
     }
 
