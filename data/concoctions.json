@@ -28,7 +28,7 @@
         "requiredIngredients": [],
         "effect": "A creature subjected to this poison must make a DC 10 Constitution saving throw. On a failed save, it takes 6 (1d12) poison damage and is Poisoned for 24 hours. On a successful save, the creature takes half damage and isn’t Poisoned."
     },{
-        "name": "Burnt Other Fumes",
+        "name": "Burnt Othur Fumes",
         "DC": 13,
         "save": "Constitution",
         "dieNumber": 3,
