@@ -64,8 +64,8 @@
 
     <ion-list>
         <ion-item *ngFor="let item of ingredients">
-            <ion-label>{{item.name}}</ion-label>
-            <div *ngFor="let essence of item.essences">
+            <ion-label>{{item.ingredient.name}}</ion-label>
+            <div *ngFor="let essence of item.ingredient.essences">
                 <div class="essence-element-list-container">
                     <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
                 </div>
