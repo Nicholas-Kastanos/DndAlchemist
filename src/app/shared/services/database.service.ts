@@ -653,8 +653,8 @@ export class DatabaseService {
     public async initialise(): Promise<void> {
         this.db = await this._openDb();
 
-        await this._deleteDatabase();
-        this.db = await this._openDb();
+        // await this._deleteDatabase();
+        // this.db = await this._openDb();
 
         await this._createMigrationsTable();
         await this._runMigrations();
