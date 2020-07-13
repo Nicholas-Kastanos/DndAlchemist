@@ -109,13 +109,13 @@ export class BrewService {
 
     private checkIngredient(item: Ingredient, checked: boolean) {
         if (this.brewedConcoction.DC != undefined) {
-            if (item.increaseSave == true) {
+            if (item.increaseSave) {
                 this.brewedConcoction.DC = checked ? (this.brewedConcoction.DC + 1) : (this.brewedConcoction.DC - 1);
             }
         }
 
         if (this.brewedConcoction.dieNumber != undefined) {
-            if (item.increaseDamageNumber == true) {
+            if (item.increaseDamageNumber) {
                 this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
             }
         }
@@ -128,7 +128,7 @@ export class BrewService {
         }
 
         if (this.brewedConcoction.dieType != undefined) {
-            if (item.increaseDamageSize == true) {
+            if (item.increaseDamageSize) {
                 switch (this.brewedConcoction.dieType) {
                     case 4:
                         this.brewedConcoction.dieType = checked ? 6 : 4;
@@ -155,9 +155,7 @@ export class BrewService {
         }
 
         if (this.brewedConcoction.durationLength != undefined) {
-            console.debug(JSON.stringify(item))
-            console.debug(item.doubleDuration == true);
-            if (item.doubleDuration == true) {
+            if (item.doubleDuration) {
                 console.debug("inside if")
                 this.brewedConcoction.durationLength = checked ? this.brewedConcoction.durationLength * 2 : this.brewedConcoction.durationLength/2;
             }

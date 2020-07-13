@@ -5,23 +5,24 @@ import { INamedEntity, NamedEntity } from '../entity/named-entity.class';
 import { Essence } from '../essence/essence.class';
 import { Rarity } from '../rarity/rarity.class';
 
+// Booleans from database are handled as "true" and "false" string literals https://github.com/xpbrew/cordova-sqlite-storage
 export interface IIngredient extends INamedEntity {
 	Details?: string;
 	RarityName?: string;
 	DamageTypeName?: string;
-	IncreaseHealing?: boolean;
-	IncreaseArcaneRecovery?: boolean;
-	IncreaseDamageNumber?: boolean;
-	IncreaseDamageSize?: boolean;
-	IncreaseSave?: boolean;
-	DoubleDuration?: boolean;
-	DoubleBombRadius?: boolean;
-	DoubleDustArea?: boolean;
-	ExtraOilUse?: boolean;
-	DisadvantageDex?: boolean;
-	DisadvantageCon?: boolean;
-	DisadvantageWis?: boolean;
-	DisadvantageSaves?: boolean;
+	IncreaseHealing: "true" | "false";
+	IncreaseArcaneRecovery: "true" | "false";
+	IncreaseDamageNumber: "true" | "false";
+	IncreaseDamageSize: "true" | "false";
+	IncreaseSave: "true" | "false";
+	DoubleDuration: "true" | "false";
+	DoubleBombRadius: "true" | "false";
+	DoubleDustArea: "true" | "false";
+	ExtraOilUse: "true" | "false";
+	DisadvantageDex: "true" | "false";
+	DisadvantageCon: "true" | "false";
+	DisadvantageWis: "true" | "false";
+	DisadvantageSaves: "true" | "false";
 }
 
 export interface IIngredientImport {
@@ -55,53 +56,45 @@ export class Ingredient extends NamedEntity {
 	static tableName: string = "Ingredients";
 	static essenceTableName: string = "IngredientEssences";
 	static biomeTableName: string = "IngredientBiomes";
-	details?: string = null;
-	rarity?: Rarity = null;
+	details?: string;
+	rarity?: Rarity;
 	essences: Essence[] = [];
 	locations: Biome[] = [];
-	damageType?: DamageType = null;
-	increaseHealing: boolean = false;
-	increaseArcaneRecovery: boolean = false;
-	increaseDamageNumber: boolean = false;
-	increaseDamageSize: boolean = false;
-	increaseSave: boolean = false;
-	doubleDuration: boolean = false;
-	doubleBombRadius: boolean = false;
-	doubleDustArea: boolean = false;
-	extraOilUse: boolean = false;
-	disadvantageDex: boolean = false;
-	disadvantageCon: boolean = false;
-	disadvantageWis: boolean = false;
-	disadvantageSaves: boolean = false;
-	addDamageTypeBomb: boolean = false;
-	addDamageTypeDust: boolean = false;
-	addDamageTypeOil: boolean = false;
-	addDamageTypePotion: boolean = false;
+	damageType?: DamageType;
+	increaseHealing: boolean;
+	increaseArcaneRecovery: boolean;
+	increaseDamageNumber: boolean;
+	increaseDamageSize: boolean;
+	increaseSave: boolean;
+	doubleDuration: boolean;
+	doubleBombRadius: boolean;
+	doubleDustArea: boolean;
+	extraOilUse: boolean;
+	disadvantageDex: boolean;
+	disadvantageCon: boolean;
+	disadvantageWis: boolean;
+	disadvantageSaves: boolean;
 
 	constructor(
 		name: string,
 		essences: Essence[],
 		locations: Biome[],
+		increaseHealing: "true" | "false",
+		increaseArcaneRecovery: "true" | "false",
+		increaseDamageNumber: "true" | "false",
+		increaseDamageSize: "true" | "false",
+		increaseSave: "true" | "false",
+		doubleDuration: "true" | "false",
+		doubleBombRadius: "true" | "false",
+		doubleDustArea: "true" | "false",
+		extraOilUse: "true" | "false",
+		disadvantageDex: "true" | "false",
+		disadvantageCon: "true" | "false",
+		disadvantageWis: "true" | "false",
+		disadvantageSaves: "true" | "false",
 		details?: string,
 		rarity?: Rarity,
 		damageType?: DamageType,
-		increaseHealing?: boolean,
-		increaseArcaneRecovery?: boolean,
-		increaseDamageNumber?: boolean,
-		increaseDamageSize?: boolean,
-		increaseSave?: boolean,
-		doubleDuration?: boolean,
-		doubleBombRadius?: boolean,
-		doubleDustArea?: boolean,
-		extraOilUse?: boolean,
-		disadvantageDex?: boolean,
-		disadvantageCon?: boolean,
-		disadvantageWis?: boolean,
-		disadvantageSaves?: boolean,
-		addDamageTypeBomb?: boolean,
-		addDamageTypeDust?: boolean,
-		addDamageTypeOil?: boolean,
-		addDamageTypePotion?: boolean,
 	) {
 		super(name);
 		this.details = details;
@@ -109,23 +102,19 @@ export class Ingredient extends NamedEntity {
 		this.essences = essences;
 		this.locations = locations;
 		this.damageType = damageType;
-		this.increaseHealing = increaseHealing ?? this.increaseHealing;
-		this.increaseArcaneRecovery = increaseArcaneRecovery ?? this.increaseArcaneRecovery;
-		this.increaseDamageNumber = increaseDamageNumber ?? this.increaseDamageNumber;
-		this.increaseDamageSize = increaseDamageSize ?? this.increaseDamageSize;
-		this.increaseSave = increaseSave ?? this.increaseSave;
-		this.doubleDuration = doubleDuration ?? this.doubleDuration;
-		this.doubleBombRadius = doubleBombRadius ?? this.doubleBombRadius;
-		this.doubleDustArea = doubleDustArea ?? this.doubleDustArea;
-		this.extraOilUse = extraOilUse ?? this.extraOilUse;
-		this.disadvantageDex = disadvantageDex ?? this.disadvantageDex;
-		this.disadvantageCon = disadvantageCon ?? this.disadvantageCon;
-		this.disadvantageWis = disadvantageWis ?? this.disadvantageWis;
-		this.disadvantageSaves = disadvantageSaves ?? this.disadvantageSaves;
-		this.addDamageTypeBomb = addDamageTypeBomb ?? this.addDamageTypeBomb;
-		this.addDamageTypeDust = addDamageTypeDust ?? this.addDamageTypeDust;
-		this.addDamageTypeOil = addDamageTypeOil ?? this.addDamageTypeOil;
-		this.addDamageTypePotion = addDamageTypePotion ?? this.addDamageTypePotion;
+		this.increaseHealing = increaseHealing === "true";
+		this.increaseArcaneRecovery = increaseArcaneRecovery === "true";
+		this.increaseDamageNumber = increaseDamageNumber === "true";
+		this.increaseDamageSize = increaseDamageSize === "true";
+		this.increaseSave = increaseSave === "true";
+		this.doubleDuration = doubleDuration === "true";
+		this.doubleBombRadius = doubleBombRadius === "true";
+		this.doubleDustArea = doubleDustArea === "true";
+		this.extraOilUse = extraOilUse === "true";
+		this.disadvantageDex = disadvantageDex === "true";
+		this.disadvantageCon = disadvantageCon === "true";
+		this.disadvantageWis = disadvantageWis === "true";
+		this.disadvantageSaves = disadvantageSaves === "true";
 	}
 }
 

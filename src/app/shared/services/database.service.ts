@@ -270,9 +270,6 @@ export class DatabaseService {
                             iIngredient.Name,
                             ingredientEssences,
                             ingredientBiomes,
-                            iIngredient.Details,
-                            rarity,
-                            damageType,
                             iIngredient.IncreaseHealing,
                             iIngredient.IncreaseArcaneRecovery,
                             iIngredient.IncreaseDamageNumber,
@@ -285,7 +282,10 @@ export class DatabaseService {
                             iIngredient.DisadvantageDex,
                             iIngredient.DisadvantageCon,
                             iIngredient.DisadvantageWis,
-                            iIngredient.DisadvantageSaves
+                            iIngredient.DisadvantageSaves,
+                            iIngredient.Details,
+                            rarity,
+                            damageType
                         );
                         ingredients.push(ingredient);
                     }
@@ -532,7 +532,7 @@ export class DatabaseService {
                 concoctionName = existingConcoction.name;
 
 
-                await this.db.executeSql("UPDATE " + Concoction.tableName +
+                await this.db.executeSql("UPDATE " + Concoction.tableName + " " +
                     "SET DieType=?, DieNumber=?, DC=?, SaveTypeName=?, DamageTypeName=?, Effect=?, DurationLength=?, DurationType=?" +
                     "WHERE Name=?",
                     [jsonConcoction.dieType, jsonConcoction.dieNumber, jsonConcoction.DC, saveTypeName, damageTypeName, jsonConcoction.effect, jsonConcoction.durationLength, jsonConcoction.durationType, concoctionName]);
