@@ -9,8 +9,8 @@ export interface IConcoction extends INamedEntity {
 	DieType?: number;
 	DieNumber?: number;
 	DC?: number;
-	SaveTypeId?: number;
-	DamageTypeId?: number;
+	SaveTypeName?: string;
+	DamageTypeName?: string;
 	Effect: string;
 	DurationLength?: number;
 	DurationType?: string;
@@ -32,6 +32,9 @@ export interface IConcoctionImport {
 
 export class Concoction extends NamedEntity {
 	static tableName: string = "Concoctions";
+	static essenceTableName: string = "ConcoctionEssences";
+	static ingredientTableName: string = "ConcoctionIngredients";
+
 	dieType?: number;
 	dieNumber?: number;
 	DC?: number;
@@ -44,7 +47,6 @@ export class Concoction extends NamedEntity {
 	durationType?: string;
 
 	constructor(
-		id: number,
 		name: string,
 		effect: string,
 		essences: Essence[],
@@ -57,7 +59,7 @@ export class Concoction extends NamedEntity {
 		durationLength?: number,
 		durationType?: string,
 	) {
-		super(id, name);
+		super(name);
 		this.effect = effect;
 		this.essences = essences;
 		this.requiredIngredients = requiredIngredients;
@@ -72,26 +74,26 @@ export class Concoction extends NamedEntity {
 }
 
 export interface IConcoctionEssence extends IEntity {
-	ConcoctionId: number;
-	EssenceId: number;
+	ConcoctionName: string;
+	EssenceName: string;
 }
 
 export interface IConcoctionIngredient extends IEntity {
-	ConcoctionId: number;
-	IngredientId: number;
-	PrimaryAlternateIngredientId?: number | undefined;
-	SecondaryAlternateIngredientId?: number | undefined;
+	ConcoctionName: string;
+	IngredientName: string;
+	PrimaryAlternateIngredientName?: string;
+	SecondaryAlternateIngredientName?: string;
 }
 export class ConcoctionIngredient extends Entity {
-	concoctionId: number;
+	concoctionName: string;
 	ingredients: Ingredient[];
 
 	constructor(
 		id: number,
-		concoctionId: number,
+		concoctionName: string,
 		ingredients: Ingredient[]) {
 		super(id);
-		this.concoctionId = concoctionId;
+		this.concoctionName = concoctionName;
 		this.ingredients = ingredients;
 	}
 }

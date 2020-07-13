@@ -7,7 +7,7 @@ export interface ISaveType extends INamedEntity {
 export class SaveType extends NamedEntity {
 	static tableName: string = "SaveTypes";
 
-	constructor(id: number, name: string) {
-		super(id, name);
+	constructor(name: string) {
+		super(name);
 	}
 }

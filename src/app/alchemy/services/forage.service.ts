@@ -2,7 +2,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {DatabaseService} from 'src/app/shared/services/database.service';
 import {Biome} from 'src/app/shared/classes/biome/biome.class';
 import {Ingredient} from 'src/app/shared/classes/ingredient/ingredient.class';
-import {Rarity} from 'src/app/shared/classes/rarity/rarity.class';
+import {Rarity, Rarities} from 'src/app/shared/classes/rarity/rarity.class';
 
 @Injectable({
     providedIn: 'root'
@@ -48,7 +48,7 @@ export class ForageService implements OnInit{
         return total > 0 ? total: 0;
     }
 
-    public forage(check: number, biomes: number[]){
+    public forage(check: number, biomes: string[]){
         var common = 0;
         var uncommon = 0;
         var rare = 0;
@@ -77,21 +77,21 @@ export class ForageService implements OnInit{
 
         var foragedIngredients: Ingredient[] = [];
 
-        var biomelist = this.biomes.filter(b => biomes.includes(b.id));
+        var biomelist = this.biomes.filter(b => biomes.includes(b.name));
         if(common > 0){
-            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.id == 1)[0], biomelist, common))
+            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.name == Rarities.Common)[0], biomelist, common))
         }
 
         if(uncommon > 0){
-            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.id == 2)[0], biomelist, uncommon))
+            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.name == Rarities.Uncommon)[0], biomelist, uncommon))
         }
 
         if(rare > 0){
-            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.id == 3)[0], biomelist, rare))
+            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.name == Rarities.Rare)[0], biomelist, rare))
         }
 
         if(veryRare > 0){
-            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.id == 4)[0], biomelist, veryRare))
+            foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.name == Rarities.VeryRare)[0], biomelist, veryRare))
         }
 
         console.debug(JSON.stringify(foragedIngredients))
@@ -104,7 +104,7 @@ export class ForageService implements OnInit{
         var availableIngredients: Ingredient[] = [];
         this.ingredients.forEach(ingredient =>{
             if(ingredient.rarity != undefined && ingredient.locations.length > 0){
-                if(ingredient.rarity.id == rarity.id && ingredient.locations.some(l => biome.some(b => b.id == l.id))){
+                if(ingredient.rarity.name == rarity.name && ingredient.locations.some(l => biome.some(b => b.name == l.name))){
                     availableIngredients.push(ingredient);
                 }
             }

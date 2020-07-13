@@ -43,8 +43,8 @@
                     <div *ngFor="let item of requiredEssences">
                         <div class="essence-element-list-container">
                             <ion-thumbnail>
-                                <img *ngIf="item.fulfilled" [src]="getElement(item.essence.id)">
-                                <img *ngIf="!item.fulfilled" style="filter: grayscale(100%);" [src]="getElement(item.essence.id)">
+                                <img *ngIf="item.fulfilled" [src]="getElement(item.essence.name)">
+                                <img *ngIf="!item.fulfilled" style="filter: grayscale(100%);" [src]="getElement(item.essence.name)">
                             </ion-thumbnail>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
             <ion-label>{{item.name}}</ion-label>
             <div *ngFor="let essence of item.essences">
                 <div class="essence-element-list-container">
-                    <ion-thumbnail><img [src]="getElement(essence.id)"></ion-thumbnail>
+                    <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
                 </div>
             </div>
             <ion-checkbox slot="end" [(ngModel)]="item.checked" (ionChange)="select(item)"></ion-checkbox>

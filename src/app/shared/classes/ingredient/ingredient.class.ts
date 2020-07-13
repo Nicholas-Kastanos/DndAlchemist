@@ -7,8 +7,8 @@ import { Rarity } from '../rarity/rarity.class';
 
 export interface IIngredient extends INamedEntity {
 	Details?: string;
-	RarityId?: number;
-	DamageTypeId?: number;
+	RarityName?: string;
+	DamageTypeName?: string;
 	IncreaseHealing?: boolean;
 	IncreaseArcaneRecovery?: boolean;
 	IncreaseDamageNumber?: boolean;
@@ -22,10 +22,6 @@ export interface IIngredient extends INamedEntity {
 	DisadvantageCon?: boolean;
 	DisadvantageWis?: boolean;
 	DisadvantageSaves?: boolean;
-	AddDamageTypeBomb?: boolean;
-	AddDamageTypeDust?: boolean;
-	AddDamageTypeOil?: boolean;
-	AddDamageTypePotion?: boolean;
 }
 
 export interface IIngredientImport {
@@ -57,6 +53,8 @@ export interface IIngredientImport {
 
 export class Ingredient extends NamedEntity {
 	static tableName: string = "Ingredients";
+	static essenceTableName: string = "IngredientEssences";
+	static biomeTableName: string = "IngredientBiomes";
 	details?: string = null;
 	rarity?: Rarity = null;
 	essences: Essence[] = [];
@@ -81,7 +79,6 @@ export class Ingredient extends NamedEntity {
 	addDamageTypePotion: boolean = false;
 
 	constructor(
-		id: number,
 		name: string,
 		essences: Essence[],
 		locations: Biome[],
@@ -106,7 +103,7 @@ export class Ingredient extends NamedEntity {
 		addDamageTypeOil?: boolean,
 		addDamageTypePotion?: boolean,
 	) {
-		super(id, name);
+		super(name);
 		this.details = details;
 		this.rarity = rarity;
 		this.essences = essences;
@@ -133,11 +130,11 @@ export class Ingredient extends NamedEntity {
 }
 
 export interface IIngredientEssence extends IEntity {
-	IngredientId: number;
-	EssenceId: number;
+	IngredientName: string;
+	EssenceName: string;
 }
 
 export interface IIngredientBiome extends IEntity {
-	IngredientId: number;
-	BiomeId: number;
+	IngredientName: string;
+	BiomeName: string;
 }

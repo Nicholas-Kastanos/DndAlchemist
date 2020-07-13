@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Essence } from 'src/app/shared/classes/essence/essence.class';
+import { Essence, Essences } from 'src/app/shared/classes/essence/essence.class';
 import { Concoction, ConcoctionIngredient } from 'src/app/shared/classes/concoction/concoction.class';
 import { Ingredient } from 'src/app/shared/classes/ingredient/ingredient.class';
 import { BaseConcoction } from 'src/app/shared/classes/base-concoction/base-concoction.class';
@@ -61,24 +61,24 @@ export class BrewService {
     public selectItem(item: Ingredient, checked: boolean) {
         item.essences.forEach(essence => {
             var x = checked ? 1 : -1;
-            switch (essence.id) {
-                case 1: {
+            switch (essence.name) {
+                case Essences.Air: {
                     this.selectedCollection.air = this.selectedCollection.air + x;
                     break;
                 }
-                case 2: {
+                case Essences.Earth: {
                     this.selectedCollection.earth = this.selectedCollection.earth + x;
                     break;
                 }
-                case 3: {
+                case Essences.Ether: {
                     this.selectedCollection.ether = this.selectedCollection.ether + x;
                     break;
                 }
-                case 4: {
+                case Essences.Fire: {
                     this.selectedCollection.fire = this.selectedCollection.fire + x;
                     break;
                 }
-                case 5: {
+                case Essences.Water: {
                     this.selectedCollection.water = this.selectedCollection.water + x;
                     break;
                 }
@@ -106,7 +106,7 @@ export class BrewService {
 
         if (this.requiredIngredients.length > 0) {
             this.requiredIngredients.forEach(required => {
-                if (required.requiredIngredient.ingredients.some(x => x.id == item.id)) {
+                if (required.requiredIngredient.ingredients.some(x => x.name == item.name)) {
                     required.fulfilled = checked ? required.fulfilled + 1 : required.fulfilled - 1;
                 }
             })
@@ -116,16 +116,16 @@ export class BrewService {
     }
 
     private checkRequired() {
-        var elements = [];
-        elements[0] = this.selectedCollection.air > this.requiredCollection.air ? this.requiredCollection.air : this.selectedCollection.air;
-        elements[1] = this.selectedCollection.earth > this.requiredCollection.earth ? this.requiredCollection.earth : this.selectedCollection.earth;
-        elements[2] = this.selectedCollection.ether > this.requiredCollection.ether ? this.requiredCollection.ether : this.selectedCollection.ether;
-        elements[3] = this.selectedCollection.fire > this.requiredCollection.fire ? this.requiredCollection.fire : this.selectedCollection.fire;
-        elements[4] = this.selectedCollection.water > this.requiredCollection.water ? this.requiredCollection.water : this.selectedCollection.water;
+        var elements: {[id: string] : number} = {};
+        elements[Essences.Air] = this.selectedCollection.air > this.requiredCollection.air ? this.requiredCollection.air : this.selectedCollection.air;
+        elements[Essences.Earth] = this.selectedCollection.earth > this.requiredCollection.earth ? this.requiredCollection.earth : this.selectedCollection.earth;
+        elements[Essences.Ether] = this.selectedCollection.ether > this.requiredCollection.ether ? this.requiredCollection.ether : this.selectedCollection.ether;
+        elements[Essences.Fire] = this.selectedCollection.fire > this.requiredCollection.fire ? this.requiredCollection.fire : this.selectedCollection.fire;
+        elements[Essences.Water] = this.selectedCollection.water > this.requiredCollection.water ? this.requiredCollection.water : this.selectedCollection.water;
         this.requiredEssences.forEach(essence => {
-            if (elements[essence.essence.id - 1] > 0) {
+            if (elements[essence.essence.name] > 0) {
                 essence.fulfilled = true;
-                elements[essence.essence.id - 1]--
+                elements[essence.essence.name]--
             } else {
                 essence.fulfilled = false;
             }
@@ -135,24 +135,24 @@ export class BrewService {
     private getRequired(essences: Essence[]) {
         essences.forEach(essence => {
             var x = 1;
-            switch (essence.id) {
-                case 1: {
+            switch (essence.name) {
+                case Essences.Air: {
                     this.requiredCollection.air++;
                     break;
                 }
-                case 2: {
+                case Essences.Earth: {
                     this.requiredCollection.earth++;
                     break;
                 }
-                case 3: {
+                case Essences.Ether: {
                     this.requiredCollection.ether++;
                     break;
                 }
-                case 4: {
+                case Essences.Fire: {
                     this.requiredCollection.fire++;
                     break;
                 }
-                case 5: {
+                case Essences.Water: {
                     this.requiredCollection.water++;
                     break;
                 }

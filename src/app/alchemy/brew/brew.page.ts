@@ -5,7 +5,7 @@ import { BaseConcoction } from '../../shared/classes/base-concoction/base-concoc
 import { Concoction, ConcoctionIngredient } from '../../shared/classes/concoction/concoction.class';
 import { DatabaseService } from '../../shared/services/database.service';
 import { BrewService } from '../services/brew.service';
-import { Essence } from 'src/app/shared/classes/essence/essence.class';
+import { Essence, Essences } from 'src/app/shared/classes/essence/essence.class';
 
 @Component({
     selector: 'app-brew',
@@ -57,26 +57,21 @@ export class BrewComponent implements OnInit {
         this.modalCtrl.dismiss();
     }
 
-    getElement(elementId: number) {
-        // 1: air
-        // 2 earth
-        // 3 ether
-        // 4 fire
-        // 5 water
-        switch (elementId) {
-            case 1: {
+    getElement(elementName: string){
+        switch(elementName){
+            case Essences.Air: {
                 return "../../assets/img/air.png";
             }
-            case 2: {
+            case Essences.Earth: {
                 return "../../assets/img/earth.png";
             }
-            case 3: {
+            case Essences.Ether: {
                 return "../../assets/img/ether.png";
             }
-            case 4: {
+            case Essences.Fire: {
                 return "../../assets/img/fire.png";
             }
-            case 5: {
+            case Essences.Water: {
                 return "../../assets/img/water.png";
             }
             default: {

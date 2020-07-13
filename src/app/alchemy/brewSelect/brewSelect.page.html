@@ -13,7 +13,7 @@
                 Base Concoction
             </ion-label>
             <ion-select [(ngModel)]="baseConcoction" placeholder="Base Concoction">
-                <ion-select-option *ngFor="let item of baseConcoctionList" [value]="item.id">{{item.name}}</ion-select-option>
+                <ion-select-option *ngFor="let item of baseConcoctionList" [value]="item.name">{{item.name}}</ion-select-option>
             </ion-select>
         </ion-item>
 
@@ -22,7 +22,7 @@
                 Concoction
             </ion-label>
             <ion-select [(ngModel)]="concoction" placeholder="Concoction">
-                <ion-select-option *ngFor="let item of concoctionList" [value]="item.id">{{item.name}}</ion-select-option>
+                <ion-select-option *ngFor="let item of concoctionList" [value]="item.name">{{item.name}}</ion-select-option>
             </ion-select>
         </ion-item>
     </ion-list>
