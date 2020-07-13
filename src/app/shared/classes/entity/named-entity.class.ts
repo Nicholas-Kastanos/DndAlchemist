@@ -1,23 +1,22 @@
 import { IEntity, Entity } from '../entity/entity.class';
 
-export interface INamedEntity extends IEntity {
+export interface INamedEntity {
 	Name: string;
 }
 
 
-export abstract class NamedEntity extends Entity {
+export abstract class NamedEntity {
 	static tableName: string;
 	name: string;
 
-	constructor(id: number, name: string) {
-		super(id);
+	constructor(name: string) {
 		this.name = name;
 	}
 }
 
 export class Lookup extends NamedEntity {
 	static tableName: string = ""
-	constructor({ Id, Name }: INamedEntity) {
-		super(Id, Name);
+	constructor({  Name }: INamedEntity) {
+		super(Name);
 	}
 }

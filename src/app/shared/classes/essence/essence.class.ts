@@ -6,7 +6,15 @@ export interface IEssence extends INamedEntity {
 export class Essence extends NamedEntity {
 	static tableName: string = "Essences";
 
-	constructor(id: number, name: string) {
-		super(id, name);
+	constructor(name: string) {
+		super(name);
 	}
+}
+
+export enum Essences {
+	Air = "Air",
+	Earth = "Earth",
+	Ether = "Ether",
+	Fire = "Fire",
+	Water = "Water"
 }

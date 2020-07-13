@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {Essence} from '../../shared/classes/essence/essence.class';
+import {Essence, Essences} from '../../shared/classes/essence/essence.class';
 import {Biome} from '../../shared/classes/biome/biome.class';
 
 interface DisplayItem{
@@ -34,26 +34,21 @@ export class ItemDetailModal implements OnInit{
         this.modalCtrl.dismiss();
     }
 
-    getElement(elementId: number){
-        // 1: air
-        // 2 earth
-        // 3 ether
-        // 4 fire
-        // 5 water
-        switch(elementId){
-            case 1: {
+    getElement(elementName: string){
+        switch(elementName){
+            case Essences.Air: {
                 return "../../assets/img/air.png";
             }
-            case 2: {
+            case Essences.Earth: {
                 return "../../assets/img/earth.png";
             }
-            case 3: {
+            case Essences.Ether: {
                 return "../../assets/img/ether.png";
             }
-            case 4: {
+            case Essences.Fire: {
                 return "../../assets/img/fire.png";
             }
-            case 5: {
+            case Essences.Water: {
                 return "../../assets/img/water.png";
             }
             default: {

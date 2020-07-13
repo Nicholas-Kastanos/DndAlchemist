@@ -13,8 +13,8 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
     styleUrls: ['./brewSelect.page.scss'],
 })
 export class BrewSelectPage implements OnInit {
-    baseConcoction: number;
-    concoction: number;
+    baseConcoction: string;
+    concoction: string;
 
     baseConcoctionList: BaseConcoction[];
     concoctionList: Concoction[];
@@ -41,17 +41,17 @@ export class BrewSelectPage implements OnInit {
         console.debug(this.concoction)
         var selectedConcoction: Concoction;
         this.concoctionList.forEach(concoction => {
-            if(concoction.id == this.concoction){
+            if(concoction.name == this.concoction){
                 selectedConcoction = concoction;
             }
         });
         var selectedBaseConcoction: BaseConcoction; 
         this.baseConcoctionList.forEach(base => {
-            if(base.id == this.baseConcoction){
+            if(base.name == this.baseConcoction){
                 selectedBaseConcoction = base;
             }
         });
-        console.debug(this.concoctionList.filter(c => c.id == this.concoction))
+        console.debug(this.concoctionList.filter(c => c.name == this.concoction))
         this.reset();
         const modal = await this.modalController.create({
             component: BrewComponent,

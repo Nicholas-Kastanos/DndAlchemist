@@ -13,7 +13,7 @@ import { ModalController } from '@ionic/angular';
 export class ForagePage implements OnInit {
   biomes: Biome[];
   forageCheck: number;
-  selectedBiomes: number[];
+  selectedBiomes: string[];
 
   constructor(
     private forageService: ForageService,
