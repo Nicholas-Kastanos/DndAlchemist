@@ -19,7 +19,10 @@ export class BrewComponent implements OnInit {
 
     requiredEssences: {essence: Essence, fulfilled: boolean}[] = [];
     newConcoction: Concoction;
+    newBaseConcoction: BaseConcoction;
     requiredIngredients: {display: string, requiredIngredient: ConcoctionIngredient, fulfilled: number}[] = [];
+
+    complete: boolean = false;
 
     constructor(
         public modalCtrl: ModalController,
@@ -47,7 +50,9 @@ export class BrewComponent implements OnInit {
     updateData(){
         this.requiredEssences = this.brewService.requiredEssences;
         this.newConcoction = this.brewService.brewedConcoction;
+        this.newBaseConcoction = this.brewService.brewedBaseConcoction;
         this.requiredIngredients = this.brewService.requiredIngredients;
+        this.complete = this.brewService.complete;
     }   
 
     select(item: any) {
@@ -61,6 +66,10 @@ export class BrewComponent implements OnInit {
             ingredient.checked = false;
         })
         this.modalCtrl.dismiss();
+    }
+
+    addToInventory(){
+        console.debug("add to inventory")
     }
 
     getElement(elementName: string){

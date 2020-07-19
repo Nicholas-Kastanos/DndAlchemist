@@ -12,7 +12,10 @@ export class BrewService {
 
     public requiredEssences: { essence: Essence, fulfilled: boolean }[] = []
     public brewedConcoction: Concoction;
+    public brewedBaseConcoction: BaseConcoction;
     public requiredIngredients: { display: string, requiredIngredient: ConcoctionIngredient, fulfilled: number }[] = [];
+
+    public complete: boolean = false;
 
     public requiredCollection = {
         "ether": 0,
@@ -34,6 +37,7 @@ export class BrewService {
 
     public initialise(base: BaseConcoction, concoction: Concoction) {
         this.brewedConcoction = concoction;
+        this.brewedBaseConcoction = base;
         this.getRequired(base.baseEssences);
         this.getRequired(concoction.essences);
         base.baseEssences.forEach(essence => {
@@ -72,6 +76,11 @@ export class BrewService {
         }
     }
 
+    private checkComplete(){
+        this.complete = this.requiredEssences.every(essence => essence.fulfilled == true)
+            && this.requiredIngredients.every(ingredient => ingredient.fulfilled == ingredient.requiredIngredient.ingredients.length);
+    }
+
 
     // call whenever an ingredient is selected/deselected
     public selectItem(item: Ingredient, checked: boolean) {
@@ -105,29 +114,66 @@ export class BrewService {
         })
         this.checkRequired();
         this.checkIngredient(item, checked);
+        this.checkComplete();
     }
 
     private checkIngredient(item: Ingredient, checked: boolean) {
+
         if (this.brewedConcoction.DC != undefined) {
             if (item.increaseSave) {
                 this.brewedConcoction.DC = checked ? (this.brewedConcoction.DC + 1) : (this.brewedConcoction.DC - 1);
             }
         }
 
-        if (this.brewedConcoction.dieNumber != undefined) {
+        if (this.brewedConcoction.dieNumber != undefined && this.brewedConcoction.damageType.name != "Healing" && this.brewedConcoction.damageType.name != "Arcane Recovery") {
             if (item.increaseDamageNumber) {
                 this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
             }
         }
 
         if (this.brewedConcoction.damageType != undefined) {
-            // TODO check if healing or arcane recov
             if (item.damageType != undefined) {
                 this.brewedConcoction.damageType = item.damageType;
             }
         }
 
-        if (this.brewedConcoction.dieType != undefined) {
+        if(this.brewedConcoction.damageType.name == "Healing"){
+            if(item.increaseHealing){
+                this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+            }
+        }
+
+        if(this.brewedConcoction.damageType.name == "Arcane Recovery"){
+            if(item.increaseArcaneRecovery){
+                this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+            }
+        }
+
+        if(this.brewedBaseConcoction.bombRadius != undefined){
+            if(item.doubleBombRadius){
+                this.brewedBaseConcoction.bombRadius = checked ?
+                    this.brewedBaseConcoction.bombRadius*2 :
+                    this.brewedBaseConcoction.bombRadius/2;
+            }
+        }
+
+        if(this.brewedBaseConcoction.dustArea != undefined){
+            if(item.doubleDustArea){
+                this.brewedBaseConcoction.dustArea = checked ?
+                    this.brewedBaseConcoction.dustArea*2 :
+                    this.brewedBaseConcoction.dustArea/2;
+            }
+        }
+
+        if(this.brewedBaseConcoction.oilUses != undefined){
+            if(item.extraOilUse){
+                this.brewedBaseConcoction.oilUses = checked ?
+                    this.brewedBaseConcoction.oilUses + 1 :
+                    this.brewedBaseConcoction.oilUses - 1;
+            }
+        }
+
+        if (this.brewedConcoction.dieType != undefined && this.brewedConcoction.damageType.name != "Healing" && this.brewedConcoction.damageType.name != "Arcane Recovery") {
             if (item.increaseDamageSize) {
                 switch (this.brewedConcoction.dieType) {
                     case 4:
@@ -156,7 +202,6 @@ export class BrewService {
 
         if (this.brewedConcoction.durationLength != undefined) {
             if (item.doubleDuration) {
-                console.debug("inside if")
                 this.brewedConcoction.durationLength = checked ? this.brewedConcoction.durationLength * 2 : this.brewedConcoction.durationLength/2;
             }
         }

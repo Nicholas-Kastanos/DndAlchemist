@@ -10,6 +10,13 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="complete">
+        <ion-fab-button>
+            <ion-icon (click)="addToInventory()" name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
     <ion-card>
         <ion-card-header>
             <ion-card-subtitle>{{baseConcoction.name}}</ion-card-subtitle>
@@ -26,6 +33,15 @@
                 </ion-col>
                 <ion-col size="6" *ngIf="concoction.durationLength">
                     Duration: {{newConcoction.durationLength}} {{newConcoction.durationType}}
+                </ion-col>
+                <ion-col size="6" *ngIf="baseConcoction.oilUses">
+                    Oil Uses: {{newBaseConcoction.oilUses}}
+                </ion-col>
+                <ion-col size="6" *ngIf="baseConcoction.bombRadius">
+                    Explosion Radius: {{newBaseConcoction.bombRadius}} ft
+                </ion-col>
+                <ion-col size="6" *ngIf="baseConcoction.dustArea">
+                    Dust Area: {{newBaseConcoction.dustArea}} ft
                 </ion-col>
             </ion-row>
 
@@ -44,7 +60,8 @@
                         <div class="essence-element-list-container">
                             <ion-thumbnail>
                                 <img *ngIf="item.fulfilled" [src]="getElement(item.essence.name)">
-                                <img *ngIf="!item.fulfilled" style="filter: grayscale(100%);" [src]="getElement(item.essence.name)">
+                                <img *ngIf="!item.fulfilled" style="filter: grayscale(100%);"
+                                    [src]="getElement(item.essence.name)">
                             </ion-thumbnail>
                         </div>
                     </div>
