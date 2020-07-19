@@ -833,6 +833,8 @@
         "name": "Nightmare",
         "durationLength": 8,
         "durationType": "hour",
+        "DC": 15,
+        "save": "Wisdom",
         "essences": [
             "Fire",
             "Fire",

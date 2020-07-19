@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {ItemDetailModal} from '../item-detail/item-detail.component';
-import {Essence} from '../../shared/classes/essence/essence.class';
+import {Essences} from '../../shared/classes/essence/essence.class';
 
 interface DisplayItem {
     name: string;
@@ -26,6 +26,29 @@ export class LineItem implements OnInit{
 
     ngOnInit() {
         this.displayItem = this.item as DisplayItem;
+    }
+
+    getElement(elementName: string){
+        switch(elementName){
+            case Essences.Air: {
+                return "../../assets/img/air.png";
+            }
+            case Essences.Earth: {
+                return "../../assets/img/earth.png";
+            }
+            case Essences.Ether: {
+                return "../../assets/img/ether.png";
+            }
+            case Essences.Fire: {
+                return "../../assets/img/fire.png";
+            }
+            case Essences.Water: {
+                return "../../assets/img/water.png";
+            }
+            default: {
+                return "../../assets/img/new_moon.svg";
+            }
+        }
     }
 
     async openDetails(){
