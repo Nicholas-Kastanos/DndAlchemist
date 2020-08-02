@@ -186,5 +186,30 @@
             "Day INTEGER NOT NULL",
             ");"
         ]
+    },
+    {
+        "Name": "Create Alchemy Item Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS AlchemyItem( ",
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, ",
+            "BaseConcoctionName TEXT NOT NULL, ",
+            "ConcoctionName TEXT NOT NULL, ",
+            "DieType INTEGER, ",
+            "DieNumber INTEGER, ",
+            "DC INTEGER, ",
+            "DamageTypeName TEXT, ",
+            "DurationLength TEXT, ",
+            "BombRadius INTEGER, ",
+            "DustArea INTEGER, ",
+            "OilUses INTEGER, ",
+            "DisadvantageDex BIT, ",
+            "DisadvantageCon BIT, ",
+            "DisadvantageWis BIT, ",
+            "DisadvantageSaves BIT, ",
+            "FOREIGN KEY (BaseConcoctionName) REFERENCES BaseConcoctions (Name), ",
+            "FOREIGN KEY (ConcoctionName) REFERENCES Concoctions (Name), ",
+            "FOREIGN KEY (DamageTypeName) REFERENCES DamageTypes (Name)", 
+            ");"
+        ]
     }
 ]

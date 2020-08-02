@@ -16,6 +16,7 @@ import baseConcoctionJson from '../../../../data/base_concoctions.json';
 import concoctionsJson from '../../../../data/concoctions.json';
 import ingredientsJson from '../../../../data/ingredients.json';
 import migrationsArray from './migrations.json';
+import { CreateAlchemyItem, AlchemyItem, IAlchemyItem } from '../classes/alchemy-item/alchemy-item.class';
 
 @Injectable({
     providedIn: 'root'
@@ -87,6 +88,53 @@ export class DatabaseService {
         });
     }
 
+
+    public async createAlchemyItem({ baseConcoction, bombRadius, dustArea, oilUses,
+        concoction, dieType, dieNumber, DC,
+        damageType, durationLength, disadvantageDex, disadvantageCon,
+        disadvantageWis, disadvantageSaves }: CreateAlchemyItem) : Promise<AlchemyItem>
+    {
+        await this.initialiseSubject.toPromise();
+        return new Promise<AlchemyItem>((resolve, reject) => {
+            this.db.executeSql("INSERT INTO " + AlchemyItem.tableName + " (\
+                BaseConcoctionName, \
+                ConcoctionName, \
+                DieType, \
+                DieNumber, \
+                DC, \
+                DamageTypeName, \
+                DurationLength, \
+                BombRadius, \
+                DustArea, \
+                OilUses, \
+                DisadvantageDex, \
+                DisadvantageCon, \
+                DisadvantageWis, \
+                DisadvantageSaves) " + 
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
+                baseConcoction.name,
+                concoction.name,
+                dieType,
+                dieNumber,
+                DC,
+                damageType.name,
+                durationLength,
+                bombRadius,
+                dustArea,
+                oilUses,
+                disadvantageDex,
+                disadvantageCon,
+                disadvantageWis,
+                disadvantageSaves
+            ]).then((resultSet: IInsertResults<IAlchemyItem>) => {
+                resolve(new AlchemyItem(resultSet.insertId, { baseConcoction, bombRadius, dustArea, oilUses,
+                    concoction, dieType, dieNumber, DC,
+                    damageType, durationLength, disadvantageDex, disadvantageCon,
+                    disadvantageWis, disadvantageSaves }));
+            }).catch(reject)
+        })
+    }
+
     // Only works on NamedEntities
     public async Lookup(tableName: string): Promise<Lookup[]> {
         await this.initialiseSubject.toPromise();
@@ -121,16 +169,6 @@ export class DatabaseService {
     private async _openDb(): Promise<SQLiteObject> {
         return this.sqlite.create(this.sqliteConfig);
     }
-
-    // public async getLookup<Model, IModel>(tableName: string): Promise<Array<Model>>{
-    //   let resultSet: IQueryResults<IModel> = await this.db.executeSql("SELECT * FROM " + tableName +";", []);
-    //   let iResultSet = this.queryResultToArray<IModel>(resultSet);
-    //   let results: Array<Model> = new Array<Model>();
-    //   iResultSet.forEach((iResult: IModel) => {
-    //     results.push(new Model(iResult.Id, iResult.Name));
-    //   })
-    //   return results;
-    // }
 
     private _setLookups() {
         this._essences$ = this.cache(this._getEssences());
@@ -425,24 +463,24 @@ export class DatabaseService {
                     "IncreaseArcaneRecovery, IncreaseDamageNumber, IncreaseDamageSize, IncreaseSave, DoubleDuration, DoubleBombRadius, DoubleDustArea, " +
                     "ExtraOilUse, DisadvantageDex, DisadvantageCon, DisadvantageWis, DisadvantageSaves)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
-                        jsonIngredient.name,
-                        jsonIngredient.details,
-                        rarityName,
-                        damageTypeName,
-                        jsonIngredient.increaseHealing ?? false,
-                        jsonIngredient.increaseArcaneRecovery ?? false,
-                        jsonIngredient.increaseDamageNumber ?? false,
-                        jsonIngredient.increaseDamageSize ?? false,
-                        jsonIngredient.increaseSave ?? false,
-                        jsonIngredient.doubleDuration ?? false,
-                        jsonIngredient.doubleBombRadius ?? false,
-                        jsonIngredient.doubleDustArea ?? false,
-                        jsonIngredient.extraOilUse ?? false,
-                        jsonIngredient.disadvantageDex ?? false,
-                        jsonIngredient.disadvantageCon ?? false,
-                        jsonIngredient.disadvantageWis ?? false,
-                        jsonIngredient.disadvantageSaves ?? false
-        ]);
+                    jsonIngredient.name,
+                    jsonIngredient.details,
+                    rarityName,
+                    damageTypeName,
+                    jsonIngredient.increaseHealing ?? false,
+                    jsonIngredient.increaseArcaneRecovery ?? false,
+                    jsonIngredient.increaseDamageNumber ?? false,
+                    jsonIngredient.increaseDamageSize ?? false,
+                    jsonIngredient.increaseSave ?? false,
+                    jsonIngredient.doubleDuration ?? false,
+                    jsonIngredient.doubleBombRadius ?? false,
+                    jsonIngredient.doubleDustArea ?? false,
+                    jsonIngredient.extraOilUse ?? false,
+                    jsonIngredient.disadvantageDex ?? false,
+                    jsonIngredient.disadvantageCon ?? false,
+                    jsonIngredient.disadvantageWis ?? false,
+                    jsonIngredient.disadvantageSaves ?? false
+                ]);
                 ingredientName = jsonIngredient.name;
             } else { // There is a match
                 ingredientName = existingIngredient.name;
@@ -450,30 +488,30 @@ export class DatabaseService {
                     "IncreaseArcaneRecovery=?, IncreaseDamageNumber=?, IncreaseDamageSize=?, IncreaseSave=?, DoubleDuration=?, DoubleBombRadius=?, DoubleDustArea=?, " +
                     "ExtraOilUse=?, DisadvantageDex=?, DisadvantageCon=?, DisadvantageWis=?, DisadvantageSaves=?" +
                     "WHERE Name=?;", [
-                        jsonIngredient.details,
-                        rarityName,
-                        damageTypeName,
-                        jsonIngredient.increaseHealing ?? false,
-                        jsonIngredient.increaseArcaneRecovery ?? false,
-                        jsonIngredient.increaseDamageNumber ?? false,
-                        jsonIngredient.increaseDamageSize ?? false,
-                        jsonIngredient.increaseSave ?? false,
-                        jsonIngredient.doubleDuration ?? false,
-                        jsonIngredient.doubleBombRadius ?? false,
-                        jsonIngredient.doubleDustArea ?? false,
-                        jsonIngredient.extraOilUse ?? false,
-                        jsonIngredient.disadvantageDex ?? false,
-                        jsonIngredient.disadvantageCon ?? false,
-                        jsonIngredient.disadvantageWis ?? false,
-                        jsonIngredient.disadvantageSaves ?? false,
-                        ingredientName
-                    ]);
+                    jsonIngredient.details,
+                    rarityName,
+                    damageTypeName,
+                    jsonIngredient.increaseHealing ?? false,
+                    jsonIngredient.increaseArcaneRecovery ?? false,
+                    jsonIngredient.increaseDamageNumber ?? false,
+                    jsonIngredient.increaseDamageSize ?? false,
+                    jsonIngredient.increaseSave ?? false,
+                    jsonIngredient.doubleDuration ?? false,
+                    jsonIngredient.doubleBombRadius ?? false,
+                    jsonIngredient.doubleDustArea ?? false,
+                    jsonIngredient.extraOilUse ?? false,
+                    jsonIngredient.disadvantageDex ?? false,
+                    jsonIngredient.disadvantageCon ?? false,
+                    jsonIngredient.disadvantageWis ?? false,
+                    jsonIngredient.disadvantageSaves ?? false,
+                    ingredientName
+                ]);
                 await this.db.executeSql("DELETE FROM " + Ingredient.essenceTableName + " WHERE IngredientName=?;", [ingredientName]);
                 await this.db.executeSql("DELETE FROM " + Ingredient.biomeTableName + " WHERE IngredientName=?;", [ingredientName]);
             }
 
             for (let j = 0; j < jsonIngredient.essences.length; j++) {
-                let newEssence = jsonIngredient.essences[j];          
+                let newEssence = jsonIngredient.essences[j];
                 let newEssenceName = essences.find(e => e.name === newEssence).name;
                 await this.db.executeSql("INSERT INTO " + Ingredient.essenceTableName + " (IngredientName, EssenceName) VALUES (?, ?);", [ingredientName, newEssenceName]);
             }
@@ -524,8 +562,8 @@ export class DatabaseService {
             if (existingConcoction == null) { // There was no match
                 await this.db.executeSql("INSERT INTO " + Concoction.tableName + " (Name, DieType, DieNumber, DC, SaveTypeName, DamageTypeName, Effect, DurationLength, DurationType) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", [
-                        jsonConcoction.name, jsonConcoction.dieType, jsonConcoction.dieNumber, jsonConcoction.DC, saveTypeName, damageTypeName, jsonConcoction.effect, jsonConcoction.durationLength, jsonConcoction.durationType
-                    ]);
+                    jsonConcoction.name, jsonConcoction.dieType, jsonConcoction.dieNumber, jsonConcoction.DC, saveTypeName, damageTypeName, jsonConcoction.effect, jsonConcoction.durationLength, jsonConcoction.durationType
+                ]);
                 concoctionName = jsonConcoction.name;
 
             } else { // There is a match
