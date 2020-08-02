@@ -3,18 +3,11 @@
         <ion-menu contentId="main-content" type="overlay">
             <ion-content>
                 <ion-list id="alchemy-list">
-                    <ion-list-header>
-                        <ion-select>
-                            <ion-select-option *ngFor="let character of (characters$ | async)" value="character.id">
-                                {{character.name}}
-                            </ion-select-option>
-                            <ion-select-option value="new">
-                                New Character
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-list-header>
 
-
+                    <ion-item (click)="openCharacterPopover()">
+                        <ion-icon slot="start" [ios]="'person-sharp'" [md]="'person-sharp'"></ion-icon>
+                        <ion-label> {{selectedCharacter?.name || "Select Character.."}} </ion-label>
+                    </ion-item>
 
 
                     <ion-menu-toggle auto-hide="false" *ngFor="let p of alchemyPages; let i = index">

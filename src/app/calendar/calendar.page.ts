@@ -127,7 +127,6 @@ export class CalendarPage implements OnInit {
     }
 
     async addEvent(){
-        console.log("add event");
         const modal = await this.modalController.create({
             component: AddEventModal,
             swipeToClose: true,

@@ -8,12 +8,23 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
+import { CharacterSelectorComponent } from './components/character-selector/character-selector.component';
+import { CharacterAddComponent } from './components/character-add/character-add.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent,
+    CharacterSelectorComponent,
+    CharacterAddComponent
+  ],
+  entryComponents: [
+    CharacterSelectorComponent,
+    CharacterAddComponent
+  ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     SharedModule.forRoot()

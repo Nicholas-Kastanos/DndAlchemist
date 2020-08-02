@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add a Character</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="formGroup" (ngSubmit)="submit()">
+
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <div formGroupName="date">
+        <ion-label>Day</ion-label>
+        <ion-input type="number" formControlName="day"></ion-input>
+        <ion-label>Month</ion-label>
+        <ion-input type="number" formControlName="month"></ion-input>
+        <ion-label>Year</ion-label>
+        <ion-input type="number" formControlName="year"></ion-input>
+      </div>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!formGroup.valid">Create!</button>
+  </form>
+</ion-content>`

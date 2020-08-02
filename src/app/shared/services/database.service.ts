@@ -704,9 +704,9 @@ export class DatabaseService {
         this.refreshConcoctions();// Must be called to set the cache, is also set at the end of the UpdateFromJson
         this.refreshCharacters();// Must be called to set the cache
 
-        await this.updateBaseConcoctionsFromJson();
-        await this.updateIngredientsFromJson();
-        await this.updateConcoctionsFromJson();
+        // await this.updateBaseConcoctionsFromJson();
+        // await this.updateIngredientsFromJson();
+        // await this.updateConcoctionsFromJson();
         this.initialiseSubject.next();
         this.initialiseSubject.complete();
     }
