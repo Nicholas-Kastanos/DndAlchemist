@@ -16,17 +16,28 @@
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label>Date</ion-label>
-      <div formGroupName="date">
-        <ion-label>Day</ion-label>
-        <ion-input type="number" formControlName="day"></ion-input>
-        <ion-label>Month</ion-label>
-        <ion-input type="number" formControlName="month"></ion-input>
+    <ion-item-group formGroupName="date">
+      <ion-item-divider>
+        <ion-label>Date</ion-label>
+      </ion-item-divider>
+      <ion-item>
         <ion-label>Year</ion-label>
         <ion-input type="number" formControlName="year"></ion-input>
-      </div>
-    </ion-item>
-    <button ion-button type="submit" [disabled]="!formGroup.valid">Create!</button>
+      </ion-item>
+      <ion-item>
+        <ion-label>Month</ion-label>
+        <!-- <ion-input type="number" formControlName="month"></ion-input> -->
+        <ion-select formControlName="month" #monthSelect (ionChange)="updateMonth($event)">
+          <ion-select-option *ngFor="let month of months | enumToArray" value="{{month.value}}">
+            {{month.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Day</ion-label>
+        <ion-input type="number" formControlName="day" ></ion-input>
+      </ion-item>
+    </ion-item-group>
+    <ion-button type="submit" [disabled]="!formGroup.valid">Create!</ion-button>
   </form>
-</ion-content>`
+</ion-content>
