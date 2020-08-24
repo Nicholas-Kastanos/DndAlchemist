@@ -9,6 +9,7 @@ import { PopoverController } from '@ionic/angular';
 import { CharacterSelectorComponent } from './components/character-selector/character-selector.component';
 import { ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import "reflect-metadata";
 
 @Component({
   selector: 'app-root',
