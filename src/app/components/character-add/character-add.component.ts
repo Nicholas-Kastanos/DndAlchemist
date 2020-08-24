@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Month, CustomDate } from 'src/app/calendar/classes/custom-date.class';
+import { DatabaseService } from 'src/app/shared/services/database.service';
+import { Character } from 'src/app/shared/classes/character/character.class';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-character-add',
@@ -16,7 +19,8 @@ export class CharacterAddComponent {
 
   constructor(
     public modalCtrl: ModalController,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private database: DatabaseService
   ) {
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
@@ -32,13 +36,16 @@ export class CharacterAddComponent {
 
   updateMonth(event: any) {
     let month = event.target.value as number;
-    console.log(CustomDate.Month(month).days)
     this.dayControl.setValidators([Validators.required, Validators.min(1), Validators.max(CustomDate.Month(month).days)]);
     this.dayControl.updateValueAndValidity();
   }
 
   submit() {
-    console.debug(JSON.stringify(this.formGroup.value));
+    this.database.createCharacter(this.formGroup.value.name, this.formGroup.value.date.year, this.formGroup.value.date.month, this.formGroup.value.date.day)
+      .then((character: Character) => {
+        AppComponent.selectedCharacter$.next(character);
+        this.dismiss();
+      })
   }
 
   dismiss() {

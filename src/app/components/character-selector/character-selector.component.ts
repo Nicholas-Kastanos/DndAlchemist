@@ -27,6 +27,7 @@ export class CharacterSelectorComponent implements OnInit {
 
   selectCharacter(selectedCharacter: Character){
     AppComponent.selectedCharacter$.next(selectedCharacter)
+    this.dismissPopover();
   }
   async newCharacter(){
     const modal  = await this.modalController.create({
