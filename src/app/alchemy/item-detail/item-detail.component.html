@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>item</ion-title>
+        <ion-title>Details</ion-title>
         <ion-buttons slot="primary">
             <ion-button (click)="dismiss()">
                 <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -8,39 +8,62 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
-    <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
-        Base Essences:
-        <div *ngFor="let essence of displayItem.baseEssences">
-            <div class="element-list-container">
-                <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
-            </div>
-        </div>
-    </div>
-    <div class="section-container" *ngIf="displayItem.essences?.length > 0">
-        Essences:
-        <div *ngFor="let essence of displayItem.essences">
-            <div class="element-list-container">
-                <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
-            </div>
-        </div>
-    </div>
-    <div class="section-container" *ngIf="displayItem.locations?.length > 0">
-        Locations:
-        <div *ngFor="let location of displayItem.locations">
-                <p>{{location.name}}</p>
-        </div>
-    </div>
-    <div class="section-container" *ngIf="displayItem.details">
-        Details:
-        <p>{{displayItem.details}}</p>
-    </div>
-    <div class="section-container" *ngIf="displayItem.effect">
-        Effect:
-        <p>{{displayItem.effect}}</p>
-    </div>
-    <div class="section-container" *ngIf="displayItem.baseEffect">
-        Base Effect:
-        <p>{{displayItem.baseEffect}}</p>
-    </div>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle>subtitle</ion-card-subtitle>
+            <ion-card-title>title</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
+                    Base Essences:
+                    <div *ngFor="let essence of displayItem.baseEssences">
+                        <div class="element-list-container">
+                            <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
+                        </div>
+                    </div>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.essences?.length > 0">
+                    Essences:
+                    <div *ngFor="let essence of displayItem.essences">
+                        <div class="element-list-container">
+                            <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
+                        </div>
+                    </div>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.locations?.length > 0">
+                    Locations:
+                    <div *ngFor="let location of displayItem.locations">
+                        <p>{{location.name}}</p>
+                    </div>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.details">
+                    Details:
+                    <p>{{displayItem.details}}</p>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.effect">
+                    Effect:
+                    <p>{{displayItem.effect}}</p>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.baseEffect">
+                    Base Effect:
+                    <p>{{displayItem.baseEffect}}</p>
+                </div>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
