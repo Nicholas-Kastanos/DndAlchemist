@@ -4,6 +4,12 @@ import { Entity, PrimaryColumn } from 'typeorm';
 export class Rarity {
 	@PrimaryColumn({ type: "nvarchar2", length: "100" })
 	name: string;
+
+	static fromEnum(e: Rarities): Rarity {
+		let r = new Rarity();
+		r.name = e;
+		return r;
+	}
 }
 
 export enum Rarities {

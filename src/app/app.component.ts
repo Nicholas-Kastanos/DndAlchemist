@@ -10,6 +10,7 @@ import { CharacterSelectorComponent } from './components/character-selector/char
 import { ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import "reflect-metadata";
+import { OrmService } from './shared/services/orm.service';
 
 @Component({
   selector: 'app-root',
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private statusBar: StatusBar,
     private database: DatabaseService,
+    private ormService: OrmService,
     private popoverController: PopoverController
   ) {
     this.initializeApp();
