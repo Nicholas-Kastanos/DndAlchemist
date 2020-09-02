@@ -54,15 +54,15 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.database.initialise().then(() => {
-        this.database.initialiseSubject.subscribe(() => {
-          AppComponent.selectedCharacter$.pipe(tap((character: Character) => this.selectedCharacter = character ));
-          SplashScreen.hide();
-        });
-      })
-      .catch((err) => {
-        console.error("Critical database init failure encountered!", err)
-      });
+      // this.database.initialise().then(() => {
+      //   this.database.initialiseSubject.subscribe(() => {
+      //     AppComponent.selectedCharacter$.pipe(tap((character: Character) => this.selectedCharacter = character ));
+      //     SplashScreen.hide();
+      //   });
+      // })
+      // .catch((err) => {
+      //   console.error("Critical database init failure encountered!", err)
+      // });
     });
   }
 

@@ -14,52 +14,40 @@ export class OrmService {
     private connection: Connection;
 
     constructor(private platform: Platform) {
-        let type:  "cordova" | "sqljs";
-        let connectionOptions: ConnectionOptions;
+        let connectionOptions: any = {
+            synchronize: true,
+            logging: false,
+            entities: [
+                "src/entity/**/*.ts"
+            ],
+            migrations: [
+                "src/migration/**/*.ts"
+            ],
+            subscribers: [
+                "src/subscriber/**/*.ts"
+            ],
+            cli: {
+                "entitiesDir": "src/entity",
+                "migrationsDir": "src/migration",
+                "subscribersDir": "src/subscriber"
+            }
+        };
         if (this.platform.is('capacitor') || this.platform.is("cordova")) {
-            type = "cordova";
             connectionOptions = {
+                ...connectionOptions,
                 type: "cordova",
                 database: "alchemy2.db",
-                location: "default",
-                synchronize: true,
-                logging: false,
-                entities: [
-                    "src/entity/**/*.ts"
-                ],
-                migrations: [
-                    "src/migration/**/*.ts"
-                ],
-                subscribers: [
-                    "src/subscriber/**/*.ts"
-                ],
-                cli: {
-                    "entitiesDir": "src/entity",
-                    "migrationsDir": "src/migration",
-                    "subscribersDir": "src/subscriber"
-                }} as CordovaConnectionOptions;
+                location: "default"
+            };
         }
         else {
-            type = "sqljs";
             connectionOptions = {
+                ...connectionOptions,
                 type: 'sqljs',
-                location: 'default',
-                synchronize: true,
-                logging: false,
-                entities: [
-                    "src/entity/**/*.ts"
-                ],
-                migrations: [
-                    "src/migration/**/*.ts"
-                ],
-                subscribers: [
-                    "src/subscriber/**/*.ts"
-                ],
-                cli: {
-                    "entitiesDir": "src/entity",
-                    "migrationsDir": "src/migration",
-                    "subscribersDir": "src/subscriber"
-                }} as SqljsConnectionOptions;
+                location: 'browser',
+                autoSave: true,
+                sqlJsConfig: { locateFile: file => `static/js/sql-wasm.wasm` }
+            };
         }
         createConnection(connectionOptions)
             .then(connection => {

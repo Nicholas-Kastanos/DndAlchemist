@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/custom-webpack": "^9.2.0",
     "@angular/common": "~9.1.6",
     "@angular/core": "~9.1.6",
     "@angular/forms": "~9.1.6",
@@ -30,10 +31,10 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "cordova-sqlite-storage": "^5.0.0",
-    "reflect-metadata": "^0.1.10",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
-    "typeorm": "0.2.25",
+    "typeorm": "^0.2.24",
     "webpack": "^4.44.1",
     "zone.js": "~0.10.2"
   },
@@ -49,6 +50,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.12.54",
     "codelyzer": "^5.1.2",
+    "copy-webpack-plugin": "^6.0.4",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~5.0.0",
