@@ -60,7 +60,8 @@ export class LineItem implements OnInit{
             showBackdrop: true,
             backdropDismiss: true,
             componentProps: {
-                'item': this.item
+                'item': this.item,
+                'itemType': this.itemType
             }
         });
 

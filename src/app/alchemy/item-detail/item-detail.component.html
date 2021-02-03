@@ -13,11 +13,14 @@
 
     <ion-card>
         <ion-card-header>
-            <ion-card-subtitle>subtitle</ion-card-subtitle>
-            <ion-card-title>title</ion-card-title>
+            <ion-card-subtitle>{{itemType}}</ion-card-subtitle>
+            <ion-card-title>{{displayItem.name}}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
+            <ion_row>
+                {{displayItem.rarity.name}}
+            </ion_row>
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
                     Base Essences:
@@ -42,7 +45,7 @@
                 <div class="section-container" *ngIf="displayItem.locations?.length > 0">
                     Locations:
                     <div *ngFor="let location of displayItem.locations">
-                        <p>{{location.name}}</p>
+                        <p>- {{location.name}}</p>
                     </div>
                 </div>
             </ion-row>

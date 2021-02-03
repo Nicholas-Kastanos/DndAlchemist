@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {Essence, Essences} from '../../shared/classes/essence/essence.class';
 import {Biome} from '../../shared/classes/biome/biome.class';
+import {Rarity} from '../../shared/classes/rarity/rarity.class';
 
 interface DisplayItem{
     name: string;
@@ -9,6 +10,7 @@ interface DisplayItem{
     essences: Essence[];
     locations: Biome[];
     details?: string;
+    rarity?: Rarity
 }
 
 @Component({
@@ -25,6 +27,7 @@ export class ItemDetailModal implements OnInit{
     ){}
 
     @Input() item: any;
+    @Input() itemType: string;
 
     ngOnInit() {
         this.displayItem = this.item as DisplayItem;
