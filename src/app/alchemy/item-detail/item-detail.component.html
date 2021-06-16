@@ -18,42 +18,38 @@
         </ion-card-header>
 
         <ion-card-content>
-            <ion_row>
-                {{displayItem.rarity.name}}
-            </ion_row>
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
-                    Base Essences:
                     <div *ngFor="let essence of displayItem.baseEssences">
-                        <div class="element-list-container">
-                            <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
-                        </div>
+                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>    
                     </div>
                 </div>
             </ion-row>
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.essences?.length > 0">
-                    Essences:
                     <div *ngFor="let essence of displayItem.essences">
-                        <div class="element-list-container">
-                            <ion-thumbnail><img [src]="getElement(essence.name)"></ion-thumbnail>
-                        </div>
+                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>
                     </div>
                 </div>
             </ion-row>
+            <ion_row *ngIf="displayItem.rarity">
+                <h2>Rarity: {{displayItem.rarity.name}}</h2>
+            </ion_row>
             <ion-row>
-                <div class="section-container" *ngIf="displayItem.locations?.length > 0">
-                    Locations:
-                    <div *ngFor="let location of displayItem.locations">
-                        <p>- {{location.name}}</p>
-                    </div>
-                </div>
+                <ion-list *ngIf="displayItem.locations?.length > 0">
+                    <h2>Locations:</h2>
+                    <ion-row *ngFor="let location of displayItem.locations">
+                        <ion-text>
+                            - {{location.name}}
+                        </ion-text>
+                    </ion-row>
+                </ion-list>
             </ion-row>
-            <ion-row>
-                <div class="section-container" *ngIf="displayItem.details">
+            <ion-row *ngIf="displayItem.details">
+                <ion-text>
                     Details:
                     <p>{{displayItem.details}}</p>
-                </div>
+                </ion-text>
             </ion-row>
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.effect">
