@@ -132,20 +132,19 @@ export class BrewService {
         }
 
         if (this.brewedConcoction.damageType != undefined) {
-            if (item.damageType != undefined) {
+            if (item.damageType != undefined && this.brewedConcoction.damageType.name != "Healing" && this.brewedConcoction.damageType.name != "ArcaneRecovery") {
                 this.brewedConcoction.damageType = item.damageType;
             }
-        }
-
-        if(this.brewedConcoction.damageType.name == "Healing"){
-            if(item.increaseHealing){
-                this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+            if(this.brewedConcoction.damageType.name == "Healing"){
+                if(item.increaseHealing){
+                    this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+                }
             }
-        }
-
-        if(this.brewedConcoction.damageType.name == "Arcane Recovery"){
-            if(item.increaseArcaneRecovery){
-                this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+    
+            if(this.brewedConcoction.damageType.name == "Arcane Recovery"){
+                if(item.increaseArcaneRecovery){
+                    this.brewedConcoction.dieNumber = checked ? (this.brewedConcoction.dieNumber + 1) : (this.brewedConcoction.dieNumber - 1);
+                }
             }
         }
 
