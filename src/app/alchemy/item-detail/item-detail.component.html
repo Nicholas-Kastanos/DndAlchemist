@@ -14,24 +14,12 @@
     <ion-card>
         <ion-card-header>
             <ion-card-subtitle>{{itemType}}</ion-card-subtitle>
-            <ion-card-title>{{displayItem.name}}</ion-card-title>
+            <ion-card-title>
+                {{displayItem.name}}
+            </ion-card-title>
         </ion-card-header>
 
-        <ion-card-content>
-            <ion-row>
-                <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
-                    <div *ngFor="let essence of displayItem.baseEssences">
-                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>    
-                    </div>
-                </div>
-            </ion-row>
-            <ion-row>
-                <div class="section-container" *ngIf="displayItem.essences?.length > 0">
-                    <div *ngFor="let essence of displayItem.essences">
-                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>
-                    </div>
-                </div>
-            </ion-row>
+        <ion-card-content *ngIf="itemType!='Concoction'">
             <ion_row *ngIf="displayItem.rarity">
                 <h2>Rarity: {{displayItem.rarity.name}}</h2>
             </ion_row>
@@ -59,10 +47,51 @@
             </ion-row>
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.baseEffect">
-                    Base Effect:
+                    Effect:
                     <p>{{displayItem.baseEffect}}</p>
                 </div>
             </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
+                    <div *ngFor="let essence of displayItem.baseEssences">
+                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>    
+                    </div>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div class="section-container" *ngIf="displayItem.essences?.length > 0">
+                    <div *ngFor="let essence of displayItem.essences">
+                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>
+                    </div>
+                </div>
+            </ion-row>
         </ion-card-content>
+
+        <ion-card-content *ngIf="itemType=='Concoction'">
+            <ion-row>
+                <ion-col size="6" *ngIf="displayItem.DC">
+                    Save DC: {{displayItem.DC}} {{displayItem.saveType.name}}
+                </ion-col>
+                <ion-col size="6" *ngIf="displayItem.damageType">
+                    {{displayItem.dieNumber}}d{{displayItem.dieType}} {{displayItem.damageType.name}}
+                </ion-col>
+                <ion-col size="6" *ngIf="displayItem.durationLength">
+                    Duration: {{displayItem.durationLength}} {{displayItem.durationType}}
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <h2 ion-text>Concoction Effect</h2>
+                <ion-text>{{displayItem.effect}}</ion-text>
+            </ion-row>
+            <ion-row>
+                <div class="section-container">
+                    Required Essences:
+                    <div *ngFor="let essence of displayItem.essences">
+                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>
+                    </div>
+                </div>
+            </ion-row>
+        </ion-card-content>
+
     </ion-card>
 </ion-content>
