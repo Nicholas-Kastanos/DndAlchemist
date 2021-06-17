@@ -16,8 +16,18 @@ export class AddEventModal{
     @Input() day: number;
     @Input() year: number;
 
+    details: string;
+
     dismiss(){
         console.log('dismiss')
         this.modalCtrl.dismiss();
+    }
+
+    async submit(){
+        console.debug("---------------------")
+        console.debug(this.details)
+        console.debug("---------------------")
+
+        this.modalCtrl.dismiss()
     }
 }
