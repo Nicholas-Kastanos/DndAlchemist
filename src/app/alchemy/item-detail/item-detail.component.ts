@@ -2,6 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {Essence, Essences} from '../../shared/classes/essence/essence.class';
 import {Biome} from '../../shared/classes/biome/biome.class';
+import {Rarity} from '../../shared/classes/rarity/rarity.class';
+import { SaveType } from 'src/app/shared/classes/save-type/save-type.class';
+import { DamageType } from 'src/app/shared/classes/damage-type/damage-type.class';
+import { ConcoctionIngredient } from 'src/app/shared/classes/concoction/concoction.class';
 
 interface DisplayItem{
     name: string;
@@ -9,6 +13,15 @@ interface DisplayItem{
     essences: Essence[];
     locations: Biome[];
     details?: string;
+    rarity?: Rarity;
+    DC?: number;
+    saveType?: SaveType;
+    damageType?: DamageType; 
+    durationLength?: number;
+    durationType?: string;
+    dieType?: number;
+    dieNumber?: number;
+    effect?: string;
 }
 
 @Component({
@@ -25,6 +38,7 @@ export class ItemDetailModal implements OnInit{
     ){}
 
     @Input() item: any;
+    @Input() itemType: string;
 
     ngOnInit() {
         this.displayItem = this.item as DisplayItem;
