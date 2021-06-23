@@ -13,43 +13,42 @@ export class OrmService {
     public initialiseSubject = new ReplaySubject<void>();
     private connection: Connection;
 
+    private connectionOptions: CordovaConnectionOptions;
+
     constructor(private platform: Platform) {
-        let connectionOptions: any = {
-            synchronize: true,
-            logging: false,
-            entities: [
-                "src/entity/**/*.ts"
-            ],
-            migrations: [
-                "src/migration/**/*.ts"
-            ],
-            subscribers: [
-                "src/subscriber/**/*.ts"
-            ],
-            cli: {
-                "entitiesDir": "src/entity",
-                "migrationsDir": "src/migration",
-                "subscribersDir": "src/subscriber"
-            }
-        };
-        if (this.platform.is('capacitor') || this.platform.is("cordova")) {
-            connectionOptions = {
-                ...connectionOptions,
+        // if (this.platform.is('capacitor') || this.platform.is("cordova")) {
+            this.connectionOptions = {
                 type: "cordova",
                 database: "alchemy2.db",
-                location: "default"
+                location: "default",
+                synchronize: true,
+                logging: false,
+                entities: [
+                    "src/entity/**/*.ts"
+                ],
+                migrations: [
+                    "src/migration/**/*.ts"
+                ],
+                subscribers: [
+                    "src/subscriber/**/*.ts"
+                ],
+                cli: {
+                    "entitiesDir": "src/entity",
+                    "migrationsDir": "src/migration",
+                    "subscribersDir": "src/subscriber"
+                }
             };
-        }
-        else {
-            connectionOptions = {
-                ...connectionOptions,
-                type: 'sqljs',
-                location: 'browser',
-                autoSave: true,
-                sqlJsConfig: { locateFile: file => `static/js/sql-wasm.wasm` }
-            };
-        }
-        createConnection(connectionOptions)
+        // }
+        // else {
+        //     connectionOptions = {
+        //         ...connectionOptions,
+        //         type: 'sqljs',
+        //         location: 'browser',
+        //         autoSave: true,
+        //         sqlJsConfig: { locateFile: file => `static/js/sql-wasm.wasm` }
+        //     };
+        // }
+        createConnection(this.connectionOptions)
             .then(connection => {
                 this.connection = connection
                 this.initialiseSubject.next();

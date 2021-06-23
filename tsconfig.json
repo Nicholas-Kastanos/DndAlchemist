@@ -10,19 +10,13 @@
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es6",
+    "target": "es2015",
     "lib": [
-      "es5",
-      "es6",
       "es2018",
       "dom"
     ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

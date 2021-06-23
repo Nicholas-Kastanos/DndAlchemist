@@ -22,7 +22,7 @@ export class BaseConcoction {
 	@Column({ type: "int", nullable: true })
 	oilUses?: number;
 
-	@OneToMany(type => BaseConcoctionEssences, baseConcoctionEssences => baseConcoctionEssences.baseConcoction)
+	@OneToMany(type => BaseConcoctionEssences, baseConcoctionEssences => baseConcoctionEssences.baseConcoction, { cascade: true })
 	essences: BaseConcoctionEssences[];
 }
 
@@ -31,10 +31,10 @@ export class BaseConcoctionEssences {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@ManyToOne(type => BaseConcoction, baseConcoction => baseConcoction.essences)
+	@ManyToOne(type => BaseConcoction, baseConcoction => baseConcoction.essences, { onDelete: "CASCADE" })
 	baseConcoction: BaseConcoction;
 
-	@ManyToOne(type => Essence)
+	@ManyToOne(type => Essence, { onDelete: "CASCADE" })
 	essence: Essence;
 }
 

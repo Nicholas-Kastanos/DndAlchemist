@@ -9,10 +9,10 @@ export class AlchemyItem {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => BaseConcoction)
+    @ManyToOne(type => BaseConcoction, { onDelete: "RESTRICT" })
     baseConcoction: BaseConcoction;
 
-    @ManyToOne(type => Concoction)
+    @ManyToOne(type => Concoction, { onDelete: "RESTRICT" })
     concoction: Concoction;
 
     @Column()
@@ -24,7 +24,7 @@ export class AlchemyItem {
     @Column()
     DC?: number;
 
-    @ManyToOne(type => DamageType)
+    @ManyToOne(type => DamageType, { onDelete: "RESTRICT" })
     damageType?: DamageType;
 
     @Column()
