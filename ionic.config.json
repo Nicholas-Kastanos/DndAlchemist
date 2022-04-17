@@ -1,0 +1,7 @@
+{
+  "name": "DndAlchemist",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
