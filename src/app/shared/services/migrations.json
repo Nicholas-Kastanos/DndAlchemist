@@ -1,0 +1,215 @@
+[
+    {
+        "Name": "Create Essences Table",
+        "RawSql": [ "CREATE TABLE IF NOT EXISTS Essences(Name TEXT PRIMARY KEY);" ]
+    },
+    {
+        "Name": "Create BaseConcoctions",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS BaseConcoctions(",
+            "Name TEXT PRIMARY KEY, ",
+            "BaseEffect TEXT NOT NULL, ",
+            "BombRadius INTEGER NULL, ",
+            "DustArea INTEGER NULL, ",
+            "OilUses INTEGER NULL",
+            ");"
+        ]
+    },
+    {
+        "Name": "Insert Essences",
+        "RawSql": [ "INSERT INTO Essences(Name) VALUES ('Air'),('Earth'),('Ether'),('Fire'),('Water');" ]
+    },
+    {
+        "Name": "Create BaseConcoctionEssences Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS BaseConcoctionEssences(",
+            "Id Integer PRIMARY KEY AUTOINCREMENT, ",
+            "BaseConcoctionName TEXT NOT NULL, ",
+            "EssenceName TEXT NOT NULL, ",
+            "FOREIGN KEY (BaseConcoctionName) REFERENCES BaseConcoctions (Name), ",
+            "FOREIGN KEY (EssenceName) REFERENCES Essences (Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Create Biomes Table",
+        "RawSql": [ "CREATE TABLE IF NOT EXISTS Biomes(Name TEXT PRIMARY KEY);" ]
+    },
+    {
+        "Name": "Insert Biomes",
+        "RawSql": [ "INSERT INTO Biomes(Name) VALUES ('Arctic'),('Coast'),('Desert'),('Forest'),('Grassland'),('Hill'),('Mountain'),('Swamp'),('Underdark');" ]
+    },
+    {
+        "Name": "Create Rarities Table",
+        "RawSql": [ "CREATE TABLE IF NOT EXISTS Rarities(Name TEXT PRIMARY KEY);" ]
+    },
+    {
+        "Name": "Insert Rarities",
+        "RawSql": [ "INSERT INTO Rarities(Name) VALUES ('Common'),('Uncommon'),('Rare'),('Very Rare'),('Legendary'),('Artifact');" ]
+    },
+    {
+        "Name": "Create Damage Types Table",
+        "RawSql": [ "CREATE TABLE IF NOT EXISTS DamageTypes(Name TEXT PRIMARY KEY);" ]
+    },
+    {
+        "Name": "Insert Damage Types",
+        "RawSql": [
+            "INSERT INTO DamageTypes(Name) VALUES ",
+            "('Acid'),",
+            "('Bludgeoning'),",
+            "('Cold'),",
+            "('Fire'),",
+            "('Force'),",
+            "('Lightning'),",
+            "('Necrotic'),",
+            "('Piercing'),",
+            "('Poison'),",
+            "('Psychic'),",
+            "('Radiant'),",
+            "('Slashing'),",
+            "('Thunder'),",
+            "('Healing'),",
+            "('Arcane Recovery');"
+        ]
+    },
+    {
+        "Name": "Create Ingredients Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS Ingredients(",
+            "Name TEXT PRIMARY KEY, ",
+            "Details TEXT, ",
+            "RarityName TEXT, ",
+            "DamageTypeName TEXT, ",
+            "IncreaseHealing BIT NOT NULL, ",
+            "IncreaseArcaneRecovery BIT NOT NULL, ",
+            "IncreaseDamageNumber BIT NOT NULL, ",
+            "IncreaseDamageSize BIT NOT NULL, ",
+            "IncreaseSave BIT NOT NULL, ",
+            "DoubleDuration BIT NOT NULL, ",
+            "DoubleBombRadius BIT NOT NULL, ",
+            "DoubleDustArea BIT NOT NULL, ",
+            "ExtraOilUse BIT NOT NULL, ",
+            "DisadvantageDex BIT NOT NULL, ",
+            "DisadvantageCon BIT NOT NULL, ",
+            "DisadvantageWis BIT NOT NULL, ",
+            "DisadvantageSaves BIT NOT NULL, ",
+            "FOREIGN KEY (DamageTypeName) REFERENCES DamageTypes(Name), ",
+            "FOREIGN KEY (RarityName) REFERENCES Rarities(Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Create IngredientEssences Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS IngredientEssences(",
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, ",
+            "IngredientName TEXT NOT NULL, ",
+            "EssenceName TEXT NOT NULL, ",
+            "FOREIGN KEY (IngredientName) REFERENCES Ingredients(Name), ",
+            "FOREIGN KEY (EssenceName) REFERENCES Essences (Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Create IngredientBiomes Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS IngredientBiomes(",
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, ",
+            "IngredientName TEXT NOT NULL, ",
+            "BiomeName TEXT NOT NULL, ",
+            "FOREIGN KEY (IngredientName) REFERENCES Ingredients(Name), ",
+            "FOREIGN KEY (BiomeName) REFERENCES Biomes (Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Create SaveTypes Table",
+        "RawSql": [ "CREATE TABLE IF NOT EXISTS SaveTypes(Name TEXT PRIMARY KEY);" ]
+    },
+    {
+        "Name": "Insert SaveTypes",
+        "RawSql": [ "INSERT INTO SaveTypes(Name) VALUES ('Strength'),('Dexterity'),('Constitution'),('Intelligence'),('Wisdom'),('Charisma');" ]
+    },
+    {
+        "Name": "Create Concoctions table",
+        "RawSql": [
+            "CREATE TABLE Concoctions(",
+            "Name TEXT PRIMARY KEY, ",
+            "DieType INTEGER, ",
+            "DieNumber INTEGER, ",
+            "DC INTEGER, ",
+            "SaveTypeName TEXT, ",
+            "DamageTypeName TEXT, ",
+            "Effect TEXT NOT NULL, ",
+            "DurationLength INTEGER, ",
+            "DurationType TEXT, ",
+            "FOREIGN KEY (SaveTypeName) REFERENCES SaveTypes(Name), ",
+            "FOREIGN KEY (DamageTypeName) REFERENCES DamageTypes(Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Add ConcoctionEssences table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS ConcoctionEssences(",
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, ",
+            "ConcoctionName TEXT NOT NULL, ",
+            "EssenceName TEXT NOT NULL, ",
+            "FOREIGN KEY (ConcoctionName) REFERENCES Concoctions(Name), ",
+            "FOREIGN KEY (EssenceName) REFERENCES Essences (Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Add ConcoctionIngredients table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS ConcoctionIngredients(",
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, ",
+            "ConcoctionName TEXT NOT NULL, ",
+            "IngredientName TEXT NOT NULL, ",
+            "PrimaryAlternateIngredientName TEXT, ",
+            "SecondaryAlternateIngredientName TEXT, ",
+            "FOREIGN KEY (ConcoctionName) REFERENCES Concoctions(Name), ",
+            "FOREIGN KEY (IngredientName) REFERENCES Ingredients (Name), ",
+            "FOREIGN KEY (PrimaryAlternateIngredientName) REFERENCES Ingredients (Name), ",
+            "FOREIGN KEY (SecondaryAlternateIngredientName) REFERENCES Ingredients (Name)",
+            ");"
+        ]
+    },
+    {
+        "Name": "Create Characters Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS Characters(",
+            "Name TEXT PRIMARY KEY, ",
+            "Year INTEGER NOT NULL, ",
+            "Month INTEGER NOT NULL, ",
+            "Day INTEGER NOT NULL",
+            ");"
+        ]
+    },
+    {
+        "Name": "Create Alchemy Item Table",
+        "RawSql": [
+            "CREATE TABLE IF NOT EXISTS AlchemyItem( ",
+            "Id INTEGER PRIMARY KEY AUTOINCREMENT, ",
+            "BaseConcoctionName TEXT NOT NULL, ",
+            "ConcoctionName TEXT NOT NULL, ",
+            "DieType INTEGER, ",
+            "DieNumber INTEGER, ",
+            "DC INTEGER, ",
+            "DamageTypeName TEXT, ",
+            "DurationLength TEXT, ",
+            "BombRadius INTEGER, ",
+            "DustArea INTEGER, ",
+            "OilUses INTEGER, ",
+            "DisadvantageDex BIT, ",
+            "DisadvantageCon BIT, ",
+            "DisadvantageWis BIT, ",
+            "DisadvantageSaves BIT, ",
+            "FOREIGN KEY (BaseConcoctionName) REFERENCES BaseConcoctions (Name), ",
+            "FOREIGN KEY (ConcoctionName) REFERENCES Concoctions (Name), ",
+            "FOREIGN KEY (DamageTypeName) REFERENCES DamageTypes (Name)", 
+            ");"
+        ]
+    }
+]

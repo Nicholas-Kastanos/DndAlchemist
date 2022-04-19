@@ -1,0 +1,40 @@
+<ion-card (click)="openDetails()">
+    <ion-card-header>
+        <ion-card-subtitle>{{itemType}}</ion-card-subtitle>
+        <ion-card-title>{{displayItem.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-row>
+            <ion-col size="6" *ngIf="displayItem.DC">
+                Save DC: {{displayItem.DC}} {{displayItem.saveType.name}}
+            </ion-col>
+            <ion-col size="6" *ngIf="displayItem.damageType && itemType!='Ingredient'">
+                {{displayItem.dieNumber}}d{{displayItem.dieType}} {{displayItem.damageType.name}}
+            </ion-col>
+            <ion-col size="6" *ngIf="displayItem.durationLength">
+                Duration: {{displayItem.durationLength}} {{displayItem.durationType}}
+            </ion-col>
+            <ion-col size="6" *ngIf="displayItem.oilUses">
+                Oil Uses: {{displayItem.oilUses}}
+            </ion-col>
+            <ion-col size="6" *ngIf="displayItem.bombRadius">
+                Explosion Radius: {{displayItem.bombRadius}} ft
+            </ion-col>
+            <ion-col size="6" *ngIf="displayItem.dustArea">
+                Dust Area: {{displayItem.dustArea}} ft
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="itemType == 'Ingredient'"> 
+            <div class="section-container">
+                Essences:
+                <div *ngFor="let item of displayItem.essences">
+                    <div class="essence-element-list-container">
+                        <ion-thumbnail>
+                            <img [src]="getElement(item.name)">
+                        </ion-thumbnail>
+                    </div>
+                </div>
+            </div>
+        </ion-row>
+    </ion-card-content>
+</ion-card>

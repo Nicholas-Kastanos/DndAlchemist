@@ -1,0 +1,35 @@
+<ion-content>
+    <h1>Brew Concoction</h1>
+
+    <ion-list>
+        <ion-list-header>
+            <ion-label>
+                Select Concoction to Brew
+            </ion-label>
+        </ion-list-header>
+
+        <ion-item>
+            <ion-label>
+                Base Concoction
+            </ion-label>
+            <ion-select [(ngModel)]="baseConcoction" placeholder="Base Concoction">
+                <ion-select-option *ngFor="let item of baseConcoctionList" [value]="item.name">{{item.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+                Concoction
+            </ion-label>
+            <ion-select [(ngModel)]="concoction" placeholder="Concoction">
+                <ion-select-option *ngFor="let item of concoctionList" [value]="item.name">{{item.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+
+
+
+    <ion-button (click)="submit()" color="alchemyprimary">Brew!</ion-button>
+    <ion-button (click)="reset()" color="alchemysecondary">Nevermind</ion-button>
+
+</ion-content>
