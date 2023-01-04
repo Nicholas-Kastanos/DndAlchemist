@@ -9,6 +9,7 @@ import { GemtechPageRoutingModule } from './gemtech-routing.module';
 import { GemtechPage } from './gemtech.page';
 import {GemtechInventoryPageModule} from './inventory/inventory.module'
 import {FullListPageModule} from './full-list/full-list.module';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [GemtechPage],
@@ -18,7 +19,8 @@ import {FullListPageModule} from './full-list/full-list.module';
     IonicModule,
     GemtechPageRoutingModule,
     GemtechInventoryPageModule,
-    FullListPageModule
+    FullListPageModule,
+    SwiperModule
   ],
   exports: []
 })
