@@ -12,18 +12,21 @@ import { Essence, IEssence } from '../classes/essence/essence.class';
 import { IIngredient, IIngredientBiome, IIngredientEssence, IIngredientImport, Ingredient } from '../classes/ingredient/ingredient.class';
 import { IRarity, Rarity } from '../classes/rarity/rarity.class';
 import { ISaveType, SaveType } from '../classes/save-type/save-type.class';
-import baseConcoctionJson from '../../../../data/base_concoctions.json';
-import concoctionsJson from '../../../../data/concoctions.json';
-import ingredientsJson from '../../../../data/ingredients.json';
-import migrationsArray from './migrations.json';
 import { CreateAlchemyItem, AlchemyItem, IAlchemyItem } from '../classes/alchemy-item/alchemy-item.class';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class DatabaseService {
 
-    constructor(private sqlite: SQLite) { }
+    private readonly baseConcoctionDataURL = 'assets/data/base_concoctions.json'
+    private readonly concoctionsDataURL = 'assets/data/concoctions.json'
+    private readonly ingredientsDataURL = 'assets/data/ingredients.json'
+    private readonly migrationsDataURL = 'assets/migrations/migrations.json'
+
+    constructor(private sqlite: SQLite, private httpClient: HttpClient) { }
 
     public initialiseSubject = new ReplaySubject<void>();
 
@@ -92,8 +95,7 @@ export class DatabaseService {
     public async createAlchemyItem({ baseConcoction, bombRadius, dustArea, oilUses,
         concoction, dieType, dieNumber, DC,
         damageType, durationLength, disadvantageDex, disadvantageCon,
-        disadvantageWis, disadvantageSaves }: CreateAlchemyItem) : Promise<AlchemyItem>
-    {
+        disadvantageWis, disadvantageSaves }: CreateAlchemyItem): Promise<AlchemyItem> {
         await this.initialiseSubject.toPromise();
         return new Promise<AlchemyItem>((resolve, reject) => {
             this.db.executeSql("INSERT INTO " + AlchemyItem.tableName + " (\
@@ -110,8 +112,8 @@ export class DatabaseService {
                 DisadvantageDex, \
                 DisadvantageCon, \
                 DisadvantageWis, \
-                DisadvantageSaves) " + 
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
+                DisadvantageSaves) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
                 baseConcoction.name,
                 concoction.name,
                 dieType,
@@ -127,10 +129,12 @@ export class DatabaseService {
                 disadvantageWis,
                 disadvantageSaves
             ]).then((resultSet: IInsertResults<IAlchemyItem>) => {
-                resolve(new AlchemyItem(resultSet.insertId, { baseConcoction, bombRadius, dustArea, oilUses,
+                resolve(new AlchemyItem(resultSet.insertId, {
+                    baseConcoction, bombRadius, dustArea, oilUses,
                     concoction, dieType, dieNumber, DC,
                     damageType, durationLength, disadvantageDex, disadvantageCon,
-                    disadvantageWis, disadvantageSaves }));
+                    disadvantageWis, disadvantageSaves
+                }));
             }).catch(reject)
         })
     }
@@ -401,6 +405,11 @@ export class DatabaseService {
         let essences = await this._essences$.toPromise();
 
         let existingBaseConcoctions = await this._baseConcoctions$.toPromise();
+        let baseConcoctionJson = await this.httpClient.get<Array<any>>(this.baseConcoctionDataURL, {
+            "observe": 'body',
+            "responseType": 'json'
+        }).toPromise()
+
         for (let i = 0; i < baseConcoctionJson.length; i++) {
             let jsonBaseConcoction = baseConcoctionJson[i];
             let existingBaseConcoction = existingBaseConcoctions.find(existing => existing.name === jsonBaseConcoction.name);
@@ -431,7 +440,11 @@ export class DatabaseService {
         let damageTypes = await this._damageTypes$.toPromise();
         let biomes = await this._biomes$.toPromise();
         let existingIngredients = await this._ingredients$.toPromise();
-        let ingredientsImportJson = ingredientsJson as IIngredientImport[];
+        let ingredientsImportJson = await this.httpClient.get<IIngredientImport[]>(this.ingredientsDataURL, {
+            "observe": 'body',
+            "responseType": 'json'
+        }).toPromise()
+
         for (let i = 0; i < ingredientsImportJson.length; i++) {
             let jsonIngredient = ingredientsImportJson[i];
 
@@ -533,7 +546,11 @@ export class DatabaseService {
         let ingredients = await this._ingredients$.toPromise();
 
         let existingConcoctions = await this._concoctions$.toPromise();
-        let concoctionsImportJson = concoctionsJson as IConcoctionImport[];
+        let concoctionsImportJson = await this.httpClient.get<IConcoctionImport[]>(this.concoctionsDataURL, {
+            "observe": 'body',
+            "responseType": 'json'
+        }).toPromise()
+
         for (let i = 0; i < concoctionsImportJson.length; i++) {
             let jsonConcoction = concoctionsImportJson[i];
 
@@ -632,52 +649,56 @@ export class DatabaseService {
 
     private _runMigrations(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            let migrations: IMigration[] = migrationsArray;
-            if (migrations == null) {
-                console.error("Cannot find migrations.");
-                reject();
-            }
-            if (migrations.length === 0) {
-                console.error("No migrations found.");
-                reject();
-            }
-            this.db.executeSql("SELECT * FROM " + this.SqlMigrationsTableName, []
-            ).then(async (resultSet: IQueryResults<IMigration>) => {
-
-                let existingMigrations = this.queryResultToArray<IMigration>(resultSet);
-
-                console.debug("Existing Migrations:");
-                for (let i = 0; i < existingMigrations.length; i++) {
-                    console.debug(existingMigrations[i].Name);
+            this.httpClient.get<IMigration[]>(this.migrationsDataURL, {
+                "observe": 'body',
+                "responseType": 'json'
+            }).subscribe((migrations) => {
+                if (migrations == null) {
+                    console.error("Cannot find migrations.");
+                    reject();
                 }
-                console.debug("Done");
-
-                let missingMigrations = migrations.filter((item: IMigration) => {
-                    let found = true;
+                if (migrations.length === 0) {
+                    console.error("No migrations found.");
+                    reject();
+                }
+                this.db.executeSql("SELECT * FROM " + this.SqlMigrationsTableName, []
+                ).then(async (resultSet: IQueryResults<IMigration>) => {
+                    
+                    let existingMigrations = this.queryResultToArray<IMigration>(resultSet);
+                    
+                    console.debug("Existing Migrations:");
                     for (let i = 0; i < existingMigrations.length; i++) {
-                        if (item.Name === existingMigrations[i].Name) {
-                            found = false;
-                            break;
-                        }
+                        console.debug(existingMigrations[i].Name);
                     }
-                    return found;
-                });
-                console.debug("Missing Migrations:");
-                for (let i = 0; i < missingMigrations.length; i++) {
-                    console.debug(missingMigrations[i].Name);
-                }
-                console.debug("Done");
-                console.debug("Applying Migrations:");
-                for (let i = 0; i < missingMigrations.length; i++) {
-                    console.debug("Applying Migration: " + missingMigrations[i].Name);
-                    let result = await this.db.sqlBatch([missingMigrations[i].RawSql.join("")]);
-                    result = await this.db.executeSql("INSERT INTO " + this.SqlMigrationsTableName + " VALUES (?)", [missingMigrations[i].Name]);
-                }
-                console.debug("Done");
-                resolve();
-            }).catch((err: any) => {
-                console.error(JSON.stringify(err));
-                reject();
+                    console.debug("Done");
+                    
+                    let missingMigrations = migrations.filter((item: IMigration) => {
+                        let found = true;
+                        for (let i = 0; i < existingMigrations.length; i++) {
+                            if (item.Name === existingMigrations[i].Name) {
+                                found = false;
+                                break;
+                            }
+                        }
+                        return found;
+                    });
+                    console.debug("Missing Migrations:");
+                    for (let i = 0; i < missingMigrations.length; i++) {
+                        console.debug(missingMigrations[i].Name);
+                    }
+                    console.debug("Done");
+                    console.debug("Applying Migrations:");
+                    for (let i = 0; i < missingMigrations.length; i++) {
+                        console.debug("Applying Migration: " + missingMigrations[i].Name);
+                        let result = await this.db.sqlBatch([missingMigrations[i].RawSql.join("")]);
+                        result = await this.db.executeSql("INSERT INTO " + this.SqlMigrationsTableName + " VALUES (?)", [missingMigrations[i].Name]);
+                    }
+                    console.debug("Done");
+                    resolve();
+                }).catch((err: any) => {
+                    console.error(JSON.stringify(err));
+                    reject();
+                })
             })
         });
     }

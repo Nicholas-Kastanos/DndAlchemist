@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { CharacterSelectorComponent } from './components/character-selector/character-selector.component';
 import { CharacterAddComponent } from './components/character-add/character-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
