@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SQLite, SQLiteDatabaseConfig, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLite, SQLiteDatabaseConfig, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Observable, ReplaySubject } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { BaseConcoction, IBaseConcoction, IBaseConcoctionEssence } from '../classes/base-concoction/base-concoction.class';
