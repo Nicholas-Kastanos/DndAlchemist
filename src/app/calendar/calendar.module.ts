@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {CalendarRoutingModule} from './calendar-routing.module';
 import {CalendarPage} from './calendar.page';
 import {AddEventModalPageModule} from './add-event-modal/add-event-modal.module';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import {AddEventModalPageModule} from './add-event-modal/add-event-modal.module'
     imports: [
         CommonModule,
         CalendarRoutingModule,
-        AddEventModalPageModule
+        AddEventModalPageModule,
+        IonicModule
     ],
     exports: []
 })
