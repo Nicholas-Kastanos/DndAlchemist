@@ -20,9 +20,9 @@
         </ion-card-header>
 
         <ion-card-content *ngIf="itemType!='Concoction'">
-            <ion_row *ngIf="displayItem.rarity">
+            <ion-row *ngIf="displayItem.rarity">
                 <h2>Rarity: {{displayItem.rarity.name}}</h2>
-            </ion_row>
+            </ion-row>
             <ion-row>
                 <ion-list *ngIf="displayItem.locations?.length > 0">
                     <h2>Locations:</h2>
@@ -54,14 +54,16 @@
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.baseEssences?.length > 0">
                     <div *ngFor="let essence of displayItem.baseEssences">
-                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>    
+                        <ion-thumbnail class="element-list-container"><img
+                                [src]="getElement(essence.name)"></ion-thumbnail>
                     </div>
                 </div>
             </ion-row>
             <ion-row>
                 <div class="section-container" *ngIf="displayItem.essences?.length > 0">
                     <div *ngFor="let essence of displayItem.essences">
-                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>
+                        <ion-thumbnail class="element-list-container"><img
+                                [src]="getElement(essence.name)"></ion-thumbnail>
                     </div>
                 </div>
             </ion-row>
@@ -87,7 +89,8 @@
                 <div class="section-container">
                     Required Essences:
                     <div *ngFor="let essence of displayItem.essences">
-                        <ion-thumbnail class="element-list-container"><img [src]="getElement(essence.name)"></ion-thumbnail>
+                        <ion-thumbnail class="element-list-container"><img
+                                [src]="getElement(essence.name)"></ion-thumbnail>
                     </div>
                 </div>
             </ion-row>

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 import { AlchemyRoutingModule } from './alchemy-routing.module';
 import { AlchemyInventoryPageModule } from './inventory/inventory.module'
 import { AlchemyPage } from './alchemy.page';
-import {BrewSelectPageModule} from './brewSelect/brewSelect.module';
-import {ForagePageModule} from './forage/forage.module';
-import {FullListPageModule} from './full-list/full-list.module';
+import { BrewSelectPageModule } from './brewSelect/brewSelect.module';
+import { ForagePageModule } from './forage/forage.module';
+import { FullListPageModule } from './full-list/full-list.module';
 
 @NgModule({
   declarations: [AlchemyPage],
@@ -16,7 +17,8 @@ import {FullListPageModule} from './full-list/full-list.module';
     AlchemyInventoryPageModule,
     BrewSelectPageModule,
     ForagePageModule,
-    FullListPageModule
+    FullListPageModule,
+    IonicModule
   ],
   exports: []
 })

@@ -1,0 +1,6 @@
+{
+	"appId": "com.nkastanos.dndalchemist",
+	"appName": "DndAlchemist",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

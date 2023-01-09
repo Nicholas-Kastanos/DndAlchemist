@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
-import {BrewSelectPageRoutingModule} from './brewSelect-routing.module';
-
-import {BrewSelectPage} from './brewSelect.page';
-import {BrewComponent} from '../brew/brew.page';
-import {LineItemPageModule} from '../line-item/line-item.module';
+import { BrewSelectPageRoutingModule } from './brewSelect-routing.module';
+import { BrewSelectPage } from './brewSelect.page';
+import { BrewComponent } from '../brew/brew.page';
+import { LineItemModule } from '../line-item/line-item.module';
 
 
 @NgModule({
@@ -17,7 +15,7 @@ import {LineItemPageModule} from '../line-item/line-item.module';
         FormsModule,
         IonicModule,
         BrewSelectPageRoutingModule,
-        LineItemPageModule
+        LineItemModule
     ],
     declarations: [
         BrewSelectPage,
@@ -25,4 +23,4 @@ import {LineItemPageModule} from '../line-item/line-item.module';
     ],
     exports: [BrewSelectPage]
 })
-export class BrewSelectPageModule {}
+export class BrewSelectPageModule { }

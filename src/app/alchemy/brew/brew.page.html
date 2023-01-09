@@ -72,7 +72,7 @@
                     Required Ingredients:
                     <ion-row *ngFor="let item of requiredIngredients">
                         <ion-text *ngIf="item.fulfilled>0">- <s>{{item.display}}</s></ion-text>
-                        <ion-text *ngIf="!item.fulfilled>0">- {{item.display}}</ion-text>
+                        <ion-text *ngIf="!(item.fulfilled>0)">- {{item.display}}</ion-text>
                     </ion-row>
                 </ion-list>
             </ion-row>
