@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
-const { SplashScreen } = Plugins;
+import { SplashScreen } from '@capacitor/splash-screen';
 import { DatabaseService } from './shared/services/database.service';
 import { Character } from './shared/classes/character/character.class';
 import { PopoverController } from '@ionic/angular';
