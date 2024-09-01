@@ -32,7 +32,6 @@ export class AlchemyInventoryPage implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.debug('in enter function')
     this.getBaseConcoctions();
   }
 
@@ -40,7 +39,8 @@ export class AlchemyInventoryPage implements OnInit {
     this.database.getBaseConcoctions()
       .then((result) => {
         this.baseConcoctions = result;
-        console.debug(this.baseConcoctions);
-      })
+      }).catch(error => {
+        console.error('Error loading base concoctions:', error);
+      });
   }
 }

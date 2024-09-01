@@ -15,9 +15,7 @@ import { LineItemModule } from '../line-item/line-item.module';
     InventoryPageRoutingModule,
     LineItemModule
   ],
-  declarations: [
-    AlchemyInventoryPage,
-  ],
+  declarations: [AlchemyInventoryPage],
   exports: [AlchemyInventoryPage]
 })
 export class AlchemyInventoryPageModule { }

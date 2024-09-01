@@ -94,7 +94,7 @@ export class ForageService implements OnInit{
             foragedIngredients = foragedIngredients.concat(this.getIngredients(this.rarities.filter(r => r.name == Rarities.VeryRare)[0], biomelist, veryRare))
         }
 
-        console.debug(JSON.stringify(foragedIngredients))
+        console.debug('foraged ingredients', JSON.stringify(foragedIngredients))
         return foragedIngredients
 
     }

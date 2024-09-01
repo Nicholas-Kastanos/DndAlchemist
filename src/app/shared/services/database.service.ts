@@ -641,7 +641,7 @@ export class DatabaseService {
             ).then(() => {
                 resolve();
             }).catch(err => {
-                console.error(err);
+                console.error('Error: ', err);
                 reject()
             })
         });

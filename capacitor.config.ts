@@ -4,7 +4,12 @@ const config: CapacitorConfig = {
   appId: 'com.nkastanos.dndalchemist',
   appName: 'DndAlchemist',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  plugins: {
+    "SplashScreen": {
+      "launchAutoHide": false,
+    }
+  }
 };
 
 export default config;
