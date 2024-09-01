@@ -1,11 +1,25 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {ItemDetailModal} from '../item-detail/item-detail.component';
-import {Essences} from '../../shared/classes/essence/essence.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
+import { ItemDetailModal } from '../item-detail/item-detail.component';
+import { Essence, Essences } from '../../shared/classes/essence/essence.class';
+import { SaveType } from 'src/app/shared/classes/save-type/save-type.class';
+import { DamageType } from 'src/app/shared/classes/damage-type/damage-type.class';
 
 interface DisplayItem {
     name: string;
-    //baseEssences: Essence[];
+    baseEffect?: string;
+    damageType?: DamageType;
+    bombRadius?: number;
+    DC?: number;
+    dieNumber?: number;
+    dieType?: number;
+    durationLength?: number;
+    durationType?: string;
+    dustArea?: number;
+    essences?: Essence[];
+    oilUses?: number;
+    saveType?: SaveType;
 }
 
 @Component({
@@ -14,12 +28,12 @@ interface DisplayItem {
     styleUrls: ['./line-item.component.scss']
 })
 
-export class LineItem implements OnInit{
+export class LineItem implements OnInit {
     displayItem: DisplayItem;
 
     constructor(
-        public modalController: ModalController
-    ) {}
+        private modalController: ModalController
+    ) { }
 
     @Input() item: any;
     @Input() itemType: string;
@@ -28,8 +42,8 @@ export class LineItem implements OnInit{
         this.displayItem = this.item as DisplayItem;
     }
 
-    getElement(elementName: string){
-        switch(elementName){
+    getElement(elementName: string) {
+        switch (elementName) {
             case Essences.Air: {
                 return "../../assets/img/air.png";
             }
@@ -51,7 +65,7 @@ export class LineItem implements OnInit{
         }
     }
 
-    async openDetails(){
+    async openDetails() {
         console.log("opening details")
         const modal = await this.modalController.create({
             component: ItemDetailModal,

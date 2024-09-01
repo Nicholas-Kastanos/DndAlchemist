@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="false" [options]="slideOpts">
-    <ion-slide>
+  <swiper>
+    <ng-template swiperSlide>
       <app-gemtech-inventory></app-gemtech-inventory>
-    </ion-slide>
-    <ion-slide>
+    </ng-template>
+    <ng-template swiperSlide>
       <app-full-list></app-full-list>
-    </ion-slide>
-    <ion-slide>
+    </ng-template>
+    <ng-template swiperSlide>
       <h1>another page</h1>
-    </ion-slide>
-  </ion-slides>
+    </ng-template>
+  </swiper>
 </ion-content>

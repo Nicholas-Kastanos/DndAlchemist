@@ -25,7 +25,7 @@ export class AddEventModal{
 
     async submit(){
         console.debug("---------------------")
-        console.debug(this.details)
+        console.debug('details', this.details)
         console.debug("---------------------")
 
         this.modalCtrl.dismiss()

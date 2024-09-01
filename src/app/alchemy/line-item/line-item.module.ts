@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { IonicModule } from '@ionic/angular';
 
-
-import {LineItem} from './line-item.component';
-import {ItemDetailModal} from '../item-detail/item-detail.component';
+import { LineItem } from './line-item.component';
+import { ItemDetailModal } from '../item-detail/item-detail.component';
 
 @NgModule({
   imports: [
@@ -17,8 +15,8 @@ import {ItemDetailModal} from '../item-detail/item-detail.component';
     ItemDetailModal
   ],
   exports: [
-      LineItem,
-      ItemDetailModal
-]
+    LineItem,
+    ItemDetailModal
+  ]
 })
-export class LineItemPageModule {}
+export class LineItemModule { }

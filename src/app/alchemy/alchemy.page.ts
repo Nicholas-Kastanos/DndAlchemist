@@ -16,7 +16,4 @@ export class AlchemyPage implements OnInit {
 
   ngOnInit() {
   }
-
-  
-
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
-const { SplashScreen } = Plugins;
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { DatabaseService } from './shared/services/database.service';
 import { Character } from './shared/classes/character/character.class';
 import { PopoverController } from '@ionic/angular';
@@ -41,7 +39,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private platform: Platform,
-    private statusBar: StatusBar,
     private database: DatabaseService,
     private popoverController: PopoverController
   ) {
@@ -50,7 +47,6 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
       this.database.initialise().then(() => {
         this.database.initialiseSubject.subscribe(() => {
           AppComponent.selectedCharacter$.pipe(tap((character: Character) => this.selectedCharacter = character ));

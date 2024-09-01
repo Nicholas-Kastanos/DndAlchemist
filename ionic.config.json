@@ -1,8 +1,7 @@
 {
-  "name": "Dnd Alchemist",
+  "name": "DndAlchemist",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular",
-  "id": "1a031021"
+  "type": "angular"
 }

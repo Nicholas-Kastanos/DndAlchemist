@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes, NoPreloading } from '@angular/router';
+import { RouterModule, Routes, NoPreloading } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -19,10 +19,6 @@ const routes: Routes = [
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarModule)
   }
-
-
-
-
 ];
 
 @NgModule({

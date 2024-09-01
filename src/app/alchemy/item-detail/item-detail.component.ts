@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {Essence, Essences} from '../../shared/classes/essence/essence.class';
-import {Biome} from '../../shared/classes/biome/biome.class';
-import {Rarity} from '../../shared/classes/rarity/rarity.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
+import { Essence, Essences } from '../../shared/classes/essence/essence.class';
+import { Biome } from '../../shared/classes/biome/biome.class';
+import { Rarity } from '../../shared/classes/rarity/rarity.class';
 import { SaveType } from 'src/app/shared/classes/save-type/save-type.class';
 import { DamageType } from 'src/app/shared/classes/damage-type/damage-type.class';
-import { ConcoctionIngredient } from 'src/app/shared/classes/concoction/concoction.class';
 
 interface DisplayItem{
     name: string;
@@ -22,6 +22,7 @@ interface DisplayItem{
     dieType?: number;
     dieNumber?: number;
     effect?: string;
+    baseEffect?: string;
 }
 
 @Component({
@@ -30,11 +31,11 @@ interface DisplayItem{
     styleUrls: ['./item-detail.component.scss']
 })
 
-export class ItemDetailModal implements OnInit{
+export class ItemDetailModal implements OnInit {
     displayItem: DisplayItem;
 
     constructor(
-        public modalCtrl: ModalController
+        private modalCtrl: ModalController
     ){}
 
     @Input() item: any;
